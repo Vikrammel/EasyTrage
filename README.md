@@ -8,8 +8,7 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 ## Setup
 
 1. clone repo with git or download contents
-
-  `git clone https://github.com/Vikrammel/EasyTrage.git`
+`git clone https://github.com/Vikrammel/EasyTrage.git`
 
 2. Install node.js from [here](https://www.npmjs.com/get-npm)
 
