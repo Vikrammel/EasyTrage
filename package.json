@@ -1,0 +1,23 @@
+{
+  "name": "easytrage",
+  "version": "1.0.0",
+  "description": "Crypto arbitrage bot and trade manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vikrammel/EasyTrage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vikrammel/EasyTrage/issues"
+  },
+  "homepage": "https://github.com/Vikrammel/EasyTrage#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "react": "^16.2.0"
+  }
+}
