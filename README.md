@@ -14,4 +14,6 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 
 3. run `sudo npm install` in project directory
 
-4. to start the server run `sudo nodemon`
+4. run server using `node app.js`
+
+(instructions will change when we start using Docker)
