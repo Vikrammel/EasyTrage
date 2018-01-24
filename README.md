@@ -19,12 +19,12 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 
 Starting Docker
 
-1. docker build -t 'Your image name' .
+1. `docker build -t <Your image name> .`
 
-2. docker run -p 8080:8080 'Your image name' &
+2. `docker run -p 8080:8080 <Your image name> &`
 
 Stopping Docker
 
-1. Obtain running container ID with "docker ps"
+1. Obtain running container ID with `docker ps`
 
-2. docker stop 'Container ID'
+2. `docker stop <Container ID>`
