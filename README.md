@@ -27,4 +27,4 @@ Stopping Docker
 
 1. Obtain running container ID with "docker ps"
 
-2. docker stop <Container ID>
+2. docker stop 'Container ID'
