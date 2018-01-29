@@ -1,5 +1,5 @@
 # EasyTrage
-### Cryptocurrency Arbitrage bot written in MERN by Mike Hamilton, Kevin Lee, Vikram Melkote, and Abdul Mohamed
+### Cryptocurrency Arbitrage bot written in MERN by Mike Hamilton, Kevin Lee, Vikram Melkote, Christopher Kong, and Abdul Mohamed
 
 ## About
 
