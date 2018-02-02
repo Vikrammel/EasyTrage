@@ -18,9 +18,8 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 Start app
 
 1. `docker-compose up`
+2. Choose new terminal window to work in
 
-Stopping Docker
+Stopping app containers
 
-1. Obtain running container ID with `docker ps`
-
-2. `docker stop <Container ID>`
+1. `^C`
