@@ -10,18 +10,14 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 1. clone repo with git or download contents
 `git clone https://github.com/Vikrammel/EasyTrage.git`
 
-2. Install node.js from [here](https://www.npmjs.com/get-npm)
-
-3. run `sudo npm install` in project directory
+2. Install Docker and docker-compose
 
 
-## Docker
+## Run
 
-Starting Docker
+Start app
 
-1. `docker build -t <Your image name> .`
-
-2. `docker run -p 8080:8080 <Your image name> &`
+1. `docker-compose up`
 
 Stopping Docker
 
