@@ -23,3 +23,14 @@ Start app
 Stopping app containers
 
 1. `^C`
+
+Access the site as a client via browser:
+[http://localhost:8080](http://localhost:8080)
+
+Accessing db shell
+
+1. Open new terminal window
+2. `docker exec -it mongo /bin/bash`
+3. `mongo`
+
+To exit mongo shell (or docker container's bash): `exit`
