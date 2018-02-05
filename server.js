@@ -5,6 +5,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var User = require('./model/users');
 
 //and create our instances
 var app = express();
@@ -13,6 +14,23 @@ var router = express.Router();
 //set our port to either a predetermined port number if you have set 
 //it up, or 3001
 var port = process.env.API_PORT || 3001;
+
+//db config
+mongoose.connect('config.database')
+
+// in 115 project, we used a db secret in config.database
+// in the mern tut, he uses the db username and pw which will work file in
+// localhost but may be challenging/tricky in docker
+
+// On Connection
+mongoose.connection.on('connected', () => {
+	console.log('Connected to database '+config.database);
+});
+
+// On Error
+mongoose.connection.on('error', (err) => {
+	console.log('Database error: '+err);
+});
 
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body

@@ -15,7 +15,10 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 
 ## Run
 
-Start app
+Start server and front-end (temporary until docker is working again)
+1. `npm run start-dev`
+
+Start app (when docker is running again)
 
 1. `docker-compose up`
 2. Choose new terminal window to work in
@@ -25,7 +28,10 @@ Stopping app containers
 1. `^C`
 
 Access the site as a client via browser:
-[http://localhost:8080](http://localhost:8080)
+[http://localhost:3000](http://localhost:3000)
+
+View db:
+[http://localhost:3001/api](http://localhost:3001/api)
 
 Accessing db shell
 
