@@ -15,11 +15,8 @@ var router = express.Router();
 //it up, or 3001
 var port = process.env.API_PORT || 3001;
 
-//db config
-mongoose.connect('config.database').then(
- () => { console.log("SUCCESS: Connected to mongo")  },
- err => { console.log("ERROR: Failed to connect to database") }
-);
+//mongodb url is hardcoded for now..
+mongoose.connect('mongodb://mongo/test');
 
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body
