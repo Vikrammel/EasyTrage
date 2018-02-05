@@ -1,0 +1,25 @@
+html {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+img{
+  margin-left: 45%;
+  margin-top: 15%;
+  animation: orbit 20s linear infinite;
+  -webkit-animation: myOrbit 4s linear infinite; /* Chrome, Safari 5 */
+     -moz-animation: myOrbit 4s linear infinite; /* Firefox 5-15 */
+       -o-animation: myOrbit 4s linear infinite; /* Opera 12+ */
+          animation: myOrbit 4s linear infinite; /* Chrome, Firefox 16+,
+                                                    IE 10+, Safari 5 */
+}
+
+.App-logo{
+  height: 150px;
+  width: 150px;
+}
+@keyframes myOrbit {
+	from { 	transform: rotate(360deg) translateX(200px); }
+	to   {  transform: rotate(0deg) translateX(200px); }
+}
