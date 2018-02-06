@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Spacebackground from './components/Spacebackground';
-import Getstartedbutton from './components/Getstartedbutton';
-import logo from './components/rocket.svg';
-import Login from './components/Login.js';
+import Spacebackground from './components/LandingComponent/Spacebackground';
+import Getstartedbutton from './components/LandingComponent/Getstartedbutton';
+import logo from './components/LandingComponent/rocket.svg';
+import Login from './components/LandingComponent/Login.js';
 import './App.css';
 
 class App extends Component {
