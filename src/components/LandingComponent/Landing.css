@@ -7,7 +7,8 @@ html {
 img{
   margin-left: 45%;
   margin-top: 15%;
-  -webkit-animation: myOrbit 7s linear infinite;
+  -webkit-animation: toTheMoon 4s linear;
+  -webkit-animation-fill-mode: forwards;
 }
 
 .App-logo{
@@ -15,18 +16,101 @@ img{
   width: 150px;
 }
 
-@keyframes myOrbit {
-	from { 	transform: rotate(180deg) translateX(200px); }
-	to   {  transform: rotate(-180deg) translateX(200px); }
+@keyframes toTheMoon {
+  0% { transform: translate(1px, 1px) rotate(-45deg); }
+  1% { transform: translate(-1px, -2px) rotate(-47deg); }
+  2% { transform: translate(-3px, 0px) rotate(-44deg); }
+  3% { transform: translate(3px, 2px) rotate(-45deg); }
+  4% { transform: translate(1px, -1px) rotate(-47deg); }
+  5% { transform: translate(-1px, 2px) rotate(-44deg); }
+  6% { transform: translate(-3px, 1px) rotate(-45deg); }
+  7% { transform: translate(3px, 1px) rotate(-47deg); }
+  8% { transform: translate(-1px, -1px) rotate(-44deg); }
+  9% { transform: translate(1px, 2px) rotate(-45deg); }
+  10% { transform: translate(1px, -2px) rotate(-47deg); }
+  11% { transform: translate(-3px, 0px) rotate(-44deg); }
+  12% { transform: translate(3px, 2px) rotate(-45deg); }
+  13% { transform: translate(1px, -1px) rotate(-47deg); }
+  14% { transform: translate(-1px, 2px) rotate(-44deg); }
+  15% { transform: translate(-3px, 1px) rotate(-45deg); }
+  16% { transform: translate(3px, 1px) rotate(-47deg); }
+  17% { transform: translate(-1px, -1px) rotate(-44deg); }
+  18% { transform: translate(1px, 2px) rotate(-45deg); }
+  19% { transform: translate(1px, -2px) rotate(-47deg); }
+  20% { transform: translate(-3px, 0px) rotate(-44deg); }
+  21% { transform: translate(3px, 2px) rotate(-45deg); }
+  22% { transform: translate(1px, -1px) rotate(-47deg); }
+  23% { transform: translate(-1px, 2px) rotate(-44deg); }
+  24% { transform: translate(-3px, 1px) rotate(-45deg); }
+  25% { transform: translate(3px, 1px) rotate(-47deg); }
+  26% { transform: translate(-1px, -1px) rotate(-44deg); }
+  27% { transform: translate(1px, 2px) rotate(-45deg); }
+  28% { transform: translate(1px, -2px) rotate(-47deg); }
+  29% { transform: translate(-3px, 0px) rotate(-44deg); }
+  30% { transform: translate(3px, 2px) rotate(-45deg); }
+  31% { transform: translate(1px, -1px) rotate(-47deg); }
+  32% { transform: translate(-1px, 2px) rotate(-44deg); }
+  33% { transform: translate(-3px, 1px) rotate(-45deg); }
+  34% { transform: translate(3px, 1px) rotate(-47deg); }
+  35% { transform: translate(-1px, -1px) rotate(-44deg); }
+  36% { transform: translate(1px, 2px) rotate(-45deg); }
+  37% { transform: translate(1px, -2px) rotate(-47deg); }
+  38% { transform: translate(-3px, 0px) rotate(-44deg); }
+  39% { transform: translate(3px, 2px) rotate(-45deg); }
+  40% { transform: translate(1px, -1px) rotate(-47deg); }
+  41% { transform: translate(-1px, 2px) rotate(-44deg); }
+  42% { transform: translate(-3px, 1px) rotate(-45deg); }
+  43% { transform: translate(3px, 1px) rotate(-47deg); }
+  44% { transform: translate(-1px, -1px) rotate(-44deg); }
+  45% { transform: translate(1px, 2px) rotate(-45deg); }
+  46% { transform: translate(1px, -2px) rotate(-47deg); }
+  47% { transform: translate(-3px, 0px) rotate(-44deg); }
+  48% { transform: translate(3px, 2px) rotate(-45deg); }
+  49% { transform: translate(1px, -1px) rotate(-47deg); }
+  50% { transform: translate(-1px, 2px) rotate(-44deg); }
+  51% { transform: translate(-3px, 1px) rotate(-45deg); }
+  52% { transform: translate(3px, 1px) rotate(-47deg); }
+  53% { transform: translate(-1px, -1px) rotate(-44deg); }
+  54% { transform: translate(1px, 2px) rotate(-45deg); }
+  55% { transform: translate(1px, -2px) rotate(-47deg); }
+  56% { transform: translate(-3px, 0px) rotate(-44deg); }
+  57% { transform: translate(3px, 2px) rotate(-45deg); }
+  58% { transform: translate(1px, -1px) rotate(-47deg); }
+  59% { transform: translate(-1px, 2px) rotate(-44deg); }
+  60% { transform: translate(-3px, 1px) rotate(-45deg); }
+  61% { transform: translate(3px, 1px) rotate(-47deg); }
+  62% { transform: translate(-1px, -1px) rotate(-44deg); }
+  63% { transform: translate(1px, 2px) rotate(-45deg); }
+  64% { transform: translate(1px, -2px) rotate(-47deg); }
+  65% { transform: translate(-3px, 0px) rotate(-44deg); }
+  66% { transform: translate(3px, 2px) rotate(-45deg); }
+  67% { transform: translate(1px, -1px) rotate(-47deg); }
+  68% { transform: translate(-1px, 2px) rotate(-44deg); }
+  69% { transform: translate(-3px, 1px) rotate(-45deg); }
+  70% { transform: translate(3px, 1px) rotate(-47deg); }
+  71% { transform: translate(-1px, -1px) rotate(-44deg); }
+  72% { transform: translate(1px, 2px) rotate(-45deg); }
+  73% { transform: translate(1px, -2px) rotate(-47deg); }
+  74% { transform: translate(-3px, 0px) rotate(-44deg); }
+  75% { transform: translate(3px, 2px) rotate(-45deg); }
+  76% { transform: translate(1px, -1px) rotate(-47deg); }
+  77% { transform: translate(-1px, 2px) rotate(-44deg); }
+  78% { transform: translate(-3px, 1px) rotate(-45deg); }
+  79% { transform: translate(3px, 1px) rotate(-47deg); }
+  80% { transform: translate(-1px, -1px) rotate(-44deg); }
+  81% { transform: translate(1px, 2px) rotate(-45deg); }
+  82% { transform: translate(1px, -2px) rotate(-47deg); }
+  83% { transform: translate(-3px, 0px) rotate(-44deg); }
+  84% { transform: translate(3px, 2px) rotate(-45deg); }
+  85% { transform: translate(1px, -1px) rotate(-47deg); }
+  86% { transform: translate(-1px, 2px) rotate(-44deg); }
+  87% { transform: translate(-3px, 1px) rotate(-45deg); }
+  88% { transform: translate(3px, 1px) rotate(-47deg); }
+  89% { transform: translate(-1px, -1px) rotate(-44deg); }
+  90% { transform: translate(1px, 2px) rotate(-45deg); }
+  100% { transform: translate(5px, -1000px) rotate(-28deg); }
 }
 
-/* more natural path attempt
-@keyframes myOrbit {
-  0%    {  transform:  rotate(-30deg)                     }
-  100%  {  transform:  rotate(90deg)  translateY(-200px)  }
-  100%  {  transform:  rotate(180deg) translateX(-200px)  }
-  100%  {  transform:  rotate(90deg)  translateX(-200px)  }
-}*/
 
 
 
