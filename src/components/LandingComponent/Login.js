@@ -8,9 +8,9 @@ class Login extends Component {
           <h3>Easy Login</h3>
           <input name='username' placeholder='Username' type='text'/>
           <input id='pw' name='password' placeholder='Password' type='password'/>
-          <input type='login' value='Sign in'/>
+          <input type='login' defaultValue='Sign in'/>
           <hr />
-          <input type='signup' value='Sign up'/>
+          <input type='signup' defaultValue='Sign up'/>
         </div>
     );
   }
