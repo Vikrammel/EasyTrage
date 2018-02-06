@@ -15,22 +15,8 @@ var router = express.Router();
 //it up, or 3001
 var port = process.env.API_PORT || 3001;
 
-//db config
-mongoose.connect('config.database')
-
-// in 115 project, we used a db secret in config.database
-// in the mern tut, he uses the db username and pw which will work file in
-// localhost but may be challenging/tricky in docker
-
-// On Connection
-mongoose.connection.on('connected', () => {
-	console.log('Connected to database '+config.database);
-});
-
-// On Error
-mongoose.connection.on('error', (err) => {
-	console.log('Database error: '+err);
-});
+//mongodb url is hardcoded for now..
+mongoose.connect('mongodb://mongo/test');
 
 //now we should configure the API to use bodyParser and look for 
 //JSON data in the request body
