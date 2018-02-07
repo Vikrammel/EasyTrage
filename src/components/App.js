@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Landing from './LandingComponent/Landing';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './DashboardComponent/Dashboard';
 
 class App extends Component {
@@ -8,8 +8,13 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path='/' component={Landing} />
-          <Route path='/Dashboard' component={Dashboard} />
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/Dashboard' component={Dashboard} />
+            <Route render={function () {
+              return <p>404. Not found</p>
+            }}/>
+          </Switch>
         </div>
       </BrowserRouter>
     );

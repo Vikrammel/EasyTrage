@@ -58,7 +58,7 @@ label {
 
 input[type="login"] {
   margin-top: 10px;
-  background: #b5cd60;
+  background: #67c26f;
   border: 0;
   width: 250px;
   height: 40px;
@@ -69,11 +69,14 @@ input[type="login"] {
   text-align: center;
 }
 input[type="login"]:hover {
-  background: #16aa56;
+  background: #139149;
+}
+input[type="login"]:active {
+  transform: translateY(2px);
 }
 
 input[type="signup"] {
-  background: #b5cd60;
+  background: #67c26f;
   border: 0;
   width: 250px;
   height: 40px;
@@ -85,7 +88,11 @@ input[type="signup"] {
 }
 
 input[type="signup"]:hover {
-  background: #16aa56;
+  background: #139149;
+}
+
+input[type="signup"]:active {
+  transform: translateY(2px);
 }
 
 ::-webkit-input-placeholder {
@@ -99,8 +106,12 @@ input[type="signup"]:hover {
 }
 
 hr {
-    display: block;
-    border: 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    width: 75%;
+  display: block;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  width: 75%;
+}
+
+#loginHeader {
+  color: #67c26f;
 }
