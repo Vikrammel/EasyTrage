@@ -11,7 +11,7 @@ var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
 
-mongoose.connect('mongodb://mongo/test');
+mongoose.connect('mongodb://mongo/easytrage');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
