@@ -56,7 +56,7 @@ label {
   box-shadow: 0px 0px 0px 2px #46485c;
 }
 
-input[type="login"] {
+input[id="login"] {
   margin-top: 10px;
   background: #67c26f;
   border: 0;
@@ -68,14 +68,14 @@ input[type="login"] {
   transition: background 0.5s ease-in-out;
   text-align: center;
 }
-input[type="login"]:hover {
+input[id="login"]:hover {
   background: #139149;
 }
-input[type="login"]:active {
+input[id="login"]:active {
   transform: translateY(2px);
 }
 
-input[type="signup"] {
+input[id="signup"] {
   background: #67c26f;
   border: 0;
   width: 250px;
@@ -87,11 +87,11 @@ input[type="signup"] {
   text-align: center;
 }
 
-input[type="signup"]:hover {
+input[id="signup"]:hover {
   background: #139149;
 }
 
-input[type="signup"]:active {
+input[id="signup"]:active {
   transform: translateY(2px);
 }
 
