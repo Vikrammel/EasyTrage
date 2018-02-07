@@ -4,16 +4,30 @@ html {
   position: relative;
 }
 
-img{
+img {
   margin-left: 45%;
   margin-top: 15%;
   -webkit-animation: toTheMoon 4s linear;
   -webkit-animation-fill-mode: forwards;
 }
 
-.App-logo{
+.App-logo {
   height: 150px;
   width: 150px;
+}
+
+.landingText {
+  color: #67c26f;
+}
+
+.landingHeader {
+  font-size: 24;
+  margin-bottom: 10px;
+}
+
+.landingTagline {
+  font-size: 18;
+  margin-bottom: 10px;
 }
 
 @keyframes toTheMoon {
