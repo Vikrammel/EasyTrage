@@ -56,9 +56,9 @@ label {
   box-shadow: 0px 0px 0px 2px #46485c;
 }
 
-input[id="login"] {
+input[type="login"] {
   margin-top: 10px;
-  background: #67c26f;
+  background: #b5cd60;
   border: 0;
   width: 250px;
   height: 40px;
@@ -68,15 +68,12 @@ input[id="login"] {
   transition: background 0.5s ease-in-out;
   text-align: center;
 }
-input[id="login"]:hover {
-  background: #139149;
-}
-input[id="login"]:active {
-  transform: translateY(2px);
+input[type="login"]:hover {
+  background: #16aa56;
 }
 
-input[id="signup"] {
-  background: #67c26f;
+input[type="signup"] {
+  background: #b5cd60;
   border: 0;
   width: 250px;
   height: 40px;
@@ -87,12 +84,8 @@ input[id="signup"] {
   text-align: center;
 }
 
-input[id="signup"]:hover {
-  background: #139149;
-}
-
-input[id="signup"]:active {
-  transform: translateY(2px);
+input[type="signup"]:hover {
+  background: #16aa56;
 }
 
 ::-webkit-input-placeholder {
@@ -106,12 +99,8 @@ input[id="signup"]:active {
 }
 
 hr {
-  display: block;
-  border: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  width: 75%;
-}
-
-#loginHeader {
-  color: #67c26f;
+    display: block;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    width: 75%;
 }
