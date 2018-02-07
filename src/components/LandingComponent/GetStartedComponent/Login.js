@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
 import './Login.css';
+import Alert from 'react-s-alert';
 
 class Login extends Component {
 
   constructor(props) {
     super(props);
+    //set options for alerts
+    this.alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 5000,
+      transition: 'scale'
+    };
+    //set form input elements to be enabled by default
     this.state = {
       formDisabled: false
     };
@@ -12,34 +22,52 @@ class Login extends Component {
   }
   
 
-  _onSubmit = function(e){    
+  _onSubmit = function(e){
+    //close all Alerts
+    Alert.closeAll();
     //prevent default onSubmit behavior (page reload/redirect)
     e.preventDefault();
     //disable text boxes
     this.setState({formDisabled: true});
-    //validate email/pw
-    var email = this.refs["email"];
-    var password = this.refs["password"];
-    if(!email.includes('@')){
-      alert('invalid email');
-      this.setState({formDisabled: false});
-    }
-    else if (password.length < 6){
-      alert('password must be at least 6 characters');
-      this.setState({formDisabled: false});
-    }
-    else{
-      //send request for login/signup
-    }
-    
 
-    //redirect to dashboard if signin/up successful,
-    //else enable form fields again and display error
+    //validate email/pw
+    var email = this.refs["email"].value;
+    var password = this.refs["password"].value;
+    //check email
+    if(!email.includes('@')){
+      //alert('invalid email');
+      console.log('invalid email');
+      Alert.warning('invalid email', {
+        position: 'top',
+        effect: 'scale',
+        timeout: 2000,
+        offset: 100
+      });
+      this.setState({formDisabled: false});
+    }
+    //check pw
+    else if (password.length < 6){
+      //alert('password must be at least 6 characters');
+      Alert.warning('password must be at least 6 characters', {
+        position: 'top',
+        effect: 'scale',
+        timeout: 2000,
+        offset: 100
+      });
+      this.setState({formDisabled: false});
+    }
+    //both are valid
+    else{
+      //encrypt pw and send request for login/signup
+      //redirect to dashboard if signin/up successful,
+      //else enable form fields again and display error
+    }
   }
 
   render() {
     return (
         <div className='login'>
+          <Alert stack={{limit: 2, spacing: 50}} />
           <h3 id='loginHeader'>Account Details</h3>
           <form onSubmit={this._onSubmit}>
             <input name='email' placeholder='email@domail.com' ref='email' 
