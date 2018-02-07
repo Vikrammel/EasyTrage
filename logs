@@ -1,0 +1,48 @@
+Attaching to mongo, easytrage
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=0139fca80812
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] db version v3.6.2
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] git version: 489d177dbd0f0420a8ca04d39fd78d0a2c539420
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1t  3 May 2016
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] modules: none
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten] build environment:
+[36mmongo    |[0m 2018-02-05T18:19:14.242+0000 I CONTROL  [initandlisten]     distmod: debian81
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I CONTROL  [initandlisten]     distarch: x86_64
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I CONTROL  [initandlisten] options: { net: { bindIpAll: true } }
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 W -        [initandlisten] Detected unclean shutdown - /data/db/mongod.lock is not empty.
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 W STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I STORAGE  [initandlisten] 
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+[36mmongo    |[0m 2018-02-05T18:19:14.243+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3476M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+[36mmongo    |[0m 2018-02-05T18:19:14.478+0000 I STORAGE  [initandlisten] WiredTiger message [1517854754:478081][1:0x7f95cd74da00], txn-recover: Main recovery loop: starting at 3/256
+[36mmongo    |[0m 2018-02-05T18:19:14.478+0000 I STORAGE  [initandlisten] WiredTiger message [1517854754:478484][1:0x7f95cd74da00], txn-recover: Recovering log 3 through 4
+[36mmongo    |[0m 2018-02-05T18:19:14.559+0000 I STORAGE  [initandlisten] WiredTiger message [1517854754:559388][1:0x7f95cd74da00], file:index-3-2065244748457002848.wt, txn-recover: Recovering log 4 through 4
+[36mmongo    |[0m 2018-02-05T18:19:14.661+0000 I CONTROL  [initandlisten] 
+[36mmongo    |[0m 2018-02-05T18:19:14.661+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+[36mmongo    |[0m 2018-02-05T18:19:14.661+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+[36mmongo    |[0m 2018-02-05T18:19:14.661+0000 I CONTROL  [initandlisten] 
+[36mmongo    |[0m 2018-02-05T18:19:14.672+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+[36mmongo    |[0m 2018-02-05T18:19:14.672+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+[36mmongo    |[0m 2018-02-05T18:19:15.006+0000 I FTDC     [ftdc] Unclean full-time diagnostic data capture shutdown detected, found interim file, some metrics may have been lost. OK
+[33measytrage |[0m 
+[33measytrage |[0m > easytrage@0.1.0 start-dev /usr/src/app
+[33measytrage |[0m > nf start -p 3000
+[33measytrage |[0m 
+[33measytrage |[0m [WARN] No ENV file found
+[33measytrage |[0m 18:19:15 api.1   |  [33m[nodemon] 1.14.12[39m
+[33measytrage |[0m 18:19:15 api.1   |  [33m[nodemon] to restart at any time, enter `rs`[39m
+[33measytrage |[0m 18:19:15 api.1   |  [33m[nodemon] watching: *.*[39m
+[33measytrage |[0m 18:19:15 api.1   |  [32m[nodemon] starting `node server.js`[39m
+[33measytrage |[0m 18:19:16 api.1   |  api running on port 3001
+[33measytrage |[0m 18:19:16 api.1   |  (node:47) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): Error: Invalid schema, expected `mongodb` or `mongodb+srv`
+[33measytrage |[0m 18:19:16 api.1   |  (node:47) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[33measytrage |[0m 18:19:16 web.1   |  Starting the development server...
+[33measytrage |[0m 18:19:19 web.1   |  Compiled successfully!
+[33measytrage |[0m 18:19:19 web.1   |  The app is running at:
+[33measytrage |[0m 18:19:19 web.1   |    http://localhost:3000/
+[33measytrage |[0m 18:19:19 web.1   |  Note that the development build is not optimized.
+[33measytrage |[0m 18:19:19 web.1   |  To create a production build, use npm run build.
+Gracefully stopping... (press Ctrl+C again to force)

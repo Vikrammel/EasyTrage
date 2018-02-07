@@ -1,23 +1,26 @@
 {
   "name": "easytrage",
-  "version": "1.0.0",
-  "description": "Crypto arbitrage bot and trade manager",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vikrammel/EasyTrage.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Vikrammel/EasyTrage/issues"
-  },
-  "homepage": "https://github.com/Vikrammel/EasyTrage#readme",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "react": "^16.2.0"
+    "foreman": "^2.0.0",
+    "marked": "^0.3.12",
+    "mongoose": "^5.0.3",
+    "nodemon": "^1.14.12",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "0.9.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "start-dev": "nf start -p 3000",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
