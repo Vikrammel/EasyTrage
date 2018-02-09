@@ -4,7 +4,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
-var User = require('./model/users');
+var User = require('./model/user');
 
 var app = express();
 var router = express.Router();
@@ -27,10 +27,51 @@ router.get('/', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-  const token = jwt.sign({ user: 'testuser' }, 'temp_pass');
-  res.json({
-    message: 'Authenticated! Use this token in the "authorization" header',
-    token: token
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.getUserByEmail(email, (err, user) => {
+    if(err){
+      return res.json({success: false, message: err});
+    } else {
+      if(!user) {
+        return res.json({ success: false, message: 'Email not in use'} );
+      } else {
+        if (user.password == password){
+          const token = jwt.sign({ user: req.user }, 'temp_pass');
+          return res.json({ success: true, token: token });
+        } else {
+          return res.json({ success: false, message: 'Incorrect password'} );
+        }
+      }
+    }
+  });
+});
+
+router.post('/register', function(req,res) {
+  const newUser = new User({
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  User.getUserByEmail(newUser.email, (err, user) => {
+    if(err){
+      return res.json({success: false, message: err});
+    } else {
+      if(!user) {
+        User.addUser(newUser, (err, user) => {
+          if(err){
+            return res.json({success: false, message: err});
+          } else {
+            const token = jwt.sign({ user: newUser }, 'temp_pass');
+            return res.json({success: true, token: token});
+          }
+        });
+      } else {
+        return res.json({success: false, message: 
+          "Email in use. Please log in or use another email instead"});
+      }
+    }
   });
 });
 
