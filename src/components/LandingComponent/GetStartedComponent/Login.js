@@ -80,7 +80,7 @@ class Login extends Component {
                 });
               }
               else if (buttonPressed==="login"){
-                axios.post('/login', User)
+                axios.post(env.API_URL + '/login', User)
                 .then( (res) => {
                   //use res from server
                   //redirect to dashboard if signin successful,
