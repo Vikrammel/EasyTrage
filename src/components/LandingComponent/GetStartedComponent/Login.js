@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './Login.css';
 import Alert from 'react-s-alert';
+//import axios from 'axios';
+import bcrypt from 'bcrypt';
 
 class Login extends Component {
 
@@ -8,15 +10,16 @@ class Login extends Component {
     super(props);
     //set options for alerts
     this.alertOptions = {
-      offset: 14,
-      position: 'bottom left',
+      offset: 100,
+      position: 'top',
       theme: 'dark',
-      time: 5000,
+      timeout: 'none',
       transition: 'scale'
     };
     //set form input elements to be enabled by default
     this.state = {
-      formDisabled: false
+      formDisabled: false,
+      buttonID: ""
     };
     this._onSubmit = this._onSubmit.bind(this);
   }
@@ -29,6 +32,7 @@ class Login extends Component {
     e.preventDefault();
     //disable text boxes
     this.setState({formDisabled: true});
+    var buttonPressed = this.state.buttonID;
 
     //validate email/pw
     var email = this.refs["email"].value;
@@ -48,19 +52,58 @@ class Login extends Component {
     //check pw
     else if (password.length < 6){
       //alert('password must be at least 6 characters');
-      Alert.warning('password must be at least 6 characters', {
-        position: 'top',
-        effect: 'scale',
-        timeout: 2000,
-        offset: 100
-      });
+      Alert.warning('password must be at least 6 characters');
       this.setState({formDisabled: false});
     }
     //both are valid
     else{
       //encrypt pw and send request for login/signup
-      //redirect to dashboard if signin/up successful,
-      //else enable form fields again and display error
+      var User = {
+        email: email,
+        password: password
+      };
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+            if(err){
+              Alert.warning('Encryption error. Please try again.');
+            }
+            else {
+              User.password = hash;
+              if (buttonPressed=="signup"){
+                axios.post('/register', User)
+                .then( (res) => {
+                  //use res from server
+                  if (res.success == true){
+                    Alert.success('Account has been registered! Please log in');
+                    const token = res.token;
+                    localStorage.setItem("token", token);
+                  }
+                  else{
+                    Alert.error(res.message);
+                  }
+                })
+                .catch( (err) => {
+                  //alert user there was a server error
+                  Alert.error("Server error. Please try again later.");
+                });
+              }
+              else if (buttonPressed=="login"){
+                axios.post('/login', User)
+                .then( (res) => {
+                  //use res from server
+                  //redirect to dashboard if signin successful,
+                  //else enable form fields again and display error
+                })
+                .catch( (err) => {
+                  //alert user there was a server error
+                  Alert.error("Server error. Please try again later.");
+                });
+              }
+            }
+        });
+      });
+      
     }
   }
 
@@ -71,12 +114,14 @@ class Login extends Component {
           <h3 id='loginHeader'>Account Details</h3>
           <form onSubmit={this._onSubmit}>
             <input name='email' placeholder='email@domail.com' ref='email' 
-              type='text' disabled={this.state.formDisabled}/>
+              type='text' disabled={this.state.formDisabled} />
             <input id='pw' name='password' placeholder='Password' ref='password' 
-              type='password' disabled={this.state.formDisabled}/>
-            <input id='login' type='submit' defaultValue='Sign in' ref='signin' />
+              type='password' disabled={this.state.formDisabled} />
+            <input id='login' type='submit' defaultValue='Sign in' ref='signin' 
+              onClick={this.state.buttonID="login"} />
             <hr />
-            <input id='signup' type='submit' defaultValue='Sign up' ref='signup' />
+            <input id='signup' type='submit' defaultValue='Sign up' ref='signup' 
+              onClick={this.state.buttonID="signup"} />
           </form>
         </div>
     );
