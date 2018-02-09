@@ -19,40 +19,30 @@ class Login extends Component {
     //set form input elements to be enabled by default
     this.state = {
       formDisabled: false,
-      buttonID: ""
     };
-    this._onSubmit = this._onSubmit.bind(this);
+    //this._authenticate = this._authenticate.bind(this);
   }
   
 
-  _onSubmit = function(e){
+  _authenticate = function(buttonPressed){
     //close all Alerts
     Alert.closeAll();
-    //prevent default onSubmit behavior (page reload/redirect)
-    e.preventDefault();
     //disable text boxes
     this.setState({formDisabled: true});
-    var buttonPressed = this.state.buttonID;
 
+    console.log(buttonPressed);
     //validate email/pw
     var email = this.refs["email"].value;
     var password = this.refs["password"].value;
     //check email
     if(!email.includes('@')){
-      //alert('invalid email');
-      console.log('invalid email');
-      Alert.warning('invalid email', {
-        position: 'top',
-        effect: 'scale',
-        timeout: 2000,
-        offset: 100
-      });
+      Alert.warning('invalid email', this.alertOptions);
       this.setState({formDisabled: false});
     }
     //check pw
     else if (password.length < 6){
       //alert('password must be at least 6 characters');
-      Alert.warning('password must be at least 6 characters');
+      Alert.warning('password length must be 6+', this.alertOptions);
       this.setState({formDisabled: false});
     }
     //both are valid
@@ -116,11 +106,11 @@ class Login extends Component {
               type='text' disabled={this.state.formDisabled} />
             <input id='pw' name='password' placeholder='Password' ref='password' 
               type='password' disabled={this.state.formDisabled} />
-            <input id='login' type='submit' defaultValue='Sign in' ref='signin' 
-              onClick={this.setState({buttonID: "login"})} />
+            <input id='login' type='button' defaultValue='Sign in' ref='signin' 
+              onClick={() => this._authenticate('login')} />
             <hr />
-            <input id='signup' type='submit' defaultValue='Sign up' ref='signup' 
-              onClick={this.setState({buttonID: "signup"})} />
+            <input id='signup' type='button' defaultValue='Sign up' ref='signup' 
+              onClick={() => this._authenticate('signup')} />
           </form>
         </div>
     );

@@ -63,10 +63,18 @@ input[id="login"] {
   width: 250px;
   height: 40px;
   border-radius: 3px;
-  color: white;
   cursor: pointer;
   transition: background 0.5s ease-in-out;
   text-align: center;
+}
+
+input[type="button"] {
+  color: transparent;
+  text-shadow: 0 0 0 white;
+}
+
+input[type="button"]:focus {
+  outline: none;
 }
 input[id="login"]:hover {
   background: #139149;
