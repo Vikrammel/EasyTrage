@@ -5,13 +5,13 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var User = require('./model/user');
-
+var env = require('./config/env');
 var app = express();
 var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
 
-mongoose.connect('mongodb://mongo/easytrage');
+mongoose.connect(env.DATABASE);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

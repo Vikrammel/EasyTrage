@@ -3,6 +3,7 @@ import './Login.css';
 import Alert from 'react-s-alert';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+import env from '../../../../config/env';
 
 class Login extends Component {
 
@@ -61,7 +62,7 @@ class Login extends Component {
             else {
               User.password = hash;
               if (buttonPressed==="signup"){
-                axios.post('/register', User)
+                axios.post(env.API_URL + '/register', User)
                 .then( (res) => {
                   //use res from server
                   if (res.success === true){
