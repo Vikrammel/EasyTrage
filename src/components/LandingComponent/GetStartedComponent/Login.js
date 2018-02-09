@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './Login.css';
 import Alert from 'react-s-alert';
-//import axios from 'axios';
-import bcrypt from 'bcrypt';
+import axios from 'axios';
+import bcrypt from 'bcryptjs';
 
 class Login extends Component {
 
@@ -70,11 +70,11 @@ class Login extends Component {
             }
             else {
               User.password = hash;
-              if (buttonPressed=="signup"){
+              if (buttonPressed==="signup"){
                 axios.post('/register', User)
                 .then( (res) => {
                   //use res from server
-                  if (res.success == true){
+                  if (res.success === true){
                     Alert.success('Account has been registered! Please log in');
                     const token = res.token;
                     localStorage.setItem("token", token);
@@ -88,7 +88,7 @@ class Login extends Component {
                   Alert.error("Server error. Please try again later.");
                 });
               }
-              else if (buttonPressed=="login"){
+              else if (buttonPressed==="login"){
                 axios.post('/login', User)
                 .then( (res) => {
                   //use res from server
@@ -103,7 +103,6 @@ class Login extends Component {
             }
         });
       });
-      
     }
   }
 
@@ -118,10 +117,10 @@ class Login extends Component {
             <input id='pw' name='password' placeholder='Password' ref='password' 
               type='password' disabled={this.state.formDisabled} />
             <input id='login' type='submit' defaultValue='Sign in' ref='signin' 
-              onClick={this.state.buttonID="login"} />
+              onClick={this.setState({buttonID: "login"})} />
             <hr />
             <input id='signup' type='submit' defaultValue='Sign up' ref='signup' 
-              onClick={this.state.buttonID="signup"} />
+              onClick={this.setState({buttonID: "signup"})} />
           </form>
         </div>
     );
