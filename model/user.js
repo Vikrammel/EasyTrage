@@ -4,8 +4,7 @@
 
 //import dependency
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-const config = require('../config/database');
+var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
