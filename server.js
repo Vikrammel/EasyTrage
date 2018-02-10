@@ -7,7 +7,14 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var User = require('./model/user');
 var env = require('./config/env');
-var app = express();
+var fs = require('fs');
+
+//https key/cert setup
+var hskey = fs.readFileSync('./config/easytrage-key.pem');
+var hscert = fs.readFileSync('./config/easytrage-cert.pem');
+var options = {key: hskey, cert:hscert};
+var app = express(options);
+
 var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
@@ -42,12 +49,15 @@ router.post('/login', function(req, res) {
       if(!user) {
         return res.json({ success: false, message: 'Email not in use'} );
       } else {
-        if (user.password == password){
-          const token = jwt.sign({ user: req.user }, 'temp_pass');
-          return res.json({ success: true, token: token });
-        } else {
-          return res.json({ success: false, message: 'Incorrect password'} );
-        }
+          User.validatePassword(password, email, (err, isMatch) => {
+            if(err) throw err;
+            if(isMatch){
+              const token = jwt.sign({ user: req.user }, 'temp_pass');
+              return res.json({ success: true, token: token });
+            } else {
+            return res.json({ success: false, message: 'Incorrect password'} );
+            }
+          });
       }
     }
   });
