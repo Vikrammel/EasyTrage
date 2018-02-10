@@ -76,6 +76,7 @@ class Login extends Component {
                 })
                 .catch( (err) => {
                   //alert user there was a server error
+                  console.log(err)
                   Alert.error("Server error. Please try again later.");
                 });
               }

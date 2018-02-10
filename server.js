@@ -4,6 +4,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 var User = require('./model/user');
 var env = require('./config/env');
 var app = express();
@@ -15,10 +16,14 @@ mongoose.connect(env.DATABASE);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
+//app.use(function(req, res, next) {
+ // res.setHeader('Access-Control-Allow-Origin', '*');
+//  res.setHeader('Access-Control-Allow-Credentials', 'true');
+ // res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+  //res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+ // next();
+//});
 
 app.use('/api', router);
 
