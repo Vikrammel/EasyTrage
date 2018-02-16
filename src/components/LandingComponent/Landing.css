@@ -4,7 +4,7 @@ html {
   position: relative;
 }
 
-img {
+img.App-logo {
   margin-left: 45%;
   margin-top: 15%;
   -webkit-animation: toTheMoon 4s linear;
@@ -124,7 +124,3 @@ img {
   90% { transform: translate(1px, 2px) rotate(-45deg); }
   100% { transform: translate(5px, -1000px) rotate(-28deg); }
 }
-
-
-
-
