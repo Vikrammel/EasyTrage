@@ -1,11 +1,21 @@
 #!/bin/bash
 
 #to run, use 'chmod +x backendAuthTests.sh' then './backendAuthTests.sh'
+mongoClearQuitCmd='db.dropDatabase(),exit'
 {
 echo ""
 echo "========== Backend Authentication Tests =========="
-echo "If registration gives email in use error, clear database"
+echo "WARNING: TEST SCRIPT WILL CLEAR MONGO-DB"
 echo ""
+echo ""
+(
+docker exec -it mongo /bin/bash <<'EOF'
+> mongo
+> db.dropDatabase()
+> exit
+EOF
+)
+echo "database cleared"
 echo ""
 echo "Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : "
 echo ""

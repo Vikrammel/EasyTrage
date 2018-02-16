@@ -1,7 +1,9 @@
 
 ========== Backend Authentication Tests ==========
-If registration gives email in use error, clear database
+WARNING: TEST SCRIPT WILL CLEAR MONGO-DB
 
+
+database cleared
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
