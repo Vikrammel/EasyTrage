@@ -5,8 +5,11 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var User = require('./model/user');
+var cors = require('cors');
+
 
 var app = express();
+app.use(cors())
 var router = express.Router();
 
 var port = process.env.API_PORT || 3001;
@@ -22,8 +25,8 @@ app.use(function(req, res, next) {
 
 app.use('/api', router);
 
-router.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+router.get('/price', (req, res) => {
+  res.json({ message: 'Price called from server' });
 });
 
 router.get('/', function(req, res) {

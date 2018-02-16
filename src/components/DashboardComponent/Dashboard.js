@@ -8,7 +8,11 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log('I was triggered during componentDidMount')
-    this.getCoinPrice();
+    // this.getCoinPrice();
+
+    this.getCoinPrice()
+    .then(res => console.log({ res }))
+    // .catch(err => console.log(err));
   }
   
   render() {
@@ -20,16 +24,25 @@ class Dashboard extends Component {
       );
     }
 
-    
-    
     getCoinPrice() {
       // $.getJSON('https://localhost:3000/coinprice/')
       //   .then(({ results }) => this.setState({ person: results }));
       console.log('I was triggered during getCoinPrice')
-            axios.get('https://localhost:3000/coinprice/')
+            axios.get('localhost:3001/api/coin/')
         .then(({ results }) => console.log(results));
-
+  
     }
+    
+    getCoinPrice2 = async () => {
+      const response = await fetch('localhost:3001/api/coin');
+      // const body = await response.json();
+  
+      // if (response.status !== 200) throw Error(body.message);
+  
+      return response;
+    };
+
+    
 
 }
 
