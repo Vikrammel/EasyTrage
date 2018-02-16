@@ -1,18 +1,29 @@
 #!/bin/bash
 
 #to run, use 'chmod +x backendAuthTests.sh' then './backendAuthTests.sh'
-mongoClearQuitCmd='db.dropDatabase(),exit'
+mongoUse='use easytrage'
+mongoClear='db.dropDatabase()'
+mongoExit='exit'
 {
 echo ""
 echo "========== Backend Authentication Tests =========="
 echo "WARNING: TEST SCRIPT WILL CLEAR MONGO-DB"
 echo ""
 echo ""
+# (
+# docker exec -it mongo /bin/bash <<'EOF'
+# > mongo
+# > use easytrage
+# > db.dropDatabase()
+# > exit
+# EOF
+# )
 (
-docker exec -it mongo /bin/bash <<'EOF'
-> mongo
-> db.dropDatabase()
-> exit
+    docker exec -it mongo /bin/bash | mongo <<'EOF'
+    use easytrage
+    db.dropDatabase()
+    exit
+    exit
 EOF
 )
 echo "database cleared"
