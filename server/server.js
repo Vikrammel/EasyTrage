@@ -36,8 +36,8 @@ function logger(message){
 
 app.use('/api', router);
 
-router.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+router.get('/price', (req, res) => {
+  res.json({ message: 'Price called from server' });
 });
 
 router.get('/', function(req, res) {
