@@ -1,4 +1,7 @@
 
+========== Backend Authentication Tests ==========
+
+
 ===== clearing database =====
 
 MongoDB shell version: 2.6.10
@@ -12,13 +15,19 @@ bye
 
 ======== test output ========
 
+
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVhODY4NDhhNDAzNDRiMDAzYjcxNmVhOSIsImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCQ1QVVZRjlLQmlVdk1qTGZKWFBEQjguSE9oOTlYdjNyY3BNdXZrN3NIUG9MYW9XME1CdGdxMiIsIl9fdiI6MH0sImlhdCI6MTUxODc2NTE5NH0.JZXZUoXdv60dVLow4ug60XG18wYRCCuPRRiwa9mBPCw"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVhODcwYmM2YjQ1M2RlMDAzYjYyNDNkNiIsImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCQ2cTA1TkFEcXBrUWt1ck81c0tRNVkuTlZqRlprdDVZdHpXUWdENWJ6Q0RMZkYyZmhtTjkxMiIsIl9fdiI6MH0sImlhdCI6MTUxODc5OTgxNH0.4rQQ2UaWbJuTLl5sJyT8o4dC_R16PpsMRFUok2d576I"}
 
 
 Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTg3NjUxOTR9.sbOsMG_mie_Lv-G-KreBVucS1eQBbzi544iUrpP8bEI"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTg3OTk4MTR9.fxLOJX4b6TQjTgGeDis3eecmfMjWorSQLy8rUNdToB0"}
+
+
+Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): 
+
+{"success":false,"message":"Email in use. Please log in or use another email instead"}
 
 ======== end of tests ========

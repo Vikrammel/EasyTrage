@@ -15,7 +15,9 @@ echo ""
 if [ "$CONT" = "y" ]; then
     (
     echo ""
-
+    echo "========== Backend Authentication Tests =========="
+    echo ""
+    echo ""
     echo "===== clearing database ====="
     echo ""
     docker exec -it mongo /bin/bash | mongo <<'EOF'
@@ -31,6 +33,7 @@ EOF
 
     echo "======== test output ========"
     echo ""
+    echo ""
     echo "Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : "
     echo ""
     curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/register ;
@@ -40,6 +43,12 @@ EOF
     echo "Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : "
     echo ""
     curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/login ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): "
+    echo ""
+    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/register ;
     echo ""
     echo ""
     echo "======== end of tests ========"
