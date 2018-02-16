@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './Login.css';
 import Alert from 'react-s-alert';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+import env from '../../../../config/env';
 
 class Login extends Component {
 
@@ -30,7 +30,6 @@ class Login extends Component {
     //disable text boxes
     this.setState({formDisabled: true});
 
-    console.log(buttonPressed);
     //validate email/pw
     var email = this.refs["email"].value;
     var password = this.refs["password"].value;
@@ -53,46 +52,47 @@ class Login extends Component {
         password: password
       };
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-            if(err){
-              Alert.warning('Encryption error. Please try again.');
-            }
-            else {
-              User.password = hash;
-              if (buttonPressed==="signup"){
-                axios.post('/register', User)
-                .then( (res) => {
-                  //use res from server
-                  if (res.success === true){
-                    Alert.success('Account has been registered! Please log in');
-                    const token = res.token;
-                    localStorage.setItem("token", token);
-                  }
-                  else{
-                    Alert.error(res.message);
-                  }
-                })
-                .catch( (err) => {
-                  //alert user there was a server error
-                  Alert.error("Server error. Please try again later.");
-                });
-              }
-              else if (buttonPressed==="login"){
-                axios.post('/login', User)
-                .then( (res) => {
-                  //use res from server
-                  //redirect to dashboard if signin successful,
-                  //else enable form fields again and display error
-                })
-                .catch( (err) => {
-                  //alert user there was a server error
-                  Alert.error("Server error. Please try again later.");
-                });
-              }
-            }
+      if (buttonPressed==='signup'){
+
+        axios.post(env.API_URL + '/register', User)
+        .then( (res) => {
+          //use res from server
+          if (res.data.success === true){
+            Alert.success('Account has been registered! Please log in');
+            localStorage.setItem("token", res.data.token);
+          }
+          else{
+            Alert.error(res.data.message);
+          }
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          Alert.error("Server error. Please try again later.");
         });
-      });
+        this.setState({formDisabled: false});
+      }
+      else if (buttonPressed==='login'){
+
+        axios.post(env.API_URL + '/login', User)
+        .then( (res) => {
+          //use res from server
+          if (res.data.success === true) {
+            Alert.success('Login Successful!');
+            localStorage.setItem("token", res.data.token);
+            //redirect to dashboard if signin successful,
+          }
+          else{
+            //else enable form fields again and display error
+            Alert.error("login failed. " + res.data.message);
+            this.setState({formDisabled: false});
+          }
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          Alert.error("Server error. Please try again later.");
+          this.setState({formDisabled: false});
+        });
+      }
     }
   }
 
