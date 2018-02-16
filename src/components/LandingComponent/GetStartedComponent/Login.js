@@ -57,11 +57,7 @@ class Login extends Component {
         axios.post(env.API_URL + '/register', User)
         .then( (res) => {
           //use res from server
-          console.log(buttonPressed);
-          console.log("res.data:" + String(res.data));
-          console.log("res: " + String(res));
           if (res.data.success === true){
-            console.log("res.success");
             Alert.success('Account has been registered! Please log in');
             localStorage.setItem("token", res.data.token);
           }
@@ -80,11 +76,7 @@ class Login extends Component {
         axios.post(env.API_URL + '/login', User)
         .then( (res) => {
           //use res from server
-          console.log("res.data:" + String(res.data));
-          console.log("res: " + String(res));
-          console.log(buttonPressed);
           if (res.data.success === true) {
-            console.lot("res.success");
             Alert.success('Login Successful!');
             localStorage.setItem("token", res.data.token);
             //redirect to dashboard if signin successful,
