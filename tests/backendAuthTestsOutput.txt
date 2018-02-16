@@ -1,0 +1,11 @@
+
+========== Backend Authentication Tests ==========
+If registration gives email in use error, clear database
+
+
+Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
+
+{"success":false,"message":"Email in use. Please log in or use another email instead"}
+
+
+Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
