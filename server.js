@@ -22,6 +22,10 @@ app.use(function(req, res, next) {
 
 app.use('/api', router);
 
+router.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
+
 router.get('/', function(req, res) {
   res.json({ message: 'API Initialized!'});
 });
@@ -47,6 +51,14 @@ router.post('/login', function(req, res) {
     }
   });
 });
+
+router.get('/coinprice', function(req, res) { 
+  request.get({ url: "https://chasing-coins.com/api/v1/std/coin/BTC"},      function(error, response, body) { 
+          if (!error && response.statusCode == 200) { 
+              res.json(body); 
+             } 
+         }); 
+ }); 
 
 router.post('/register', function(req,res) {
   const newUser = new User({
