@@ -58,12 +58,15 @@ class Login extends Component {
         .then( (res) => {
           //use res from server
           console.log(buttonPressed);
-          if (res.success === true){
+          console.log("res.data:" + String(res.data));
+          console.log("res: " + String(res));
+          if (res.data.success === true){
+            console.log("res.success");
             Alert.success('Account has been registered! Please log in');
-            localStorage.setItem("token", res.token);
+            localStorage.setItem("token", res.data.token);
           }
           else{
-            Alert.error(res.message);
+            Alert.error(res.data.message);
           }
         })
         .catch( (err) => {
@@ -77,15 +80,18 @@ class Login extends Component {
         axios.post(env.API_URL + '/login', User)
         .then( (res) => {
           //use res from server
+          console.log("res.data:" + String(res.data));
+          console.log("res: " + String(res));
           console.log(buttonPressed);
-          if (res.success === true) {
+          if (res.data.success === true) {
+            console.lot("res.success");
             Alert.success('Login Successful!');
-            localStorage.setItem("token", res.token);
+            localStorage.setItem("token", res.data.token);
             //redirect to dashboard if signin successful,
           }
           else{
             //else enable form fields again and display error
-            Alert.error("login failed. " + res.message);
+            Alert.error("login failed. " + res.data.message);
             this.setState({formDisabled: false});
           }
         })
