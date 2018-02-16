@@ -49,7 +49,7 @@ router.post('/login', function(req, res) {
       if(!user) {
         return res.json({ success: false, message: 'Email not in use'} );
       } else {
-          User.validatePassword(password, email, (err, isMatch) => {
+          User.validatePassword(password, user.password, (err, isMatch) => {
             if(err) throw err;
             if(isMatch){
               const token = jwt.sign({ user: req.user }, 'temp_pass');

@@ -1,18 +1,24 @@
 
-========== Backend Authentication Tests ==========
-WARNING: TEST SCRIPT WILL CLEAR MONGO-DB
-
+===== clearing database =====
 
 MongoDB shell version: 2.6.10
 connecting to: test
 switched to db easytrage
 { "dropped" : "easytrage", "ok" : 1 }
 bye
-database cleared
+
+===== database cleared =====
+
+
+======== test output ========
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCRvQy55cUpyR3ZwRnNNVEFGTnRvc1p1Tm5kN0ZTYjIuemtZZGRTVlJ5Ulk2YmllNGdZa08xLiIsIl9pZCI6IjVhODY1ZWU5NDA5ZTQ3MDAyZmU2ODQwMyIsIl9fdiI6MH0sImlhdCI6MTUxODc1NTU2M30.sJG8ekJMKsMrY0tkfiHRlV8MrgCJDAeZ4n8Wx674LCg"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVhODY4NDhhNDAzNDRiMDAzYjcxNmVhOSIsImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCQ1QVVZRjlLQmlVdk1qTGZKWFBEQjguSE9oOTlYdjNyY3BNdXZrN3NIUG9MYW9XME1CdGdxMiIsIl9fdiI6MH0sImlhdCI6MTUxODc2NTE5NH0.JZXZUoXdv60dVLow4ug60XG18wYRCCuPRRiwa9mBPCw"}
 
 
 Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
+
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTg3NjUxOTR9.sbOsMG_mie_Lv-G-KreBVucS1eQBbzi544iUrpP8bEI"}
+
+======== end of tests ========

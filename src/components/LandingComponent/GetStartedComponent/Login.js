@@ -30,7 +30,6 @@ class Login extends Component {
     //disable text boxes
     this.setState({formDisabled: true});
 
-    console.log(buttonPressed);
     //validate email/pw
     var email = this.refs["email"].value;
     var password = this.refs["password"].value;
@@ -53,10 +52,12 @@ class Login extends Component {
         password: password
       };
 
-      if (buttonPressed==="signup"){
+      if (buttonPressed==='signup'){
+
         axios.post(env.API_URL + '/register', User)
         .then( (res) => {
           //use res from server
+          console.log(buttonPressed);
           if (res.success === true){
             Alert.success('Account has been registered! Please log in');
             localStorage.setItem("token", res.token);
@@ -69,11 +70,14 @@ class Login extends Component {
           //alert user there was a server error
           Alert.error("Server error. Please try again later.");
         });
+        this.setState({formDisabled: false});
       }
-      else if (buttonPressed==="login"){
+      else if (buttonPressed==='login'){
+
         axios.post(env.API_URL + '/login', User)
         .then( (res) => {
           //use res from server
+          console.log(buttonPressed);
           if (res.success === true) {
             Alert.success('Login Successful!');
             localStorage.setItem("token", res.token);
@@ -88,6 +92,7 @@ class Login extends Component {
         .catch( (err) => {
           //alert user there was a server error
           Alert.error("Server error. Please try again later.");
+          this.setState({formDisabled: false});
         });
       }
     }
