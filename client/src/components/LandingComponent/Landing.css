@@ -136,7 +136,3 @@ img {
   100% { transform: translate(1px, 2px) rotate(-45deg); }
 }
 
-@keyframes toTheMoon {
-  100% { transform: translate(0px, -4000px) rotate(-45deg); }
-}
-

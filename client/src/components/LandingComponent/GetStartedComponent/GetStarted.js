@@ -16,8 +16,8 @@ class GetStarted extends Component {
     var rocket = document.getElementById("rocket");
     var pos = 0;
     var acc = 1;
-    var id = setInterval(frame, 1);
-    function frame() {
+    var id = setInterval(toTheMoon, 1);
+    function toTheMoon() {
         if (pos === -3000) {
             clearInterval(id);
         } else {
