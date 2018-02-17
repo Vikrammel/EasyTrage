@@ -1,0 +1,15 @@
+FROM node:8
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY ./src/package.json /usr/src/app
+RUN npm install
+
+COPY ./src /usr/src/app/src
+COPY ./public /usr/src/app/public
+COPY ./config /usr/src/app/config
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
