@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var User = require('../model/user');
-var env = require('../config/env');
+var User = require('./model/user');
+var env = require('./config/env');
 var fs = require('fs');
 
 //https key/cert setup
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-//logs to console only if toggle is on
+//logs to console if toggle is on
 var logging = true;
 
 function logger(message){
@@ -135,6 +135,6 @@ function ensureToken(req, res, next) {
 }
 
 
-app.listen(port, function() {
+app.listen(port, "0.0.0.0", function() {
   logger(`api running on port ${port}`);
 });

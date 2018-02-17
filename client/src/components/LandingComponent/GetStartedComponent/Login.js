@@ -20,7 +20,7 @@ class Login extends Component {
     this.state = {
       formDisabled: false,
     };
-    //this._authenticate = this._authenticate.bind(this);
+    //this._authenticate = this._authenticate.bind(this)
   }
   
 
@@ -53,7 +53,7 @@ class Login extends Component {
       };
 
       if (buttonPressed==='signup'){
-
+        //env.API_URL
         axios.post(env.API_URL + '/register', User)
         .then( (res) => {
           //use res from server

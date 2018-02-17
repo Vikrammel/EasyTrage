@@ -8,7 +8,6 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "foreman": "^2.0.0",
     "jsonwebtoken": "^8.1.1",
     "marked": "^0.3.12",
     "mongoose": "^5.0.3"

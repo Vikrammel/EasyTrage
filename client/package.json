@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "foreman": "^2.0.0",
-    "jsonwebtoken": "^8.1.1",
     "marked": "^0.3.12",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
