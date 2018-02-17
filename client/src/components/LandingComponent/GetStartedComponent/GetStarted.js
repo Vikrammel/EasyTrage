@@ -13,6 +13,20 @@ class GetStarted extends Component {
   }
 
   _onButtonClick() {
+    var rocket = document.getElementById("rocket");
+    var pos = 0;
+    var acc = 1;
+    var id = setInterval(frame, 1);
+    function frame() {
+        if (pos === -3000) {
+            clearInterval(id);
+        } else {
+            pos -= acc;
+            rocket.style.top = pos + 'px';
+            acc += 0.4;
+        }
+    }
+      console.log("could not change rocket animation");
     this.setState({
       showLoginForm: true
     });
