@@ -13,4 +13,3 @@ EXPOSE 3000
 EXPOSE 3001
 
 CMD ["npm", "run", "start-dev"]
-# CMD ["node", "server.js"]

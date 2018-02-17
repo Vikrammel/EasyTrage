@@ -10,6 +10,8 @@ services:
       - "3001:3001"
     links:
       - mongo
+    volumes:
+      - ./server:/usr/src/app/server
   mongo:
     container_name: mongo
     image: mongo
