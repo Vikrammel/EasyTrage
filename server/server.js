@@ -8,6 +8,7 @@ var cors = require('cors');
 var User = require('./model/user');
 var env = require('./config/env');
 var fs = require('fs');
+var axios = require('axios');
 
 //https key/cert setup
 var hskey = fs.readFileSync(env.HTTPS_KEY);
@@ -35,10 +36,6 @@ function logger(message){
 }
 
 app.use('/api', router);
-
-router.get('/price', (req, res) => {
-  res.json({ message: 'Price called from server' });
-});
 
 router.get('/', function(req, res) {
   res.json({ message: 'API Initialized!'});
@@ -79,12 +76,24 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.get('/coinprice', function(req, res) { 
-  request.get({ url: "https://chasing-coins.com/api/v1/std/coin/BTC"},      function(error, response, body) { 
-          if (!error && response.statusCode == 200) { 
-              res.json(body); 
-             } 
-         }); 
+router.get('/price/:coin/:exchange', function(req, res) {
+  if (req.params.coin === 'BTC'){
+    if(req.params.exchange === 'chasing-coins'){
+      axios.get("https://chasing-coins.com/api/v1/std/coin/BTC")  
+        .then( (APIres) => {
+          //use res from server
+          if (APIres.status === 200) {
+            // return res.json(JSON.stringify(APIres));
+            return res.json("{APIStatusCode: '" + APIres.status +"', price: '" + APIres.data.price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + APIres.status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json(err);
+        });
+    }
+  }
  }); 
 
 router.post('/register', function(req,res) {

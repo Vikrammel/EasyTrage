@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../NavbarComponent/Navbar';
 import axios from 'axios';
+import env from '../../../config/env';
 
 class Dashboard extends Component {
     
@@ -8,11 +9,9 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log('I was triggered during componentDidMount')
-    // this.getCoinPrice();
 
-    this.getCoinPrice()
-    .then(res => console.log({ res }))
-    // .catch(err => console.log(err));
+    this.getCoinPrice();
+
   }
   
   render() {
@@ -25,25 +24,26 @@ class Dashboard extends Component {
     }
 
     getCoinPrice() {
-      // $.getJSON('https://localhost:3000/coinprice/')
-      //   .then(({ results }) => this.setState({ person: results }));
       console.log('I was triggered during getCoinPrice')
-            axios.get('localhost:3001/api/coin/')
-        .then(({ results }) => console.log(results));
-  
+      axios.get(env.API_URL + '/price/BTC/chasing-coins')
+      .then( (res) => {
+        //use res from back-end server and check status code
+        //forwarded from external API server
+        if (res.data.APIStatusCode === 200) {
+          //log price since request status is 200 (OK)
+          console.log(String(res.data.price));
+        }
+        else{
+          //log response of bad API response
+          console.log(String(res.data));
+        }
+      })
+      .catch( (err) => {
+        //log error
+        console.log(String(err));
+      });
     }
     
-    getCoinPrice2 = async () => {
-      const response = await fetch('localhost:3001/api/coin');
-      // const body = await response.json();
-  
-      // if (response.status !== 200) throw Error(body.message);
-  
-      return response;
-    };
-
-    
-
 }
 
 export default Dashboard;
