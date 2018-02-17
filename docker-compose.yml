@@ -1,17 +1,27 @@
 version: "2"
 services:
-  app:
-    container_name: easytrage
+  server:
+    container_name: easytrage_server
     restart: always
-    build: .
+    build:
+      context: ./server
+      dockerfile: Dockerfile-server
     ports:
-      - "8080:8080"
-      - "3000:3000"
       - "3001:3001"
     links:
       - mongo
     volumes:
-      - ./server:/usr/src/app/server
+      - ./server:/usr/src/app
+  client:
+    container_name: easytrage_client
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile-client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
   mongo:
     container_name: mongo
     image: mongo

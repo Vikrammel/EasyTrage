@@ -7,7 +7,7 @@
 MongoDB shell version: 2.6.10
 connecting to: test
 switched to db easytrage
-{ "ok" : 1 }
+{ "dropped" : "easytrage", "ok" : 1 }
 bye
 
 ===== database cleared =====
@@ -18,16 +18,3 @@ bye
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVhODc0YTc3MjcyNDE5MDAzYWU1NmExNyIsImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCRCYWRtaWxVRXAwRzRKcld4dmVPTk5PNDJTRTVkWkFNdWlYS1lacEZJZ2VzL0d1eGRPdy9yYSIsIl9fdiI6MH0sImlhdCI6MTUxODgxNTg2M30.igQjIcQh_hNVbR17akBgX1h87AFILMFEBbwYD14cdH8"}
-
-
-Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
-
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTg4MTU4NjN9.qxE_8LWcyuEUIr4l10mba7iWi60QF664C0cUdQkzi7A"}
-
-
-Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): 
-
-{"success":false,"message":"Email in use. Please log in or use another email instead"}
-
-======== end of tests ========
