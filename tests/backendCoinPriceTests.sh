@@ -40,7 +40,7 @@ if [ "$CONT" = "y" ]; then
     echo ""
 
 
-    echo "===== XRPUSD ====="
+    echo "===== XRPUSD/T ====="
     echo ""
     echo ""
 
@@ -88,8 +88,28 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo ""
 
+    echo "=== hitbtc ==="
+    echo ""
+    echo "Output of backend /price/XRPUSDT/hitbtc call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPUSDT/hitbtc ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPUSDT/hitbtc/bid call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPUSDT/hitbtc/bid ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPUSDT/hitbtc/ask call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPUSDT/hitbtc/ask ;
+    echo ""
+    echo ""
 
-    echo "===== end XRPUSD tests ====="
+
+    echo "===== end XRPUSD/T tests ====="
     echo ""
     echo ""
 
@@ -182,10 +202,63 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo ""
     
-    
-    echo "===== end XRPUSD tests ====="
+
+    echo "=== hitbtc ==="
+    echo ""
+    echo "Output of backend /price/XRPBTC/hitbtc call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/hitbtc ;
     echo ""
     echo ""
+    echo ""
+    echo "Output of backend /price/XRPBTC/hitbtc/bid call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/hitbtc/bid ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPBTC/hitbtc/ask call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/hitbtc/ask ;
+    echo ""
+    echo ""
+
+
+    echo "===== end XRPBTC tests ====="
+    echo ""
+    echo ""
+
+
+    echo "===== XRPETH ====="
+    echo ""
+    echo ""
+
+
+    echo "=== hitbtc ==="
+    echo ""
+    echo "Output of backend /price/XRPETH/hitbtc call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPETH/hitbtc ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPETH/hitbtc/bid call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPETH/hitbtc/bid ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPETH/hitbtc/ask call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPETH/hitbtc/ask ;
+    echo ""
+    echo ""
+
+
+    echo "===== end XRPETH tests ====="
+    echo ""
+    echo ""
+
 
     echo ""
     echo ""
