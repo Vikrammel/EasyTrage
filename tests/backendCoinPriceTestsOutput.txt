@@ -13,32 +13,47 @@ Output of backend /price/BTC/chasing-coins call :
 
 Output of backend /price/XRP/bitstamp call : 
 
-"{APIStatusCode: '200', price: '1.08148' }"
+"{APIStatusCode: '200', price: '1.08900' }"
 
 
 Output of backend /price/XRP/bitstamp/bid call : 
 
-"{APIStatusCode: '200', price: '1.08148' }"
+"{APIStatusCode: '200', price: '1.08900' }"
 
 
 Output of backend /price/XRP/bitstamp/ask call : 
 
-"{APIStatusCode: '200', price: '1.08148' }"
+"{APIStatusCode: '200', price: '1.08900' }"
 
 
 Output of backend /price/XRP/coinegg call : 
 
-"{APIStatusCode: '200', price: '0.00010537' }"
+"{APIStatusCode: '200', price: '0.00010453' }"
 
 
 Output of backend /price/XRP/coinegg/bid call : 
 
-"{APIStatusCode: '200', price: '0.00010537' }"
+"{APIStatusCode: '200', price: '0.00010453' }"
 
 
 Output of backend /price/XRP/coinegg/ask call : 
 
-"{APIStatusCode: '200', price: '1.08148' }"
+"{APIStatusCode: '200', price: '1.08900' }"
+
+
+Output of backend /price/XRP/bittrex call : 
+
+"{APIStatusCode: '200', price: '0.00010343' }"
+
+
+Output of backend /price/XRP/bittrex/bid call : 
+
+"{APIStatusCode: '200', price: '0.00010343' }"
+
+
+Output of backend /price/XRP/bittrex/ask call : 
+
+"{APIStatusCode: '200', price: '0.00010343' }"
 
 
 ======== end of tests ========

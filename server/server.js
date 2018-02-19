@@ -155,6 +155,38 @@ router.get('/price/:coin/:exchange/:bidask?', function(req, res) {
           //alert user there was a server error
           return res.json("{APIStatusCode: '404', message: '" + err + "' }");
         });
+    }else if(req.params.exchange == 'bittrex'){
+      axios.get("https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp")  
+        .then( (APIres) => {
+          //use res from server
+          var status = APIres.status; //status code of response from exchange API
+
+          if (status == 200) {
+            // return res.json(JSON.stringify(APIres));
+            if (APIres.data.success == true || APIres.data.success == "true"){
+              var price;
+              try{
+                if (req.params.bidask == 'bid'){
+                  price = APIres.data.result.Bid;
+                } else if (req.params.bidask == 'ask') {
+                  price = APIres.data.result.Ask;
+                } 
+              } catch(err) {
+                null;
+              } try{
+                price = APIres.data.result.Last;
+              } catch(err){
+                return res.json("{API last price data error: '" + err + "' }");
+              }
+              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+            }
+          }
+          return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+        });
     }
   }
  }); 
