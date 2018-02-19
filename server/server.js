@@ -76,15 +76,46 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.get('/price/:coin/:exchange', function(req, res) {
+router.get('/price/:coin/:exchange/:bidask?', function(req, res) {
   if (req.params.coin === 'BTC'){
     if(req.params.exchange === 'chasing-coins'){
       axios.get("https://chasing-coins.com/api/v1/std/coin/BTC")  
         .then( (APIres) => {
           //use res from server
-          if (APIres.status === 200) {
+          if (APIres.status == 200) {
             // return res.json(JSON.stringify(APIres));
             return res.json("{APIStatusCode: '" + APIres.status +"', price: '" + APIres.data.price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + APIres.status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json(err);
+        });
+    }
+  } else if (req.params.coin === 'XRP'){
+    if(req.params.exchange === 'bitstamp'){
+      axios.get("https://www.bitstamp.net/api/v2/ticker/XRPUSD")  
+        .then( (APIres) => {
+          //use res from server
+          if (APIres.status == 200) {
+            // return res.json(JSON.stringify(APIres));
+            var bitstampPrice;
+            try{
+              if (req.params.bidask === 'bid'){
+                bitstampPrice = APIres.data.bid;
+              } else if (req.params.bidask == 'ask') {
+                bitstampPrice = APIres.data.ask;
+              } 
+              return res.json("{APIStatusCode: '" + APIres.status +"', price: '" + bitstampPrice + "' }");
+            } catch(err) {
+              null;
+            } try{
+              bitstampPrice = APIres.data["last"];
+            } catch(err){
+              return res.json("{API last price data error: '" + err + "' }");
+            }
+            return res.json("{APIStatusCode: '" + APIres.status +"', price: '" + bitstampPrice + "' }");
           }
           return res.json("{APIStatusCode: '" + APIres.status + "', message: 'API returned bad status code' }");
         })

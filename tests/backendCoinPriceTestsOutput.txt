@@ -1,0 +1,29 @@
+
+
+========== Backend Coin Price Tests ==========
+
+
+======== test output ========
+
+
+Output of backend /price/BTC/chasing-coins call : 
+
+"{APIStatusCode: '200', price: '10671.9' }"
+
+
+Output of backend /price/XRP/bitstamp call : 
+
+"{APIStatusCode: '200', price: 'undefined' }"
+
+
+Output of backend /price/XRP/bitstamp/bid call : 
+
+"{APIStatusCode: '200', price: '1.09101' }"
+
+
+Output of backend /price/XRP/bitstamp/ask call : 
+
+"{APIStatusCode: '200', price: '1.09499' }"
+
+
+======== end of tests ========
