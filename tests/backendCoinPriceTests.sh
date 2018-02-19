@@ -76,13 +76,13 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo ""
     echo ""
-    echo "Output of backend /price/XRP/bitfinex/bid call : "
+    echo "Output of backend /price/XRPUSD/bitfinex/bid call : "
     echo ""
     curl -X GET http://localhost:3001/api/price/XRPUSD/bitfinex/bid ;
     echo ""
     echo ""
     echo ""
-    echo "Output of backend /price/XRP/bitfinex/ask call : "
+    echo "Output of backend /price/XRPUSD/bitfinex/ask call : "
     echo ""
     curl -X GET http://localhost:3001/api/price/XRPUSD/bitfinex/ask ;
     echo ""
@@ -101,7 +101,7 @@ if [ "$CONT" = "y" ]; then
 
     echo "=== coinegg ==="
     echo ""
-    echo "Output of backend /price/XRP/coinegg call : "
+    echo "Output of backend /price/XRPBTC/coinegg call : "
     echo ""
     curl -X GET http://localhost:3001/api/price/XRPBTC/coinegg ;
     echo ""
@@ -116,6 +116,27 @@ if [ "$CONT" = "y" ]; then
     echo "Output of backend /price/XRPBTC/coinegg/ask call : "
     echo ""
     curl -X GET http://localhost:3001/api/price/XRPBTC/coinegg/ask ;
+    echo ""
+    echo ""
+
+
+    echo "=== bitfinex ==="
+    echo ""
+    echo "Output of backend /price/XRPBTC/bitfinex call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/bitfinex ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPBTC/bitfinex/bid call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/bitfinex/bid ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRPBTC/bitfinex/ask call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRPBTC/bitfinex/ask ;
     echo ""
     echo ""
 

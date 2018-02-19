@@ -65,9 +65,8 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
         });
     }
 
-    //bitfinex XRPUSD roure
+    //bitfinex XRPUSD route
     else if(req.params.exchange == 'bitfinex'){
-      if(req.params.pair == 'XRPUSD'){
         axios.get("https://api.bitfinex.com/v1/pubticker/XRPUSD")  
           .then( (APIres) => {
             var status = APIres.status;
@@ -92,7 +91,6 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
             //alert user there was a server error
             return res.json("{APIStatusCode: '404', message: '" + err + "' }");
           });
-      }
     }
 
   }//end XRPUSD routes
@@ -119,6 +117,34 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
                 price = APIres.data.last;
               }
 
+              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+            }
+            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+          })
+          .catch( (err) => {
+            //alert user there was a server error
+            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+          });
+    }
+
+    //bitfinex XRPBTC route
+    else if(req.params.exchange == 'bitfinex'){
+        axios.get("https://api.bitfinex.com/v1/pubticker/XRPBTC")  
+          .then( (APIres) => {
+            var status = APIres.status;
+            //bitfinex returns a string status code, need to cast for some reason
+            if (String(status) == "200") {
+              var price;
+  
+              //get correct price based of request params
+              if (req.params.bidask == 'bid'){
+                price = APIres.data.bid;
+              } else if (req.params.bidask == 'ask') {
+                price = APIres.data.ask;
+              } else {
+                price = APIres.data.last_price;
+              }
+  
               return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
             }
             return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
