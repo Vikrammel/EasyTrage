@@ -187,6 +187,66 @@ router.get('/price/:coin/:exchange/:bidask?', function(req, res) {
           //alert user there was a server error
           return res.json("{APIStatusCode: '404', message: '" + err + "' }");
         });
+    }else if(req.params.exchange == 'bitfinex'){
+      axios.get("https://api.bitfinex.com/v1/pubticker/XRPUSD")  
+        .then( (APIres) => {
+          //use res from server
+          var status = APIres.status; //status code of response from exchange API
+
+          if (String(status) == "200") {
+            // return res.json(JSON.stringify(APIres));
+            var price;
+            try{
+              if (req.params.bidask == 'bid'){
+                price = APIres.data.bid;
+              } else if (req.params.bidask == 'ask') {
+                price = APIres.data.ask;
+              } 
+            } catch(err) {
+              null;
+            } try{
+              price = APIres.data.last_price;
+            } catch(err){
+              return res.json("{API last price data error: '" + err + "' }");
+            }
+            return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+        });
+    }else if(req.params.exchange == 'okex'){
+      axios.get("https://www.okex.com/api/v1/ticker.do?symbol=xrp_btc")  
+        .then( (APIres) => {
+          //use res from server
+          var status = APIres.status; //status code of response from exchange API
+
+          if (status == 200) {
+            // return res.json(JSON.stringify(APIres));
+            var price;
+            try{
+              if (req.params.bidask == 'bid'){
+                price = APIres.data.ticker.sell;
+              } else if (req.params.bidask == 'ask') {
+                price = APIres.data.ticker.buy;
+              } 
+            } catch(err) {
+              null;
+            } try{
+              price = APIres.data.ticker.last;
+            } catch(err){
+              return res.json("{API last price data error: '" + err + "' }");
+            }
+            return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+        });
     }
   }
  }); 
