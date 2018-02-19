@@ -44,6 +44,24 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo ""
     echo ""
+    echo "Output of backend /price/XRP/coinegg call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRP/coinegg ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRP/coinegg/bid call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRP/coinegg/bid ;
+    echo ""
+    echo ""
+    echo ""
+    echo "Output of backend /price/XRP/coinegg/ask call : "
+    echo ""
+    curl -X GET http://localhost:3001/api/price/XRP/bitstamp/ask ;
+    echo ""
+    echo ""
+    echo ""
     echo "======== end of tests ========"
     ) > backendCoinPriceTestsOutput.txt
 fi
