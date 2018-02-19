@@ -22,25 +22,25 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo "Output of backend /price/BTC/chasing-coins call : "
     echo ""
-    curl "Content-Type: application/json" -X GET http://localhost:3001/api/price/BTC/chasing-coins ;
+    curl -X GET http://localhost:3001/api/price/BTC/chasing-coins ;
     echo ""
     echo ""
     echo ""
     echo "Output of backend /price/XRP/bitstamp call : "
     echo ""
-    curl "Content-Type: application/json" -X GET http://localhost:3001/api/price/XRP/bitstamp ;
+    curl -X GET http://localhost:3001/api/price/XRP/bitstamp ;
     echo ""
     echo ""
     echo ""
     echo "Output of backend /price/XRP/bitstamp/bid call : "
     echo ""
-    curl "Content-Type: application/json" -X GET http://localhost:3001/api/price/XRP/bitstamp/bid ;
+    curl -X GET http://localhost:3001/api/price/XRP/bitstamp/bid ;
     echo ""
     echo ""
     echo ""
     echo "Output of backend /price/XRP/bitstamp/ask call : "
     echo ""
-    curl "Content-Type: application/json" -X GET http://localhost:3001/api/price/XRP/bitstamp/ask ;
+    curl -X GET http://localhost:3001/api/price/XRP/bitstamp/ask ;
     echo ""
     echo ""
     echo ""
