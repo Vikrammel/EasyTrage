@@ -10,7 +10,7 @@
 
 Output of backend /price/BTC/chasing-coins call : 
 
-"{APIStatusCode: '200', price: '10600.1' }"
+"{APIStatusCode: '200', price: '11270.8' }"
 
 === bitstamp ===
 
@@ -18,81 +18,81 @@ warning: bitstamp's API is unreliable:
 
 Output of backend /price/XRP/bitstamp call : 
 
-"{APIStatusCode: '200', price: '1.08598' }"
+"{APIStatusCode: '200', price: '1.12058' }"
 
 
 Output of backend /price/XRP/bitstamp/bid call : 
 
-"{APIStatusCode: '200', price: '1.08598' }"
+"{APIStatusCode: '200', price: '1.12058' }"
 
 
 Output of backend /price/XRP/bitstamp/ask call : 
 
-"{APIStatusCode: '200', price: '1.08598' }"
+"{APIStatusCode: '200', price: '1.12058' }"
 
 === coinegg ===
 
 Output of backend /price/XRP/coinegg call : 
 
-"{APIStatusCode: '200', price: '0.00010271' }"
+"{APIStatusCode: '200', price: '0.00010082' }"
 
 
 Output of backend /price/XRP/coinegg/bid call : 
 
-"{APIStatusCode: '200', price: '0.00010271' }"
+"{APIStatusCode: '200', price: '0.00010082' }"
 
 
 Output of backend /price/XRP/coinegg/ask call : 
 
-"{APIStatusCode: '200', price: '1.08598' }"
+"{APIStatusCode: '200', price: '1.12058' }"
 
 === bittrex ===
 
 Output of backend /price/XRP/bittrex call : 
 
-"{APIStatusCode: '200', price: '0.00010375' }"
+"{APIStatusCode: '200', price: '0.00010001' }"
 
 
 Output of backend /price/XRP/bittrex/bid call : 
 
-"{APIStatusCode: '200', price: '0.00010375' }"
+"{APIStatusCode: '200', price: '0.00010001' }"
 
 
 Output of backend /price/XRP/bittrex/ask call : 
 
-"{APIStatusCode: '200', price: '0.00010375' }"
+"{APIStatusCode: '200', price: '0.00010001' }"
 
 === bitfinex ===
 
 Output of backend /price/XRP/bitfinex call : 
 
-"{APIStatusCode: '200', price: '1.0825' }"
+"{APIStatusCode: '200', price: '1.1198' }"
 
 
 Output of backend /price/XRP/bitfinex/bid call : 
 
-"{APIStatusCode: '200', price: '1.0825' }"
+"{APIStatusCode: '200', price: '1.1198' }"
 
 
 Output of backend /price/XRP/bitfinex/ask call : 
 
-"{APIStatusCode: '200', price: '1.0825' }"
+"{APIStatusCode: '200', price: '1.1198' }"
 
 === okex ===
 
 Output of backend /price/XRP/okex call : 
 
-"{APIStatusCode: '200', price: '0.00010355' }"
+"{APIStatusCode: '200', price: '0.00010022' }"
 
 
 Output of backend /price/XRP/okex/bid call : 
 
-"{APIStatusCode: '200', price: '0.00010355' }"
+"{APIStatusCode: '200', price: '0.00010022' }"
 
 
 Output of backend /price/XRP/okex/ask call : 
 
-"{APIStatusCode: '200', price: '0.00010355' }"
+"{APIStatusCode: '200', price: '0.00010022' }"
 
 
 ======== end of tests ========
