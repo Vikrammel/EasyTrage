@@ -3,174 +3,87 @@ const express = require('express');
 const router = express.Router();
 var axios = require('axios');
 
-router.get('/:coin/:exchange/:bidask?', function(req, res) {
-    if (req.params.coin == 'BTC'){
-      if(req.params.exchange == 'chasing-coins'){
+router.get('/:pair/:exchange/:bidask?', function(req, res) {
+
+  ///////////////////////////////////////////pair: BTCUSD
+  if(req.params.pair == "BTCUSD"){
+
+    //chasing-coins BTCUSD route, not actually useful for trading, this route is for learning / testing
+    if(req.params.exchange == 'chasing-coins'){
+      //BTCUSD
         axios.get("https://chasing-coins.com/api/v1/std/coin/BTC")  
           .then( (APIres) => {
-            //use res from server
-            if (APIres.status == 200) {
-              // return res.json(JSON.stringify(APIres));
-              return res.json("{APIStatusCode: '" + APIres.status +"', price: '" + APIres.data.price + "' }");
+            //use res from server as APIres
+            var status = APIres.status; //status code of response from exchange API
+            //price to return to user:
+            var price = APIres.data.price;
+
+            if (status == 200) {
+              //call had an 'OK' status code, return price to user
+              return res.json("{APIStatusCode: '" + status +"', price: '" + APIres.data.price + "' }");
             }
-            return res.json("{APIStatusCode: '" + APIres.status + "', message: 'API returned bad status code' }");
+            //call didn't return status 200, return status and error message to user
+            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
           })
           .catch( (err) => {
             //alert user there was a server error
-            return res.json(err);
+            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
           });
-      }
-    } 
-    else if (req.params.coin == 'XRP'){
-      if(req.params.exchange == 'bitstamp'){
+    }
+
+  }//end BTCUSD routes
+
+  ///////////////////////////////////////////pair: XRPUSD
+  else if (req.params.pair == 'XRPUSD'){
+
+    //bitstamp XRPUSD route
+    if(req.params.exchange == 'bitstamp'){
         axios.get("https://www.bitstamp.net/api/v2/ticker/XRPUSD")  
-          .then( (APIres) => {
-            //use res from server
-  
-            var status = APIres.status; //status code of response from exchange API
-  
-            if (status == 200) {
-              // return res.json(JSON.stringify(APIres));
-              var price;
-              try{
-                if (req.params.bidask == 'bid'){
-                  price = APIres.data.bid;
-                } else if (req.params.bidask == 'ask') {
-                  price = APIres.data.ask;
-                } 
-              } catch(err) {
-                null;
-              } try{
-                price = APIres.data.last;
-              } catch(err){
-                return res.json("{API last price data error: '" + err + "' }");
-              }
-              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+        .then( (APIres) => {
+          var status = APIres.status;
+
+          if (status == 200) {
+
+            var price;
+
+            //get correct price based of request params
+            if (req.params.bidask == 'bid'){
+              price = APIres.data.bid;
+            } else if (req.params.bidask == 'ask') {
+              price = APIres.data.ask;
+            } else {
+              price = APIres.data.last;
             }
-            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
-          })
-          .catch( (err) => {
-            //alert user there was a server error
-            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
-          });
-      }
-      else if(req.params.exchange == 'coinegg'){
-        axios.get("https://api.coinegg.com/api/v1/ticker?coin=xrp")  
-          .then( (APIres) => {
-            //use res from server
-            var status = APIres.status; //status code of response from exchange API
-  
-            if (status == 200) {
-              // return res.json(JSON.stringify(APIres));
-              var price;
-              try{
-                if (req.params.bidask == 'bid'){
-                  price = APIres.data.sell;
-                } else if (req.params.bidask == 'ask') {
-                  price = APIres.data.buy;
-                } 
-              } catch(err) {
-                null;
-              } try{
-                price = APIres.data.last;
-              } catch(err){
-                return res.json("{API last price data error: '" + err + "' }");
-              }
-              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
-            }
-            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
-          })
-          .catch( (err) => {
-            //alert user there was a server error
-            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
-          });
-      }
-      else if(req.params.exchange == 'bittrex'){
-        axios.get("https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp")  
-          .then( (APIres) => {
-            //use res from server
-            var status = APIres.status; //status code of response from exchange API
-  
-            if (status == 200) {
-              // return res.json(JSON.stringify(APIres));
-              if (APIres.data.success == true || APIres.data.success == "true"){
-                var price;
-                try{
-                  if (req.params.bidask == 'bid'){
-                    price = APIres.data.result.Bid;
-                  } else if (req.params.bidask == 'ask') {
-                    price = APIres.data.result.Ask;
-                  } 
-                } catch(err) {
-                  null;
-                } try{
-                  price = APIres.data.result.Last;
-                } catch(err){
-                  return res.json("{API last price data error: '" + err + "' }");
-                }
-                return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
-              }
-            }
-            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
-          })
-          .catch( (err) => {
-            //alert user there was a server error
-            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
-          });
-      }
-      else if(req.params.exchange == 'bitfinex'){
+
+            return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+        });
+    }
+
+    //bitfinex XRPUSD roure
+    else if(req.params.exchange == 'bitfinex'){
+      if(req.params.pair == 'XRPUSD'){
         axios.get("https://api.bitfinex.com/v1/pubticker/XRPUSD")  
           .then( (APIres) => {
-            //use res from server
-            var status = APIres.status; //status code of response from exchange API
-  
+            var status = APIres.status;
+            //bitfinex returns a string status code, need to cast for some reason
             if (String(status) == "200") {
-              // return res.json(JSON.stringify(APIres));
               var price;
-              try{
-                if (req.params.bidask == 'bid'){
-                  price = APIres.data.bid;
-                } else if (req.params.bidask == 'ask') {
-                  price = APIres.data.ask;
-                } 
-              } catch(err) {
-                null;
-              } try{
-                price = APIres.data.last_price;
-              } catch(err){
-                return res.json("{API last price data error: '" + err + "' }");
-              }
-              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
-            }
-            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
-          })
-          .catch( (err) => {
-            //alert user there was a server error
-            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
-          });
-      }
-      else if(req.params.exchange == 'okex'){
-        axios.get("https://www.okex.com/api/v1/ticker.do?symbol=xrp_btc")  
-          .then( (APIres) => {
-            //use res from server
-            var status = APIres.status; //status code of response from exchange API
   
-            if (status == 200) {
-              // return res.json(JSON.stringify(APIres));
-              var price;
-              try{
-                if (req.params.bidask == 'bid'){
-                  price = APIres.data.ticker.sell;
-                } else if (req.params.bidask == 'ask') {
-                  price = APIres.data.ticker.buy;
-                } 
-              } catch(err) {
-                null;
-              } try{
-                price = APIres.data.ticker.last;
-              } catch(err){
-                return res.json("{API last price data error: '" + err + "' }");
+              //get correct price based of request params
+              if (req.params.bidask == 'bid'){
+                price = APIres.data.bid;
+              } else if (req.params.bidask == 'ask') {
+                price = APIres.data.ask;
+              } else {
+                price = APIres.data.last_price;
               }
+  
               return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
             }
             return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
@@ -181,6 +94,103 @@ router.get('/:coin/:exchange/:bidask?', function(req, res) {
           });
       }
     }
+
+  }//end XRPUSD routes
+  
+  ///////////////////////////////////////////pair: XRPBTC
+  else if (req.params.pair == 'XRPBTC'){
+
+    //coinegg XRPBTC route
+    if(req.params.exchange == 'coinegg'){
+        axios.get("https://api.coinegg.com/api/v1/ticker?coin=xrp")  
+          .then( (APIres) => {
+            var status = APIres.status;
+
+            if (status == 200) {
+
+              var price;
+
+              //get correct price based of request params
+              if (req.params.bidask == 'bid'){
+                price = APIres.data.sell;
+              } else if (req.params.bidask == 'ask') {
+                price = APIres.data.buy;
+              } else {
+                price = APIres.data.last;
+              }
+
+              return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+            }
+            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+          })
+          .catch( (err) => {
+            //alert user there was a server error
+            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+          });
+    }
+
+    //bittrex XRPBTC route
+    else if(req.params.exchange == 'bittrex'){
+        axios.get("https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp")  
+          .then( (APIres) => {
+            var status = APIres.status;
+  
+            if (status == "200") {
+              //bittrex 'success' checker (they save a success property in the JSON obj)
+              if (APIres.data.success == true || APIres.data.success == "true"){
+                var price;
+  
+                //get correct price based of request params
+                if (req.params.bidask == 'bid'){
+                  price = APIres.data.result.Bid;
+                } else if (req.params.bidask == 'ask') {
+                  price = APIres.data.result.Ask;
+                } else {
+                  price = APIres.data.result.Last;
+                }
+  
+                return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+              }
+            }
+            return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+          })
+          .catch( (err) => {
+            //alert user there was a server error
+            return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+          });
+    }
+  
+    else if(req.params.exchange == 'okex'){
+      axios.get("https://www.okex.com/api/v1/ticker.do?symbol=xrp_btc")  
+        .then( (APIres) => {
+          var status = APIres.status;
+  
+          if (status == 200) {
+            var price;
+
+            //get correct price based of request params
+            if (req.params.bidask == 'bid'){
+              price = APIres.data.ticker.sell;
+            } else if (req.params.bidask == 'ask') {
+              price = APIres.data.ticker.buy;
+            } else{
+              price = APIres.data.ticker.last;
+            }
+            
+            return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+          }
+          return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+        })
+        .catch( (err) => {
+          //alert user there was a server error
+          return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+        });
+    }
+
+  }//end XRPBTC routes
+
+
+    
 }); 
 
 module.exports = router;
