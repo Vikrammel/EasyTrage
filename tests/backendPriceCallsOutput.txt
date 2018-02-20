@@ -43,17 +43,17 @@ Output of backend /price/BTCUSD/chasing-coins/ask call :
 
 Output of backend /price/XRPUSD/bitstamp call : 
 
-"{APIStatusCode: '200', price: '1.11246' }"
+"{APIStatusCode: '200', price: '1.11150' }"
 
 
 Output of backend /price/XRPUSD/bitstamp/bid call : 
 
-"{APIStatusCode: '200', price: '1.11246' }"
+"{APIStatusCode: '200', price: '1.10900' }"
 
 
 Output of backend /price/XRPUSD/bitstamp/ask call : 
 
-"{APIStatusCode: '200', price: '1.11521' }"
+"{APIStatusCode: '200', price: '1.11146' }"
 
 
 === bitfinex ===
@@ -61,17 +61,35 @@ Output of backend /price/XRPUSD/bitstamp/ask call :
 
 Output of backend /price/XRPUSD/bitfinex call : 
 
-"{APIStatusCode: '200', price: '1.1133' }"
+"{APIStatusCode: '200', price: '1.1119' }"
 
 
 Output of backend /price/XRPUSD/bitfinex/bid call : 
 
-"{APIStatusCode: '200', price: '1.1138' }"
+"{APIStatusCode: '200', price: '1.1119' }"
 
 
 Output of backend /price/XRPUSD/bitfinex/ask call : 
 
-"{APIStatusCode: '200', price: '1.1143' }"
+"{APIStatusCode: '200', price: '1.112' }"
+
+
+=== kraken ===
+
+
+Output of backend /price/XRPUSD/kraken call : 
+
+"{APIStatusCode: '200', price: '1.11280000' }"
+
+
+Output of backend /price/XRPUSD/kraken/bid call : 
+
+"{APIStatusCode: '200', price: '1.11280000' }"
+
+
+Output of backend /price/XRPUSD/kraken/ask call : 
+
+"{APIStatusCode: '200', price: '1.11330000' }"
 
 
 === hitbtc ===
@@ -79,17 +97,71 @@ Output of backend /price/XRPUSD/bitfinex/ask call :
 
 Output of backend /price/XRPUSDT/hitbtc call : 
 
-"{APIStatusCode: '200', price: '1.1246' }"
+"{APIStatusCode: '200', price: '1.1240' }"
 
 
 Output of backend /price/XRPUSDT/hitbtc/bid call : 
 
-"{APIStatusCode: '200', price: '1.1240' }"
+"{APIStatusCode: '200', price: '1.1229' }"
 
 
 Output of backend /price/XRPUSDT/hitbtc/ask call : 
 
-"{APIStatusCode: '200', price: '1.1250' }"
+"{APIStatusCode: '200', price: '1.1271' }"
+
+
+=== okex ===
+
+
+Output of backend /price/XRPUSDT/okex call : 
+
+"{APIStatusCode: '200', price: '1.1109' }"
+
+
+Output of backend /price/XRPUSDT/okex/bid call : 
+
+"{APIStatusCode: '200', price: '1.1118' }"
+
+
+Output of backend /price/XRPUSDT/okex/ask call : 
+
+"{APIStatusCode: '200', price: '1.1100' }"
+
+
+=== poloniex ===
+
+
+Output of backend /price/XRPUSDT/poloniex call : 
+
+"{APIStatusCode: '200', price: '1.11200052' }"
+
+
+Output of backend /price/XRPUSDT/poloniex/bid call : 
+
+"{APIStatusCode: '200', price: '1.10900059' }"
+
+
+Output of backend /price/XRPUSDT/poloniex/ask call : 
+
+"{APIStatusCode: '200', price: '1.11200052' }"
+
+
+=== bittrex ===
+
+
+Output of backend /price/XRPUSDT/bittrex call : 
+
+"{APIStatusCode: '200', price: '1.11' }"
+
+
+Output of backend /price/XRPUSDT/bittrex/bid call : 
+
+"{APIStatusCode: '200', price: '1.10600002' }"
+
+
+Output of backend /price/XRPUSDT/bittrex/ask call : 
+
+"{APIStatusCode: '200', price: '1.11' }"
 
 
 
@@ -105,17 +177,35 @@ Output of backend /price/XRPUSDT/hitbtc/ask call :
 
 Output of backend /price/XRPBTC/coinegg call : 
 
-"{APIStatusCode: '200', price: '0.00010062' }"
+"{APIStatusCode: '200', price: '0.00009778' }"
 
 
 Output of backend /price/XRPBTC/coinegg/bid call : 
 
-"{APIStatusCode: '200', price: '0.0001024198' }"
+"{APIStatusCode: '200', price: '0.00009996' }"
 
 
 Output of backend /price/XRPBTC/coinegg/ask call : 
 
-"{APIStatusCode: '200', price: '0.00009804' }"
+"{APIStatusCode: '200', price: '0.000096799' }"
+
+
+=== bitstamp ===
+
+
+Output of backend /price/XRPBTC/bitstamp call : 
+
+"{APIStatusCode: '404', message: 'Error: Request failed with status code 404' }"
+
+
+Output of backend /price/XRPBTC/bitstamp/bid call : 
+
+"{APIStatusCode: '404', message: 'Error: Request failed with status code 404' }"
+
+
+Output of backend /price/XRPBTC/bitstamp/ask call : 
+
+"{APIStatusCode: '404', message: 'Error: Request failed with status code 404' }"
 
 
 === bitfinex ===
@@ -123,17 +213,17 @@ Output of backend /price/XRPBTC/coinegg/ask call :
 
 Output of backend /price/XRPBTC/bitfinex call : 
 
-"{APIStatusCode: '200', price: '0.00009703' }"
+"{APIStatusCode: '200', price: '0.00009675' }"
 
 
 Output of backend /price/XRPBTC/bitfinex/bid call : 
 
-"{APIStatusCode: '200', price: '0.00009708' }"
+"{APIStatusCode: '200', price: '0.00009675' }"
 
 
 Output of backend /price/XRPBTC/bitfinex/ask call : 
 
-"{APIStatusCode: '200', price: '0.00009731' }"
+"{APIStatusCode: '200', price: '0.00009685' }"
 
 
 === bittrex ===
@@ -141,17 +231,17 @@ Output of backend /price/XRPBTC/bitfinex/ask call :
 
 Output of backend /price/XRPBTC/bittrex call : 
 
-"{APIStatusCode: '200', price: '0.0000972' }"
+"{APIStatusCode: '200', price: '0.00009637' }"
 
 
 Output of backend /price/XRPBTC/bittrex/bid call : 
 
-"{APIStatusCode: '200', price: '0.00009703' }"
+"{APIStatusCode: '200', price: '0.00009636' }"
 
 
 Output of backend /price/XRPBTC/bittrex/ask call : 
 
-"{APIStatusCode: '200', price: '0.0000972' }"
+"{APIStatusCode: '200', price: '0.0000967' }"
 
 
 === okex ===
@@ -159,17 +249,17 @@ Output of backend /price/XRPBTC/bittrex/ask call :
 
 Output of backend /price/XRPBTC/okex call : 
 
-"{APIStatusCode: '200', price: '0.00009684' }"
+"{APIStatusCode: '200', price: '0.00009688' }"
 
 
 Output of backend /price/XRPBTC/okex/bid call : 
 
-"{APIStatusCode: '200', price: '0.00009720' }"
+"{APIStatusCode: '200', price: '0.00009688' }"
 
 
 Output of backend /price/XRPBTC/okex/ask call : 
 
-"{APIStatusCode: '200', price: '0.00009685' }"
+"{APIStatusCode: '200', price: '0.00009655' }"
 
 
 === hitbtc ===
@@ -177,17 +267,17 @@ Output of backend /price/XRPBTC/okex/ask call :
 
 Output of backend /price/XRPBTC/hitbtc call : 
 
-"{APIStatusCode: '200', price: '0.00009698' }"
+"{APIStatusCode: '200', price: '0.00009664' }"
 
 
 Output of backend /price/XRPBTC/hitbtc/bid call : 
 
-"{APIStatusCode: '200', price: '0.00009710' }"
+"{APIStatusCode: '200', price: '0.00009662' }"
 
 
 Output of backend /price/XRPBTC/hitbtc/ask call : 
 
-"{APIStatusCode: '200', price: '0.00009727' }"
+"{APIStatusCode: '200', price: '0.00009673' }"
 
 
 === binance ===
@@ -195,17 +285,53 @@ Output of backend /price/XRPBTC/hitbtc/ask call :
 
 Output of backend /price/XRPBTC/binance call : 
 
-"{APIStatusCode: '200', price: '0.00009720' }"
+"{APIStatusCode: '200', price: '0.00009682' }"
 
 
 Output of backend /price/XRPBTC/binance/bid call : 
 
-"{APIStatusCode: '200', price: '0.00009705' }"
+"{APIStatusCode: '200', price: '0.00009682' }"
 
 
 Output of backend /price/XRPBTC/binance/ask call : 
 
-"{APIStatusCode: '200', price: '0.00009717' }"
+"{APIStatusCode: '200', price: '0.00009693' }"
+
+
+=== poloniex ===
+
+
+Output of backend /price/XRPBTC/poloniex call : 
+
+"{APIStatusCode: '200', price: '0.00009662' }"
+
+
+Output of backend /price/XRPBTC/poloniex/bid call : 
+
+"{APIStatusCode: '200', price: '0.00009645' }"
+
+
+Output of backend /price/XRPBTC/poloniex/ask call : 
+
+"{APIStatusCode: '200', price: '0.00009660' }"
+
+
+=== kraken ===
+
+
+Output of backend /price/XRPBTC/kraken call : 
+
+"{APIStatusCode: '200', price: '0.000096970' }"
+
+
+Output of backend /price/XRPBTC/kraken/bid call : 
+
+"{APIStatusCode: '200', price: '0.000096800' }"
+
+
+Output of backend /price/XRPBTC/kraken/ask call : 
+
+"{APIStatusCode: '200', price: '0.000096900' }"
 
 
 
@@ -221,12 +347,12 @@ Output of backend /price/XRPBTC/binance/ask call :
 
 Output of backend /price/XRPETH/hitbtc call : 
 
-"{APIStatusCode: '200', price: '0.00118' }"
+"{APIStatusCode: '200', price: '0.00117' }"
 
 
 Output of backend /price/XRPETH/hitbtc/bid call : 
 
-"{APIStatusCode: '200', price: '0.00117' }"
+"{APIStatusCode: '200', price: '0.00116' }"
 
 
 Output of backend /price/XRPETH/hitbtc/ask call : 
@@ -239,17 +365,35 @@ Output of backend /price/XRPETH/hitbtc/ask call :
 
 Output of backend /price/XRPETH/binance call : 
 
-"{APIStatusCode: '200', price: '0.00117341' }"
+"{APIStatusCode: '200', price: 'undefined' }"
 
 
 Output of backend /price/XRPETH/binance/bid call : 
 
-"{APIStatusCode: '200', price: '0.00117301' }"
+"{APIStatusCode: '200', price: '0.00117005' }"
 
 
 Output of backend /price/XRPETH/binance/ask call : 
 
-"{APIStatusCode: '200', price: '0.00117341' }"
+"{APIStatusCode: '200', price: '0.00117089' }"
+
+
+=== okex ===
+
+
+Output of backend /price/XRPETH/okex call : 
+
+"{APIStatusCode: '200', price: '0.00116997' }"
+
+
+Output of backend /price/XRPETH/okex/bid call : 
+
+"{APIStatusCode: '200', price: '0.00117290' }"
+
+
+Output of backend /price/XRPETH/okex/ask call : 
+
+"{APIStatusCode: '200', price: '0.00116704' }"
 
 
 

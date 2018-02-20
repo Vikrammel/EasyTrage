@@ -11,6 +11,8 @@ var APIInfo = {
   },
   "bittrex":{
     "XRPBTC": ["https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp", 
+              "result.Bid", "result.Ask", "result.Last"],
+    "XRPUSDT": ["https://bittrex.com/api/v1.1/public/getticker?market=usdt-xrp", 
               "result.Bid", "result.Ask", "result.Last"]
   },
   "bitfinex": {
@@ -18,13 +20,18 @@ var APIInfo = {
     "XRPUSD": ["https://api.bitfinex.com/v1/pubticker/XRPUSD", "", "", "last_price"]
   },
   "bitstamp": {
-    "XRPUSD": ["https://www.bitstamp.net/api/v2/ticker/XRPUSD", "", "", ""]
+    "XRPUSD": ["https://www.bitstamp.net/api/v2/ticker/XRPUSD", "", "", ""],
+    "XRPBTC": ["https://www.bitstamp.net/api/v2/ticker/XRPBTC", "", "", ""]
   },
   "coinegg": {
     "XRPBTC": ["https://api.coinegg.com/api/v1/ticker?coin=xrp", "sell", "buy", ""]
   },
   "okex": {
     "XRPBTC": ["https://www.okex.com/api/v1/ticker.do?symbol=xrp_btc", 
+              "ticker.sell", "ticker.buy", "ticker.last"],
+    "XRPUSDT": ["https://www.okex.com/api/v1/ticker.do?symbol=xrp_usdt", 
+              "ticker.sell", "ticker.buy", "ticker.last"],
+    "XRPETH": ["https://www.okex.com/api/v1/ticker.do?symbol=xrp_eth", 
               "ticker.sell", "ticker.buy", "ticker.last"]
   },
   "hitbtc": {
@@ -37,6 +44,18 @@ var APIInfo = {
               "bidPrice", "askPrice", ""],
   "XRPETH" : ["https://api.binance.com/api/v3/ticker/bookTicker?symbol=XRPETH", 
               "bidPrice", "askPrice", ""]
+  },
+  "poloniex": {
+    "XRPBTC": ["https://poloniex.com/public?command=returnTicker", 
+              "BTC_XRP.highestBid", "BTC_XRP.lowestAsk", "BTC_XRP.last"],
+    "XRPUSDT": ["https://poloniex.com/public?command=returnTicker", 
+              "USDT_XRP.highestBid", "USDT_XRP.lowestAsk", "USDT_XRP.last"]
+  },
+  "kraken": {
+    "XRPBTC": ["https://api.kraken.com/0/public/Ticker?pair=XXRPXXBT", 
+              "result.XXRPXXBT.b.0", "result.XXRPXXBT.a.0", "result.XXRPXXBT.c.0"],
+    "XRPUSD": ["https://api.kraken.com/0/public/Ticker?pair=XXRPZUSD", 
+              "result.XXRPZUSD.b.0", "result.XXRPZUSD.a.0", "result.XXRPZUSD.c.0"]
   }
 }
 
