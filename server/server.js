@@ -40,6 +40,10 @@ router.get('/', function(req, res) {
   res.json({ message: 'API Initialized!'});
 });
 
+//import /price routes
+const price = require('./routes/price');
+app.use('/api/price', price);
+
 router.post('/login', function(req, res) {
   const email = req.body.email;
   const password = req.body.password;
