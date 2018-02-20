@@ -1,0 +1,74 @@
+{
+    "bittrex": {
+        "maker": 0.25,
+        "taker": 0.25,
+        "apiURL": "https://bittrex.com/home/api",
+        "feesURL": "https://bittrex.com/fees"
+    },
+    "bitfinex": {
+        "maker": 0.1,
+        "taker": 0.2,
+        "apiURL": "https://docs.bitfinex.com/docs/rest-general",
+        "feesURL": "https://www.bitfinex.com/fees"
+    },
+    "bitstamp": {
+        "maker": 0.25,
+        "taker": 0.25,
+        "apiUrl": "https://www.bitstamp.net/api/",
+        "feesURL": "https://www.bitstamp.net/fee_schedule/"
+    },
+    "coinegg": {
+        "maker": 0.1,
+        "taker": 0.1,
+        "apiUrl": "https://www.coinegg.com/explain.api.html",
+        "feesURL": "https://www.coinegg.com/fee.html"
+    },
+    "okex": {
+        "maker": 0.15,
+        "taker": 0.2,
+        "apiUrl": "https://www.okex.com/rest_getStarted.html",
+        "feesURL": "https://www.okex.com/fees.html"
+    },
+    "hitbtc": {
+        "maker": -0.01,
+        "taker": 0.01,
+        "apiUrl": "https://api.hitbtc.com/#rest-api-reference",
+        "feesURL": "https://hitbtc.com/fees-and-limits"
+    },
+    "binance": {
+        "maker": 0.1,
+        "taker": 0.1,
+        "apiUrl": "https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md",
+        "feesURL": "https://support.binance.com/hc/en-us/articles/115000429332-Fee-Structure-on-Binance"
+    },
+    "poloniex": {
+        "maker": 0.15,
+        "taker": 0.25,
+        "apiUrl": "https://poloniex.com/support/api/",
+        "feesURL": "https://poloniex.com/fees/"
+    },
+    "kraken": {
+        "maker": 0.16,
+        "taker": 0.26,
+        "apiUrl": "https://www.kraken.com/help/api",
+        "feesURL": "https://www.kraken.com/help/fees"
+    },
+    "exmo": {
+        "maker": 0.2,
+        "taker": 0.2,
+        "apiUrl": "https://exmo.com/en/api",
+        "feesURL": "https://exmo.com/en/docs/fees"
+    },
+    "cex.io": {
+        "maker": 0.16,
+        "taker": 0.15,
+        "apiUrl": "https://cex.io/rest-api",
+        "feesURL": "https://cex.io/fee-schedule"
+    },
+    "gate.io": {
+        "maker": 0.2,
+        "taker": 0.2,
+        "apiUrl": "https://gate.io/api2",
+        "feesURL": "https://support.gate.io/hc/en-us/articles/115003577673-Fees-Gate-io-charge-you-"
+    }
+}

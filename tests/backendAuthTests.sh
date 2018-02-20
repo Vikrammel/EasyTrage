@@ -36,19 +36,19 @@ EOF
     echo ""
     echo "Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : "
     echo ""
-    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/register ;
+    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/auth/register ;
     echo ""
     echo ""
     echo ""
     echo "Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : "
     echo ""
-    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/login ;
+    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/auth/login ;
     echo ""
     echo ""
     echo ""
     echo "Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): "
     echo ""
-    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/api/register ;
+    curl -d '{"email":"vmelkote@ucsc.edu", "password":"password"}' -H "Content-Type: application/json" -X POST http://localhost:3001/auth/register ;
     echo ""
     echo ""
     echo "======== end of tests ========"

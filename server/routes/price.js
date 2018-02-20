@@ -4,7 +4,7 @@ const router = express.Router();
 var axios = require('axios');
 
 //object to store APIURLs and paths to prices within JSON response
-var APIInfo = require("./APIInfo.json");
+var XRPAPIInfo = require("./XRPAPIInfo.json");
 
 router.get('/:pair/:exchange/:bidask?', function(req, res) {
 
@@ -12,7 +12,7 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
   function standardAPITicker(APIURL, bidPath = '', askPath = '', lastPath = ''){
     axios.get(APIURL)  
     .then( (APIres) => {
-      var status = APIres.status;
+      var status = parseInt(APIres.status);
 
       if (status == 200) {
 
@@ -70,7 +70,7 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
       req.params.pair, "", "", "price");
   }
 
-  var exchangeObj = APIInfo[req.params.exchange]; //pulls exchange object from APIInfo object
+  var exchangeObj = XRPAPIInfo[req.params.exchange]; //pulls exchange object from XRPAPIInfo object
   //pulls ticker url, paths of vars in resp from exchangeObj based on req.params
   var tickerInfoArr = exchangeObj[req.params.pair];
   //call standard API calling function with this info
