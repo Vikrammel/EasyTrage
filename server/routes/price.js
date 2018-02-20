@@ -6,7 +6,8 @@ var axios = require('axios');
 //object to store APIURLs and paths to prices within JSON response
 var APIInfo = {
   "chasing-coins":{
-    "BTCUSD": ["https://chasing-coins.com/api/v1/std/coin/BTC", "", "", "price"]
+    //this endpoint doesn't have bid/ask so just return price for all
+    "BTCUSD": ["https://chasing-coins.com/api/v1/std/coin/BTC", "price", "price", "price"]
   },
   "bittrex":{
     "XRPBTC": ["https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp", 
@@ -30,6 +31,12 @@ var APIInfo = {
     "XRPBTC": ["https://api.hitbtc.com/api/2/public/ticker/XRPBTC", "", "", ""],
     "XRPUSDT": ["https://api.hitbtc.com/api/2/public/ticker/XRPUSDT", "", "", ""],
     "XRPETH": ["https://api.hitbtc.com/api/2/public/ticker/XRPETH", "", "", ""]
+  },
+  "binance": {
+  "XRPBTC" : ["https://api.binance.com/api/v3/ticker/bookTicker?symbol=XRPBTC", 
+              "bidPrice", "askPrice", ""],
+  "XRPETH" : ["https://api.binance.com/api/v3/ticker/bookTicker?symbol=XRPETH", 
+              "bidPrice", "askPrice", ""]
   }
 }
 
@@ -84,6 +91,12 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
       //alert user there was a server error
       return res.json("{APIStatusCode: '404', message: '" + err + "' }");
     });
+  }
+
+  //binance doesn't have same endpoint for last price and bid/ask so, have to deal with that:
+  if(req.params.exchange == "binance" && req.params.bidask!="bid" && req.params.bidask!="ask"){
+    standardAPITicker("https://api.binance.com/api/v3/ticker/price?symbol=" + 
+      req.params.pair, "", "", "price");
   }
 
   var exchangeObj = APIInfo[req.params.exchange]; //pulls exchange object from APIInfo object

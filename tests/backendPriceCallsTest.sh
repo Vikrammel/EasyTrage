@@ -53,15 +53,7 @@ if [ "$CONT" = "y" ]; then
     echo "===== BTCUSD ====="
     echo ""
     echo ""
-    echo ""
-    echo "=== chasing-coins ==="
-    echo ""
-    echo ""
-    echo "Output of backend /price/BTCUSD/chasing-coins call : "
-    echo ""
-    curl -X GET http://localhost:3001/api/price/BTCUSD/chasing-coins ;
-    echo ""
-    echo ""
+    callServer BTCUSD chasing-coins
     echo ""
     echo ""
     echo "===== end BTCUSD tests ====="
@@ -90,6 +82,7 @@ if [ "$CONT" = "y" ]; then
     callServer XRPBTC bittrex
     callServer XRPBTC okex
     callServer XRPBTC hitbtc
+    callServer XRPBTC binance
     echo ""
     echo ""
     echo "===== end XRPBTC tests ====="
@@ -101,6 +94,7 @@ if [ "$CONT" = "y" ]; then
     echo ""
     echo ""
     callServer XRPETH hitbtc
+    callServer XRPETH binance
     echo ""
     echo ""
     echo "===== end XRPETH tests ====="
