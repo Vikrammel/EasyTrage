@@ -13,6 +13,8 @@ var APIInfo = {
     "XRPBTC": ["https://bittrex.com/api/v1.1/public/getticker?market=btc-xrp", 
               "result.Bid", "result.Ask", "result.Last"],
     "XRPUSDT": ["https://bittrex.com/api/v1.1/public/getticker?market=usdt-xrp", 
+              "result.Bid", "result.Ask", "result.Last"],
+    "XRPETH": ["https://bittrex.com/api/v1.1/public/getticker?market=eth-xrp", 
               "result.Bid", "result.Ask", "result.Last"]
   },
   "bitfinex": {
@@ -56,6 +58,26 @@ var APIInfo = {
               "result.XXRPXXBT.b.0", "result.XXRPXXBT.a.0", "result.XXRPXXBT.c.0"],
     "XRPUSD": ["https://api.kraken.com/0/public/Ticker?pair=XXRPZUSD", 
               "result.XXRPZUSD.b.0", "result.XXRPZUSD.a.0", "result.XXRPZUSD.c.0"]
+  },
+  "exmo": {
+    "XRPUSD": ["https://api.exmo.com/v1/order_book/?pair=XRP_USD",
+              "XRP_USD.bid_top", "XRP_USD.ask_top","XRP_USD.ask.0.0"],
+    "XRPBTC": ["https://api.exmo.com/v1/order_book/?pair=XRP_BTC",
+              "XRP_BTC.bid_top", "XRP_BTC.ask_top","XRP_BTC.ask.0.0"]
+  },
+  "cex.io": {
+    "XRPBTC": ["https://cex.io/api/ticker/XRP/BTC", "", "", ""],
+    "XRPUSD": ["https://cex.io/api/ticker/XRP/USD", "", "", ""]
+  },
+  "gate.io": {
+    "XRPUSDT": ["http://data.gate.io/api2/1/ticker/xrp_usdt", 
+                "highestBid", "lowestAsk", ""]
+  },
+  "bitsane": {
+    "XRPBTC": ["https://bitsane.com/api/public/ticker?pairs=XRP_BTC",
+              "XRP_BTC.highestBid", "XRP_BTC.lowestAsk", "XRP_BTC.last"],
+    "XRPETH": ["https://bitsane.com/api/public/ticker?pairs=XRP_ETH",
+              "XRP_ETH.highestBid", "XRP_ETH.lowestAsk", "XRP_ETH.last"]
   }
 }
 
