@@ -70,9 +70,11 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
       if (status == 200) {
 
         var price;
+        var bidAskStr; //store "bid", "ask", or "last" to return in response
 
         //get correct price based of request params
         if (req.params.bidask == 'bid'){
+          bidAskStr = 'bid';
           if(bidPath.length > 0) {
             //non-standard path
             price = APIres.data;
@@ -83,6 +85,7 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
           } else price = APIres.data.bid; //standard path in JSON response
 
         } else if (req.params.bidask == 'ask') {
+          bidAskStr = 'ask';
           if(askPath.length > 0) {
             //non-standard path
             price = APIres.data;
@@ -92,6 +95,7 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
             }
           } else price = APIres.data.ask; //standard path in JSON response
         } else {
+          bidAskStr = 'last';
           if(lastPath.length > 0) {
             //non-standard path
             price = APIres.data;
@@ -102,13 +106,14 @@ router.get('/:pair/:exchange/:bidask?', function(req, res) {
           } else price = APIres.data.last; //standard path in JSON response
         }
 
-        return res.json("{APIStatusCode: '" + status + "', price: '" + price + "' }");
+        return res.json("{ APIStatusCode: '" + status + "', price: '" + price + "', exchange: '" 
+          + req.params.exchange + "', pair: '" + req.params.pair +"', priceType: '" + bidAskStr + "' }");
       }
-      return res.json("{APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
+      return res.json("{ APIStatusCode: '" + status + "', message: 'API returned bad status code' }");
     })
     .catch( (err) => {
       //alert user there was a server error
-      return res.json("{APIStatusCode: '404', message: '" + err + "' }");
+      return res.json("{ APIStatusCode: '404', message: '" + err + "' }");
     });
   }
 
