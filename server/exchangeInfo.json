@@ -2,24 +2,38 @@
     "bittrex": {
         "maker": 0.25,
         "taker": 0.25,
+        "XRPwithdraw": 1.0,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.006,
+        "USDTwithdraw": 25.0,
         "apiURL": "https://bittrex.com/home/api",
         "feesURL": "https://bittrex.com/fees"
     },
     "bitfinex": {
         "maker": 0.1,
         "taker": 0.2,
+        "XRPwithdraw": 0.02,
+        "BTCwithdraw": 0.0006,
+        "ETHwithdraw": 0.0027,
+        "USDTwithdraw": 2.2354,
         "apiURL": "https://docs.bitfinex.com/docs/rest-general",
         "feesURL": "https://www.bitfinex.com/fees"
     },
     "bitstamp": {
         "maker": 0.25,
         "taker": 0.25,
+        "XRPwithdraw": 0.0,
+        "BTCwithdraw": 0.0,
+        "ETHwithdraw": 0.0,
         "apiUrl": "https://www.bitstamp.net/api/",
         "feesURL": "https://www.bitstamp.net/fee_schedule/"
     },
     "coinegg": {
         "maker": 0.1,
         "taker": 0.1,
+        "XRPwithdraw": "1%",
+        "BTCwithdraw": 0.003,
+        "ETHwithdraw": 0.01,
         "apiUrl": "https://www.coinegg.com/explain.api.html",
         "feesURL": "https://www.coinegg.com/fee.html"
     },
@@ -31,43 +45,70 @@
     },
     "hitbtc": {
         "maker": -0.01,
-        "taker": 0.01,
+        "taker": 0.1,
+        "XRPwithdraw": 0.509,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.00958,
         "apiUrl": "https://api.hitbtc.com/#rest-api-reference",
         "feesURL": "https://hitbtc.com/fees-and-limits"
     },
     "binance": {
         "maker": 0.1,
         "taker": 0.1,
+        "XRPwithdraw": 0.25,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.01,
+        "USDTwithdraw": 2,
         "apiUrl": "https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md",
-        "feesURL": "https://support.binance.com/hc/en-us/articles/115000429332-Fee-Structure-on-Binance"
+        "feesURL": "https://www.binance.com/fees.html"
     },
     "poloniex": {
         "maker": 0.15,
         "taker": 0.25,
+        "XRPwithdraw": 0.15,
+        "BTCwithdraw": 0.0005,
+        "ETHwithdraw": 0.01,
+        "USDTwithdraw": 25,
         "apiUrl": "https://poloniex.com/support/api/",
         "feesURL": "https://poloniex.com/fees/"
     },
     "kraken": {
         "maker": 0.16,
         "taker": 0.26,
+        "XRPwithdraw": 0.02,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.005,
+        "USDTwithdraw": 5,
         "apiUrl": "https://www.kraken.com/help/api",
         "feesURL": "https://www.kraken.com/help/fees"
     },
     "exmo": {
         "maker": 0.2,
         "taker": 0.2,
+        "XRPwithdraw": 0.02,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.01,
+        "USDTwithdraw": 25,
+        "USDTdeposit": 15,
         "apiUrl": "https://exmo.com/en/api",
         "feesURL": "https://exmo.com/en/docs/fees"
     },
     "cex.io": {
         "maker": 0.16,
-        "taker": 0.15,
+        "taker": 0.25,
+        "XRPwithdraw": 0.02,
+        "BTCwithdraw": 0.001,
+        "ETHwithdraw": 0.01,
         "apiUrl": "https://cex.io/rest-api",
         "feesURL": "https://cex.io/fee-schedule"
     },
     "gate.io": {
         "maker": 0.2,
         "taker": 0.2,
+        "XRPwithdraw": 1,
+        "BTCwithdraw": 0.002,
+        "ETHwithdraw": 0.003,
+        "USDTwithdraw": 10,
         "apiUrl": "https://gate.io/api2",
         "feesURL": "https://support.gate.io/hc/en-us/articles/115003577673-Fees-Gate-io-charge-you-"
     }
