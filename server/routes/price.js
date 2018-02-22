@@ -57,25 +57,37 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
         //alert user there was a server error
         return callback({
           APIStatusCode: 404,
-          message: err
+          message: String(err)
         });
       });
   }
 
-  //general /price and /price/pair routes
-  if (!req.params.exchange) {
-    //object to stringify then return
-    console.log("no exchange");
+
+  //general /price route
+  if (!req.params.pair) {
+
     var resObj = {};
 
-    //general /price route
-    if (!req.params.pair) {
-      for (var exchange in XRPAPIInfo) {
-        if (XRPAPIInfo.hasOwnProperty(exchange)) {
-          var exchangeObj = XRPAPIInfo[exchange];
-          for (var pair in exchangeObj) {
-            resObj[pair] = {};
-            if (exchangeObj.hasOwnProperty(pair)) {
+    console.log("no pair");
+    var exchangeNum = 0;
+    var pairNum = 0;
+    // var exchangeInd = 0;
+    // var exchangeObj = XRPAPIInfo[Object.keys(XRPAPIInfo)[exchangeInd]];
+
+    for (var exchange in XRPAPIInfo) {
+      if (XRPAPIInfo.hasOwnProperty(exchange)) {
+        exchangeNum++;
+        pairNum = 0;
+        var exchangeObj = XRPAPIInfo[exchange];
+        // resObj[exchange] = {};
+        for (var pair in exchangeObj) {
+          if (exchangeObj.hasOwnProperty(pair)) {
+            // pairNum++;
+
+            // resObj[exchange][pair] = {};
+
+
+            function callAndStore() {
               //array of exchange's info from json object of xrp api info
               var pairArr = exchangeObj[pair];
               //path to bid price, ask price, last price
@@ -83,24 +95,32 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
               var bidPath = pairArr[1];
               var askPath = pairArr[2];
               var lastPath = pairArr[3];
-
-              
-              resObj[pair][exchange] = {
-                pair: pair,
-                exchange: exchange,
-                response: {}
-              };
-          
-              standardAPITicker(pairURL, bidPath, askPath, lastPath,
-                (APIresp)=>{resObj[pair][exchange][response] = APIresp});
-              
+              standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+                console.log("pair: " + pair);
+                pairNum++;
+                if(resObj[exchange]) resObj[exchange][pair] = APIresp;
+                else{ resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
+                if (exchangeNum == Object.keys(XRPAPIInfo).length) {
+                  console.log("exchangeNum: " + exchangeNum + ", exchange: " + exchange);
+                  if (pairNum == Object.keys(exchangeObj).length) {
+                    console.log("pairnum: " + pairNum + ", pair: " + pair);
+                    // return res.json(resObj);
+                  }
+                }
+              });
             }
-
+            // resObj[exchange][pair] = APIresp;
+            callAndStore();
           }
+
         }
       }
-      return res.json(resObj);
+
+
     }
+    console.log("outside loop");
+    // if(done) 
+    setTimeout(() => { return res.json(resObj) }, 400);
   }
 
   //user supplied specific pair and exchange
@@ -149,13 +169,20 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
 
     //any other exchange other than binance has one endpoint for last, ask, bid
     else {
-      standardAPITicker(tickerInfoArr[0], tickerInfoArr[1], tickerInfoArr[2], tickerInfoArr[3], function (APIresp) {
-        return res.json({
-          pair: req.params.pair,
-          exchange: req.params.exchange,
-          response: APIresp
+      if (tickerInfoArr) {
+        standardAPITicker(tickerInfoArr[0], tickerInfoArr[1], tickerInfoArr[2], tickerInfoArr[3], function (APIresp) {
+          return res.json({
+            pair: req.params.pair,
+            exchange: req.params.exchange,
+            response: APIresp
+          });
         });
-      });
+      } else {
+        return res.json({
+          status: 404,
+          message: "Exchange or pair not found. call /api/price for a full list of exchanges and pairs."
+        });
+      }
     }
 
   }
