@@ -62,28 +62,27 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
       });
   }
 
+  //function to call exchange pair endpoint and store it as a property of resObj
+  //need to do this because of JS asyncyrony when it comes to requests, requests can 
+  //execute outside of loops, etc at later times and then that messes up results
+  function callAndStore(pairArr, exchange, pair, resObj) {
+    var pairURL = pairArr[0];
+    var bidPath = pairArr[1];
+    var askPath = pairArr[2];
+    var lastPath = pairArr[3];
+    standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+      if (resObj[exchange]) resObj[exchange][pair] = APIresp;
+      else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
+    });
+  }
+
+
 
   //general /price route
   if (!req.params.pair) {
 
     //json to be returned for /price
     var resObj = {};
-
-    //function to call exchange pair endpoint and store it as a property of resObj
-    //need to do this because of JS asyncyrony when it comes to requests, requests can 
-    //execute outside of loops, etc at later times and then that messes up results
-    function callAndStore(pairArr, exchange, pair) {
-      //paths to bid price, ask price, last price within JSON of exchange's response
-      var pairURL = pairArr[0];
-      var bidPath = pairArr[1];
-      var askPath = pairArr[2];
-      var lastPath = pairArr[3];
-      standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
-        //upon APIticker call finish, take the response and store it in resObj
-        if (resObj[exchange]) resObj[exchange][pair] = APIresp;
-        else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
-      });
-    }
 
     for (var exchange in XRPAPIInfo) {
       if (XRPAPIInfo.hasOwnProperty(exchange)) {
@@ -98,7 +97,7 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
             //call abstracted function to make call and store response as propert of resObj
             //so function calls don't mess with each other due to
             //js http request asynchrony
-            callAndStore(pairArr, exchange, pair);
+            callAndStore(pairArr, exchange, pair, resObj);
           }
         }
       }
@@ -108,6 +107,28 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
     setTimeout(() => { return res.json(resObj) }, 1000);
   } ///////////////end of general /price route
 
+
+
+  //user specified pair but not an exchange
+  else if (!req.params.exchange) {
+    //very similar idea to /price route, look at comments on the if above this else if 
+    //for explanations
+    var resObj = {};
+    var pair = req.params.pair; //pair user requested prices for
+
+    for (var exchange in XRPAPIInfo) {
+      if (XRPAPIInfo.hasOwnProperty(exchange)) {
+        var exchangeObj = XRPAPIInfo[exchange];//grab exchange object from JSON of XRP API info
+        if(exchangeObj.hasOwnProperty(pair)){
+          var pairArr = exchangeObj[pair];
+          callAndStore(pairArr, exchange, pair, resObj);
+        }
+      }
+    }
+
+    // 1 second seems to be a good amount of time till all the exchanges respond
+    setTimeout(() => { return res.json(resObj) }, 1000);
+  } ///////////////end of general /price/pair route
 
 
 
@@ -173,8 +194,10 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
       }
     }
 
-  }
+  }///////////////end of specific /price/pair/exchange route
 
+
+  
 });
 
 module.exports = router;
