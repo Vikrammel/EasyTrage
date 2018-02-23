@@ -127,7 +127,10 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
     }
 
     // 1 second seems to be a good amount of time till all the exchanges respond
-    setTimeout(() => { return res.json(resObj) }, 1000);
+    setTimeout(() => { 
+      if(Object.keys(resObj).length > 0) return res.json(resObj) 
+      else return res.json({status: 404, message: "pair not found"});
+    }, 1000);
   } ///////////////end of general /price/pair route
 
 
@@ -197,7 +200,7 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
   }///////////////end of specific /price/pair/exchange route
 
 
-  
+
 });
 
 module.exports = router;
