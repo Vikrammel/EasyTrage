@@ -57,51 +57,59 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
         //alert user there was a server error
         return callback({
           APIStatusCode: 404,
-          message: err
+          message: String(err)
         });
       });
   }
 
-  //general /price and /price/pair routes
-  if (!req.params.exchange) {
-    //object to stringify then return
-    console.log("no exchange");
+
+  //general /price route
+  if (!req.params.pair) {
+
+    //json to be returned for /price
     var resObj = {};
 
-    //general /price route
-    if (!req.params.pair) {
-      for (var exchange in XRPAPIInfo) {
-        if (XRPAPIInfo.hasOwnProperty(exchange)) {
-          var exchangeObj = XRPAPIInfo[exchange];
-          for (var pair in exchangeObj) {
-            resObj[pair] = {};
-            if (exchangeObj.hasOwnProperty(pair)) {
-              //array of exchange's info from json object of xrp api info
-              var pairArr = exchangeObj[pair];
-              //path to bid price, ask price, last price
-              var pairURL = pairArr[0];
-              var bidPath = pairArr[1];
-              var askPath = pairArr[2];
-              var lastPath = pairArr[3];
+    //function to call exchange pair endpoint and store it as a property of resObj
+    //need to do this because of JS asyncyrony when it comes to requests, requests can 
+    //execute outside of loops, etc at later times and then that messes up results
+    function callAndStore(pairArr, exchange, pair) {
+      //paths to bid price, ask price, last price within JSON of exchange's response
+      var pairURL = pairArr[0];
+      var bidPath = pairArr[1];
+      var askPath = pairArr[2];
+      var lastPath = pairArr[3];
+      standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+        //upon APIticker call finish, take the response and store it in resObj
+        if (resObj[exchange]) resObj[exchange][pair] = APIresp;
+        else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
+      });
+    }
 
-              
-              resObj[pair][exchange] = {
-                pair: pair,
-                exchange: exchange,
-                response: {}
-              };
-          
-              standardAPITicker(pairURL, bidPath, askPath, lastPath,
-                (APIresp)=>{resObj[pair][exchange][response] = APIresp});
-              
-            }
-
+    for (var exchange in XRPAPIInfo) {
+      if (XRPAPIInfo.hasOwnProperty(exchange)) {
+        //grab exchange object from JSON of XRP API info
+        var exchangeObj = XRPAPIInfo[exchange];
+        //loop through pairs in exchange
+        for (var pair in exchangeObj) {
+          if (exchangeObj.hasOwnProperty(pair)) {
+            //grab the url and paths within response json to different prices
+            //for the specific pair of the exchange
+            var pairArr = exchangeObj[pair];
+            //call abstracted function to make call and store response as propert of resObj
+            //so function calls don't mess with each other due to
+            //js http request asynchrony
+            callAndStore(pairArr, exchange, pair);
           }
         }
       }
-      return res.json(resObj);
     }
-  }
+
+    // 1 second seems to be a good amount of time till all the exchanges respond
+    setTimeout(() => { return res.json(resObj) }, 1000);
+  } ///////////////end of general /price route
+
+
+
 
   //user supplied specific pair and exchange
   else {
@@ -145,17 +153,24 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
           });
         });
 
-    }
+    }////////////end binance routes
 
     //any other exchange other than binance has one endpoint for last, ask, bid
     else {
-      standardAPITicker(tickerInfoArr[0], tickerInfoArr[1], tickerInfoArr[2], tickerInfoArr[3], function (APIresp) {
-        return res.json({
-          pair: req.params.pair,
-          exchange: req.params.exchange,
-          response: APIresp
+      if (tickerInfoArr) {
+        standardAPITicker(tickerInfoArr[0], tickerInfoArr[1], tickerInfoArr[2], tickerInfoArr[3], function (APIresp) {
+          return res.json({
+            pair: req.params.pair,
+            exchange: req.params.exchange,
+            response: APIresp
+          });
         });
-      });
+      } else {
+        return res.json({
+          status: 404,
+          message: "Exchange or pair not found. call /api/price for a full list of exchanges and pairs."
+        });
+      }
     }
 
   }
