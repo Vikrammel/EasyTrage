@@ -66,62 +66,50 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
   //general /price route
   if (!req.params.pair) {
 
+    //json to be returned for /price
     var resObj = {};
 
-    console.log("no pair");
-    var exchangeNum = 0;
-    var pairNum = 0;
-    // var exchangeInd = 0;
-    // var exchangeObj = XRPAPIInfo[Object.keys(XRPAPIInfo)[exchangeInd]];
+    //function to call exchange pair endpoint and store it as a property of resObj
+    //need to do this because of JS asyncyrony when it comes to requests, requests can 
+    //execute outside of loops, etc at later times and then that messes up results
+    function callAndStore(pairArr, exchange, pair) {
+      //paths to bid price, ask price, last price within JSON of exchange's response
+      var pairURL = pairArr[0];
+      var bidPath = pairArr[1];
+      var askPath = pairArr[2];
+      var lastPath = pairArr[3];
+      standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+        //upon APIticker call finish, take the response and store it in resObj
+        if (resObj[exchange]) resObj[exchange][pair] = APIresp;
+        else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
+      });
+    }
 
     for (var exchange in XRPAPIInfo) {
       if (XRPAPIInfo.hasOwnProperty(exchange)) {
-        exchangeNum++;
-        pairNum = 0;
+        //grab exchange object from JSON of XRP API info
         var exchangeObj = XRPAPIInfo[exchange];
-        // resObj[exchange] = {};
+        //loop through pairs in exchange
         for (var pair in exchangeObj) {
           if (exchangeObj.hasOwnProperty(pair)) {
-            // pairNum++;
-
-            // resObj[exchange][pair] = {};
-
-
-            function callAndStore() {
-              //array of exchange's info from json object of xrp api info
-              var pairArr = exchangeObj[pair];
-              //path to bid price, ask price, last price
-              var pairURL = pairArr[0];
-              var bidPath = pairArr[1];
-              var askPath = pairArr[2];
-              var lastPath = pairArr[3];
-              standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
-                console.log("pair: " + pair);
-                pairNum++;
-                if(resObj[exchange]) resObj[exchange][pair] = APIresp;
-                else{ resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
-                if (exchangeNum == Object.keys(XRPAPIInfo).length) {
-                  console.log("exchangeNum: " + exchangeNum + ", exchange: " + exchange);
-                  if (pairNum == Object.keys(exchangeObj).length) {
-                    console.log("pairnum: " + pairNum + ", pair: " + pair);
-                    // return res.json(resObj);
-                  }
-                }
-              });
-            }
-            // resObj[exchange][pair] = APIresp;
-            callAndStore();
+            //grab the url and paths within response json to different prices
+            //for the specific pair of the exchange
+            var pairArr = exchangeObj[pair];
+            //call abstracted function to make call and store response as propert of resObj
+            //so function calls don't mess with each other due to
+            //js http request asynchrony
+            callAndStore(pairArr, exchange, pair);
           }
-
         }
       }
-
-
     }
-    console.log("outside loop");
-    // if(done) 
-    setTimeout(() => { return res.json(resObj) }, 400);
-  }
+
+    // 1 second seems to be a good amount of time till all the exchanges respond
+    setTimeout(() => { return res.json(resObj) }, 1000);
+  } ///////////////end of general /price route
+
+
+
 
   //user supplied specific pair and exchange
   else {
@@ -165,7 +153,7 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
           });
         });
 
-    }
+    }////////////end binance routes
 
     //any other exchange other than binance has one endpoint for last, ask, bid
     else {
