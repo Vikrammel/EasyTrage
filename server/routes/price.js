@@ -66,14 +66,121 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
   //need to do this because of JS asyncyrony when it comes to requests, requests can 
   //execute outside of loops, etc at later times and then that messes up results
   function callAndStore(pairArr, exchange, pair, resObj) {
+
     var pairURL = pairArr[0];
     var bidPath = pairArr[1];
     var askPath = pairArr[2];
     var lastPath = pairArr[3];
-    standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
-      if (resObj[exchange]) resObj[exchange][pair] = APIresp;
-      else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
-    });
+
+
+    //handle binance's second endpoint for last
+    if (exchange == 'binance') {
+      //bid and ask endpoint
+      standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+        //all these checks to make sure other call hasn't alraedy made these objects
+        //inside the response object so it doesn't overwrite (which it will on assigment =)
+        if (resObj[exchange]) {
+          if (resObj[exchange][pair]) {
+            if (resObj[exchange][pair]["prices"]) {
+              if (APIresp.APIStatusCode == 200) {
+                resObj[exchange][pair]["prices"]["bid"] = APIresp.prices.bid;
+                resObj[exchange][pair]["prices"]["ask"] = APIresp.prices.ask;
+              } else {
+                resObj[exchange][pair]["prices"]["bid"] = APIresp.message;
+                resObj[exchange][pair]["prices"]["ask"] = APIresp.message;
+              }
+            } else {
+              resObj[exchange][pair]["prices"] = {};
+              if (APIresp.APIStatusCode == 200) {
+                resObj[exchange][pair]["prices"]["bid"] = APIresp.prices.bid;
+                resObj[exchange][pair]["prices"]["ask"] = APIresp.prices.ask;
+              } else {
+                resObj[exchange][pair]["prices"]["bid"] = APIresp.message;
+                resObj[exchange][pair]["prices"]["ask"] = APIresp.message;
+              }
+            }
+          }
+          else { 
+            resObj[exchange][pair] = {};
+            resObj[exchange][pair]["prices"] = {};
+            if(APIresp.APIStatusCode == 200){
+              resObj[exchange][pair]["APIStatusCode"] = 200;
+              resObj[exchange][pair]["prices"]["bid"] = APIresp.prices.bid;
+              resObj[exchange][pair]["prices"]["ask"] = APIresp.prices.ask;
+            }
+            else{
+              resObj[exchange][pair]["APIStatusCode"] = 400;
+              resObj[exchange][pair]["prices"]["bid"] = APIresp.message;
+              resObj[exchange][pair]["prices"]["ask"] = APIresp.message;
+            }
+         }
+        }
+        else {
+          resObj[exchange] = {};
+          if(APIresp.APIStatusCode == 200){
+            resObj[exchange][pair] = APIresp;
+          } else {
+            resObj[exchange][pair] = {};
+            resObj[exchange][pair]["prices"] = {};
+            resObj[exchange][pair]["prices"]["ask"] = APIresp.message;
+            resObj[exchange][pair]["prices"]["bid"] = APIresp.message;
+          }
+        }
+      });
+
+      //last price endpoint
+      var binanceLastURL = "https://api.binance.com/api/v3/ticker/price?symbol=" + pair;
+      standardAPITicker(binanceLastURL, bidPath, askPath, "price", (lastResp) => {
+        if (resObj[exchange]) {
+          if (resObj[exchange][pair]) {
+            if (resObj[exchange][pair]["prices"]) {
+              if (lastResp.APIStatusCode == 200) {
+                resObj[exchange][pair]["prices"]["last"] = lastResp.prices.last;
+              } else {
+                resObj[exchange][pair]["prices"]["last"] = lastResp.message;
+              }
+            } else {
+              resObj[exchange][pair]["prices"] = {};
+              if (lastResp.APIStatusCode == 200) {
+                resObj[exchange][pair]["prices"]["last"] = lastResp.prices.last;
+              } else {
+                resObj[exchange][pair]["prices"]["last"] = lastResp.message;
+              }
+            }
+          }
+          else { 
+            resObj[exchange][pair] = {};
+            resObj[exchange][pair]["prices"] = {};
+            if(lastResp.APIStatusCode == 200){
+              resObj[exchange][pair]["APIStatusCode"] = 200;
+              resObj[exchange][pair]["prices"]["last"] = lastResp.prices.last;
+            }
+            else{
+              resObj[exchange][pair]["prices"]["last"] = lastResp.message;
+            }
+         }
+        }
+        else {
+          resObj[exchange] = {};
+          if(lastResp.APIStatusCode == 200){
+            resObj[exchange][pair] = lastResp;
+          } else {
+            resObj[exchange][pair] = {};
+            resObj[exchange][pair]["prices"] = {};
+            resObj[exchange][pair]["prices"]["last"] = lastResp.message;
+          }
+        }
+      });
+    }//end of binance mess handling
+
+    //non-binance exchange
+    else {
+      standardAPITicker(pairURL, bidPath, askPath, lastPath, (APIresp) => {
+        if (resObj[exchange]) resObj[exchange][pair] = APIresp;
+        else { resObj[exchange] = {}; resObj[exchange][pair] = APIresp; }
+      });
+    }
+
   }
 
 
@@ -119,7 +226,7 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
     for (var exchange in XRPAPIInfo) {
       if (XRPAPIInfo.hasOwnProperty(exchange)) {
         var exchangeObj = XRPAPIInfo[exchange];//grab exchange object from JSON of XRP API info
-        if(exchangeObj.hasOwnProperty(pair)){
+        if (exchangeObj.hasOwnProperty(pair)) {
           var pairArr = exchangeObj[pair];
           callAndStore(pairArr, exchange, pair, resObj);
         }
@@ -127,9 +234,9 @@ router.get('/:pair?/:exchange?/:bidask?', function (req, res) {
     }
 
     // 1 second seems to be a good amount of time till all the exchanges respond
-    setTimeout(() => { 
-      if(Object.keys(resObj).length > 0) return res.json(resObj) 
-      else return res.json({status: 404, message: "pair not found"});
+    setTimeout(() => {
+      if (Object.keys(resObj).length > 0) return res.json(resObj)
+      else return res.json({ status: 404, message: "pair not found" });
     }, 1000);
   } ///////////////end of general /price/pair route
 
