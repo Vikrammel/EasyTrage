@@ -17,17 +17,17 @@ warning: bitstamp's API is unreliable
 
 Output of backend /price/BTCUSD/chasing-coins call : 
 
-"{ APIStatusCode: '200', price: '11534.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '11769.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'last' }"
 
 
 Output of backend /price/BTCUSD/chasing-coins/bid call : 
 
-"{ APIStatusCode: '200', price: '11534.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '11769.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'bid' }"
 
 
 Output of backend /price/BTCUSD/chasing-coins/ask call : 
 
-"{ APIStatusCode: '200', price: '11534.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '11769.9', exchange: 'chasing-coins', pair: 'BTCUSD', priceType: 'ask' }"
 
 
 
@@ -43,17 +43,17 @@ Output of backend /price/BTCUSD/chasing-coins/ask call :
 
 Output of backend /price/XRPUSD/bitstamp call : 
 
-"{ APIStatusCode: '200', price: '1.10782', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.08000', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSD/bitstamp/bid call : 
 
-"{ APIStatusCode: '200', price: '1.10730', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.07805', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSD/bitstamp/ask call : 
 
-"{ APIStatusCode: '200', price: '1.10787', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.08000', exchange: 'bitstamp', pair: 'XRPUSD', priceType: 'ask' }"
 
 
 === bitfinex ===
@@ -61,17 +61,17 @@ Output of backend /price/XRPUSD/bitstamp/ask call :
 
 Output of backend /price/XRPUSD/bitfinex call : 
 
-"{ APIStatusCode: '200', price: '1.1088', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.0781', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSD/bitfinex/bid call : 
 
-"{ APIStatusCode: '200', price: '1.1089', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.0781', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSD/bitfinex/ask call : 
 
-"{ APIStatusCode: '200', price: '1.1095', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.0782', exchange: 'bitfinex', pair: 'XRPUSD', priceType: 'ask' }"
 
 
 === kraken ===
@@ -79,17 +79,53 @@ Output of backend /price/XRPUSD/bitfinex/ask call :
 
 Output of backend /price/XRPUSD/kraken call : 
 
-"{ APIStatusCode: '200', price: '1.11000000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.08000000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSD/kraken/bid call : 
 
-"{ APIStatusCode: '200', price: '1.11000000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.07980000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSD/kraken/ask call : 
 
-"{ APIStatusCode: '200', price: '1.11071000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.08000000', exchange: 'kraken', pair: 'XRPUSD', priceType: 'ask' }"
+
+
+=== exmo ===
+
+
+Output of backend /price/XRPUSD/exmo call : 
+
+"{ APIStatusCode: '200', price: '1.124', exchange: 'exmo', pair: 'XRPUSD', priceType: 'last' }"
+
+
+Output of backend /price/XRPUSD/exmo/bid call : 
+
+"{ APIStatusCode: '200', price: '1.120017', exchange: 'exmo', pair: 'XRPUSD', priceType: 'bid' }"
+
+
+Output of backend /price/XRPUSD/exmo/ask call : 
+
+"{ APIStatusCode: '200', price: '1.124', exchange: 'exmo', pair: 'XRPUSD', priceType: 'ask' }"
+
+
+=== cex.io ===
+
+
+Output of backend /price/XRPUSD/cex.io call : 
+
+"{ APIStatusCode: '200', price: '1.1079', exchange: 'cex.io', pair: 'XRPUSD', priceType: 'last' }"
+
+
+Output of backend /price/XRPUSD/cex.io/bid call : 
+
+"{ APIStatusCode: '200', price: '1.104', exchange: 'cex.io', pair: 'XRPUSD', priceType: 'bid' }"
+
+
+Output of backend /price/XRPUSD/cex.io/ask call : 
+
+"{ APIStatusCode: '200', price: '1.1077', exchange: 'cex.io', pair: 'XRPUSD', priceType: 'ask' }"
 
 
 === hitbtc ===
@@ -97,17 +133,17 @@ Output of backend /price/XRPUSD/kraken/ask call :
 
 Output of backend /price/XRPUSDT/hitbtc call : 
 
-"{ APIStatusCode: '200', price: '1.1234', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.1059', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSDT/hitbtc/bid call : 
 
-"{ APIStatusCode: '200', price: '1.1231', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.1038', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSDT/hitbtc/ask call : 
 
-"{ APIStatusCode: '200', price: '1.1237', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.1064', exchange: 'hitbtc', pair: 'XRPUSDT', priceType: 'ask' }"
 
 
 === okex ===
@@ -115,17 +151,17 @@ Output of backend /price/XRPUSDT/hitbtc/ask call :
 
 Output of backend /price/XRPUSDT/okex call : 
 
-"{ APIStatusCode: '200', price: '1.1109', exchange: 'okex', pair: 'XRPUSDT', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.0793', exchange: 'okex', pair: 'XRPUSDT', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSDT/okex/bid call : 
 
-"{ APIStatusCode: '200', price: '1.1109', exchange: 'okex', pair: 'XRPUSDT', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.0793', exchange: 'okex', pair: 'XRPUSDT', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSDT/okex/ask call : 
 
-"{ APIStatusCode: '200', price: '1.1080', exchange: 'okex', pair: 'XRPUSDT', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.0792', exchange: 'okex', pair: 'XRPUSDT', priceType: 'ask' }"
 
 
 === poloniex ===
@@ -133,17 +169,17 @@ Output of backend /price/XRPUSDT/okex/ask call :
 
 Output of backend /price/XRPUSDT/poloniex call : 
 
-"{ APIStatusCode: '200', price: '1.11010794', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.07652145', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSDT/poloniex/bid call : 
 
-"{ APIStatusCode: '200', price: '1.10621050', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.07652145', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSDT/poloniex/ask call : 
 
-"{ APIStatusCode: '200', price: '1.11010785', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.08112044', exchange: 'poloniex', pair: 'XRPUSDT', priceType: 'ask' }"
 
 
 === bittrex ===
@@ -151,17 +187,35 @@ Output of backend /price/XRPUSDT/poloniex/ask call :
 
 Output of backend /price/XRPUSDT/bittrex call : 
 
-"{ APIStatusCode: '200', price: '1.11', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '1.08', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'last' }"
 
 
 Output of backend /price/XRPUSDT/bittrex/bid call : 
 
-"{ APIStatusCode: '200', price: '1.1091', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '1.07700008', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'bid' }"
 
 
 Output of backend /price/XRPUSDT/bittrex/ask call : 
 
-"{ APIStatusCode: '200', price: '1.11', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '1.08', exchange: 'bittrex', pair: 'XRPUSDT', priceType: 'ask' }"
+
+
+=== gate.io ===
+
+
+Output of backend /price/XRPUSDT/gate.io call : 
+
+"{ APIStatusCode: '200', price: '1.0812', exchange: 'gate.io', pair: 'XRPUSDT', priceType: 'last' }"
+
+
+Output of backend /price/XRPUSDT/gate.io/bid call : 
+
+"{ APIStatusCode: '200', price: '1.0807', exchange: 'gate.io', pair: 'XRPUSDT', priceType: 'bid' }"
+
+
+Output of backend /price/XRPUSDT/gate.io/ask call : 
+
+"{ APIStatusCode: '200', price: '1.0895', exchange: 'gate.io', pair: 'XRPUSDT', priceType: 'ask' }"
 
 
 
@@ -177,17 +231,17 @@ Output of backend /price/XRPUSDT/bittrex/ask call :
 
 Output of backend /price/XRPBTC/coinegg call : 
 
-"{ APIStatusCode: '200', price: '0.0000968', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009114', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/coinegg/bid call : 
 
-"{ APIStatusCode: '200', price: '0.0000998798', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.0000929999', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/coinegg/ask call : 
 
-"{ APIStatusCode: '200', price: '0.000096799', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00009101', exchange: 'coinegg', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === bitstamp ===
@@ -213,17 +267,17 @@ Output of backend /price/XRPBTC/bitstamp/ask call :
 
 Output of backend /price/XRPBTC/bitfinex call : 
 
-"{ APIStatusCode: '200', price: '0.00009673', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009241', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/bitfinex/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009663', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009229', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/bitfinex/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009673', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.0000924', exchange: 'bitfinex', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === bittrex ===
@@ -231,17 +285,17 @@ Output of backend /price/XRPBTC/bitfinex/ask call :
 
 Output of backend /price/XRPBTC/bittrex call : 
 
-"{ APIStatusCode: '200', price: '0.0000966', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.0000924', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/bittrex/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009626', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009196', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/bittrex/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009659', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.0000924', exchange: 'bittrex', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === okex ===
@@ -249,17 +303,17 @@ Output of backend /price/XRPBTC/bittrex/ask call :
 
 Output of backend /price/XRPBTC/okex call : 
 
-"{ APIStatusCode: '200', price: '0.00009690', exchange: 'okex', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009248', exchange: 'okex', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/okex/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009689', exchange: 'okex', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009264', exchange: 'okex', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/okex/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009648', exchange: 'okex', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00009231', exchange: 'okex', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === hitbtc ===
@@ -267,17 +321,17 @@ Output of backend /price/XRPBTC/okex/ask call :
 
 Output of backend /price/XRPBTC/hitbtc call : 
 
-"{ APIStatusCode: '200', price: '0.00009673', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009237', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/hitbtc/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009663', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009238', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/hitbtc/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009682', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00009255', exchange: 'hitbtc', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === binance ===
@@ -285,17 +339,17 @@ Output of backend /price/XRPBTC/hitbtc/ask call :
 
 Output of backend /price/XRPBTC/binance call : 
 
-"{ APIStatusCode: '200', price: 'undefined', exchange: 'binance', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009222', exchange: 'binance', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/binance/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009662', exchange: 'binance', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009211', exchange: 'binance', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/binance/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009669', exchange: 'binance', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00009222', exchange: 'binance', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === poloniex ===
@@ -303,17 +357,17 @@ Output of backend /price/XRPBTC/binance/ask call :
 
 Output of backend /price/XRPBTC/poloniex call : 
 
-"{ APIStatusCode: '200', price: '0.00009681', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00009224', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/poloniex/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00009680', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00009223', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/poloniex/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00009681', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00009224', exchange: 'poloniex', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 === kraken ===
@@ -321,17 +375,71 @@ Output of backend /price/XRPBTC/poloniex/ask call :
 
 Output of backend /price/XRPBTC/kraken call : 
 
-"{ APIStatusCode: '200', price: '0.000096880', exchange: 'kraken', pair: 'XRPBTC', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.000092320', exchange: 'kraken', pair: 'XRPBTC', priceType: 'last' }"
 
 
 Output of backend /price/XRPBTC/kraken/bid call : 
 
-"{ APIStatusCode: '200', price: '0.000096770', exchange: 'kraken', pair: 'XRPBTC', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.000092420', exchange: 'kraken', pair: 'XRPBTC', priceType: 'bid' }"
 
 
 Output of backend /price/XRPBTC/kraken/ask call : 
 
-"{ APIStatusCode: '200', price: '0.000096900', exchange: 'kraken', pair: 'XRPBTC', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.000092500', exchange: 'kraken', pair: 'XRPBTC', priceType: 'ask' }"
+
+
+=== exmo ===
+
+
+Output of backend /price/XRPBTC/exmo call : 
+
+"{ APIStatusCode: '200', price: '0.00009397', exchange: 'exmo', pair: 'XRPBTC', priceType: 'last' }"
+
+
+Output of backend /price/XRPBTC/exmo/bid call : 
+
+"{ APIStatusCode: '200', price: '0.00009331', exchange: 'exmo', pair: 'XRPBTC', priceType: 'bid' }"
+
+
+Output of backend /price/XRPBTC/exmo/ask call : 
+
+"{ APIStatusCode: '200', price: '0.00009396', exchange: 'exmo', pair: 'XRPBTC', priceType: 'ask' }"
+
+
+=== cex.io ===
+
+
+Output of backend /price/XRPBTC/cex.io call : 
+
+"{ APIStatusCode: '200', price: '0.00009279', exchange: 'cex.io', pair: 'XRPBTC', priceType: 'last' }"
+
+
+Output of backend /price/XRPBTC/cex.io/bid call : 
+
+"{ APIStatusCode: '200', price: '0.00009251', exchange: 'cex.io', pair: 'XRPBTC', priceType: 'bid' }"
+
+
+Output of backend /price/XRPBTC/cex.io/ask call : 
+
+"{ APIStatusCode: '200', price: '0.0000928', exchange: 'cex.io', pair: 'XRPBTC', priceType: 'ask' }"
+
+
+=== bitsane ===
+
+
+Output of backend /price/XRPBTC/bitsane call : 
+
+"{ APIStatusCode: '200', price: '0.00009503', exchange: 'bitsane', pair: 'XRPBTC', priceType: 'last' }"
+
+
+Output of backend /price/XRPBTC/bitsane/bid call : 
+
+"{ APIStatusCode: '200', price: '0.00009503', exchange: 'bitsane', pair: 'XRPBTC', priceType: 'bid' }"
+
+
+Output of backend /price/XRPBTC/bitsane/ask call : 
+
+"{ APIStatusCode: '200', price: '0.00009647', exchange: 'bitsane', pair: 'XRPBTC', priceType: 'ask' }"
 
 
 
@@ -352,7 +460,7 @@ Output of backend /price/XRPETH/hitbtc call :
 
 Output of backend /price/XRPETH/hitbtc/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00117', exchange: 'hitbtc', pair: 'XRPETH', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00116', exchange: 'hitbtc', pair: 'XRPETH', priceType: 'bid' }"
 
 
 Output of backend /price/XRPETH/hitbtc/ask call : 
@@ -365,17 +473,17 @@ Output of backend /price/XRPETH/hitbtc/ask call :
 
 Output of backend /price/XRPETH/binance call : 
 
-"{ APIStatusCode: '200', price: '0.00117037', exchange: 'binance', pair: 'XRPETH', priceType: 'last' }"
+"{ APIStatusCode: '200', price: 'undefined', exchange: 'binance', pair: 'XRPETH', priceType: 'last' }"
 
 
 Output of backend /price/XRPETH/binance/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00117011', exchange: 'binance', pair: 'XRPETH', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00116644', exchange: 'binance', pair: 'XRPETH', priceType: 'bid' }"
 
 
 Output of backend /price/XRPETH/binance/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00117037', exchange: 'binance', pair: 'XRPETH', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00116789', exchange: 'binance', pair: 'XRPETH', priceType: 'ask' }"
 
 
 === okex ===
@@ -383,17 +491,53 @@ Output of backend /price/XRPETH/binance/ask call :
 
 Output of backend /price/XRPETH/okex call : 
 
-"{ APIStatusCode: '200', price: '0.00116958', exchange: 'okex', pair: 'XRPETH', priceType: 'last' }"
+"{ APIStatusCode: '200', price: '0.00116688', exchange: 'okex', pair: 'XRPETH', priceType: 'last' }"
 
 
 Output of backend /price/XRPETH/okex/bid call : 
 
-"{ APIStatusCode: '200', price: '0.00117290', exchange: 'okex', pair: 'XRPETH', priceType: 'bid' }"
+"{ APIStatusCode: '200', price: '0.00116855', exchange: 'okex', pair: 'XRPETH', priceType: 'bid' }"
 
 
 Output of backend /price/XRPETH/okex/ask call : 
 
-"{ APIStatusCode: '200', price: '0.00116704', exchange: 'okex', pair: 'XRPETH', priceType: 'ask' }"
+"{ APIStatusCode: '200', price: '0.00116521', exchange: 'okex', pair: 'XRPETH', priceType: 'ask' }"
+
+
+=== bitsane ===
+
+
+Output of backend /price/XRPETH/bitsane call : 
+
+"{ APIStatusCode: '200', price: '0.00117000', exchange: 'bitsane', pair: 'XRPETH', priceType: 'last' }"
+
+
+Output of backend /price/XRPETH/bitsane/bid call : 
+
+"{ APIStatusCode: '200', price: '0.00117000', exchange: 'bitsane', pair: 'XRPETH', priceType: 'bid' }"
+
+
+Output of backend /price/XRPETH/bitsane/ask call : 
+
+"{ APIStatusCode: '200', price: '0.00118963', exchange: 'bitsane', pair: 'XRPETH', priceType: 'ask' }"
+
+
+=== bittrex ===
+
+
+Output of backend /price/XRPETH/bittrex call : 
+
+"{ APIStatusCode: '200', price: '0.00116798', exchange: 'bittrex', pair: 'XRPETH', priceType: 'last' }"
+
+
+Output of backend /price/XRPETH/bittrex/bid call : 
+
+"{ APIStatusCode: '200', price: '0.00116537', exchange: 'bittrex', pair: 'XRPETH', priceType: 'bid' }"
+
+
+Output of backend /price/XRPETH/bittrex/ask call : 
+
+"{ APIStatusCode: '200', price: '0.00116798', exchange: 'bittrex', pair: 'XRPETH', priceType: 'ask' }"
 
 
 

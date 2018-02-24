@@ -67,10 +67,13 @@ if [ "$CONT" = "y" ]; then
     callServer XRPUSD bitstamp
     callServer XRPUSD bitfinex
     callServer XRPUSD kraken    
+    callServer XRPUSD exmo
+    callServer XRPUSD cex.io    
     callServer XRPUSDT hitbtc
     callServer XRPUSDT okex
     callServer XRPUSDT poloniex
     callServer XRPUSDT bittrex
+    callServer XRPUSDT gate.io
     echo ""
     echo ""
     echo "===== end XRPUSD/T tests ====="
@@ -90,6 +93,9 @@ if [ "$CONT" = "y" ]; then
     callServer XRPBTC binance
     callServer XRPBTC poloniex
     callServer XRPBTC kraken    
+    callServer XRPBTC exmo
+    callServer XRPBTC cex.io
+    callServer XRPBTC bitsane
     echo ""
     echo ""
     echo "===== end XRPBTC tests ====="
@@ -102,7 +108,9 @@ if [ "$CONT" = "y" ]; then
     echo ""
     callServer XRPETH hitbtc
     callServer XRPETH binance
-    callServer XRPETH okex    
+    callServer XRPETH okex
+    callServer XRPETH bitsane
+    callServer XRPETH bittrex
     echo ""
     echo ""
     echo "===== end XRPETH tests ====="
