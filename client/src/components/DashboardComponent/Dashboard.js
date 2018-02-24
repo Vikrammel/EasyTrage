@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from '../NavbarComponent/Navbar';
+import Suggestedtrades from './suggestedtrades';
+import Recenttrade from './recenttrades'
+import './Dashboard.css';
 import axios from 'axios';
 import env from '../../../config/env';
 
@@ -19,6 +22,8 @@ class Dashboard extends Component {
         <div className="Dashboard">
             <Navbar />
             <h1>Dashbord placeholder</h1>
+            <Suggestedtrades />
+            <Recenttrade />
         </div>
       );
     }
