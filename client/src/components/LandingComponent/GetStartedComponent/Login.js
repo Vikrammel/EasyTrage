@@ -54,7 +54,7 @@ class Login extends Component {
 
       if (buttonPressed==='signup'){
         //env.API_URL
-        axios.post(env.API_URL + '/register', User)
+        axios.post(env.API_URL + '/auth/register', User)
         .then( (res) => {
           //use res from server
           if (res.data.success === true){
@@ -73,7 +73,7 @@ class Login extends Component {
       }
       else if (buttonPressed==='login'){
 
-        axios.post(env.API_URL + '/login', User)
+        axios.post(env.API_URL + '/auth/login', User)
         .then( (res) => {
           //use res from server
           if (res.data.success === true) {
