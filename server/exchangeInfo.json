@@ -59,6 +59,7 @@
         "BTCwithdraw": 0.001,
         "ETHwithdraw": 0.01,
         "USDTwithdraw": 2,
+        "time": ["https://api.binance.com/api/v1/time", "serverTime"],
         "apiUrl": "https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md",
         "feesURL": "https://www.binance.com/fees.html"
     },
@@ -79,6 +80,7 @@
         "BTCwithdraw": 0.001,
         "ETHwithdraw": 0.005,
         "USDTwithdraw": 5,
+        "time": ["https://api.kraken.com/0/public/Time", "result.unixtime"],
         "apiUrl": "https://www.kraken.com/help/api",
         "feesURL": "https://www.kraken.com/help/fees"
     },

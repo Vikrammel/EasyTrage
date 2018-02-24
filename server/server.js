@@ -38,8 +38,8 @@ const price = require('./routes/price');
 app.use('/api/price', price);
 
 //import /time routes
-const time = require('./routes/time');
-app.use('/api/time', time);
+const suggestions = require('./routes/suggestions');
+app.use('/api/suggestions', suggestions);
 
 //set server to listen on port on any interface (0.0.0.0)
 app.listen(port, "0.0.0.0", function() {
