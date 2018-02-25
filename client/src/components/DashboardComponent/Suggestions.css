@@ -1,21 +1,27 @@
 h2 {
   text-align: center;
+  font-size: 20px;
 }
 
 img.arrow {
   height: 100px;
   width: 100px;
-  margin-top: 20px;
+  margin-top: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  transform: rotate(90deg);
 }
 
 .card {
-  background: #fff;
+  background: #FFF;
   border-radius: 2px;
   display: inline-block;
   height: 200px;
   margin: 1rem;
   position: relative;
-  width: 500px;
+  width: 200px;
   margin-bottom: 10px;
 }
 
@@ -30,16 +36,4 @@ img.arrow {
 
 .card-1:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-.sidenav {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 300px; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    right: 0;
-    border-left: 2px solid black;
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
 }
