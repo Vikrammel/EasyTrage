@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 // import Navbar from '../NavbarComponent/Navbar';
+=======
+import Navbar from '../NavbarComponent/Navbar';
+import Suggestedtrades from './suggestedtrades';
+import Recenttrade from './recenttrades'
+import './Dashboard.css';
+>>>>>>> 6beba4369877dbbc2a2f96bd9c16e79ef832098e
 import axios from 'axios';
 import env from '../../../config/env';
 import './Dashboard.css';
@@ -21,9 +28,16 @@ class Dashboard extends Component {
   render() {
       return (
         <div className="Dashboard">
+<<<<<<< HEAD
           <h1>Suggested Trades</h1>
           <Suggestions />
           <Tableprices />
+=======
+            <Navbar />
+            <h1>Dashbord placeholder</h1>
+            <Suggestedtrades />
+            <Recenttrade />
+>>>>>>> 6beba4369877dbbc2a2f96bd9c16e79ef832098e
         </div>
       );
     }

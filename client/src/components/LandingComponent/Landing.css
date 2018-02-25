@@ -4,7 +4,7 @@ html {
   position: relative;
 }
 
-img {
+img.App-logo {
   margin-left: 45%;
   margin-top: 15%;
   -webkit-animation: shake 4s infinite;
@@ -136,4 +136,7 @@ img {
   99% { transform: translate(-1px, -1px) rotate(-44deg); }
   100% { transform: translate(1px, 2px) rotate(-45deg); }
 }
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 6beba4369877dbbc2a2f96bd9c16e79ef832098e
