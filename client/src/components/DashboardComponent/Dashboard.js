@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import Navbar from '../NavbarComponent/Navbar';
+// import Navbar from '../NavbarComponent/Navbar';
 import axios from 'axios';
 import env from '../../../config/env';
+import './Dashboard.css';
+import Suggestions from './Suggestions';
+import Tableprices from './Tableprices';
+
 
 class Dashboard extends Component {
-    
+
 
 
   componentDidMount() {
@@ -13,12 +17,13 @@ class Dashboard extends Component {
     this.getCoinPrice();
 
   }
-  
+
   render() {
       return (
         <div className="Dashboard">
-            <Navbar />
-            <h1>Dashbord placeholder</h1>
+          <h1>Suggested Trades</h1>
+          <Suggestions />
+          <Tableprices />
         </div>
       );
     }
@@ -43,7 +48,7 @@ class Dashboard extends Component {
         console.log(String(err));
       });
     }
-    
+
 }
 
 export default Dashboard;
