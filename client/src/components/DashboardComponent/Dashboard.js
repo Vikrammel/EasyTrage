@@ -5,7 +5,7 @@ import env from '../../../config/env';
 import './Dashboard.css';
 import Suggestions from './Suggestions';
 import Tableprices from './Tableprices';
-import CoinData from './coindata';
+import Coindata from './coindata';
 
 class Dashboard extends Component {
 
@@ -23,7 +23,7 @@ class Dashboard extends Component {
         <div className="Dashboard">
           <Navbar />
           <h2>Dashboard</h2>
-          <CoinData />    
+          <Coindata />    
           <Suggestions />
           <Tableprices />
         </div>
