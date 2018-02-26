@@ -16,6 +16,7 @@ img.arrow {
 
 .card {
   background: #FFF;
+  color: #333;
   border-radius: 2px;
   display: inline-block;
   height: 200px;
