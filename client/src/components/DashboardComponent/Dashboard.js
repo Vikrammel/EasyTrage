@@ -21,7 +21,7 @@ class Dashboard extends Component {
       return (
         <div className="Dashboard">
             <Navbar />
-            <h1>Dashbord placeholder</h1>
+            <h1>Dashboard placeholder</h1>
             <Suggestedtrades />
             <Recenttrade />
         </div>
