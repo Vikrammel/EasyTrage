@@ -21,8 +21,8 @@ class Dashboard extends Component {
   render() {
       return (
         <div className="Dashboard">
-          <h1>Suggested Trades</h1>
-          <Navbar />  
+          <Navbar />
+          <h2>Dashboard</h2>    
           <Suggestions />
           <Tableprices />
         </div>
