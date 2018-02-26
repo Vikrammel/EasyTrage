@@ -32,7 +32,6 @@ img.App-logo {
   margin-bottom: 10px;
 }
 
-.App-logo{
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(-45deg); }
   1% { transform: translate(-1px, -2px) rotate(-47deg); }
@@ -136,7 +135,4 @@ img.App-logo {
   99% { transform: translate(-1px, -1px) rotate(-44deg); }
   100% { transform: translate(1px, 2px) rotate(-45deg); }
 }
-<<<<<<< HEAD
-}
-=======
->>>>>>> 6beba4369877dbbc2a2f96bd9c16e79ef832098e
+

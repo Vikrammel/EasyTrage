@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 var axios = require('axios');
+var suggestions = require('./suggestions.js');
 
 //object to store APIURLs and paths to prices within JSON response
 var XRPAPIInfo = require("./XRPAPIInfo.json");
@@ -205,7 +206,10 @@ function getAllPrices() {
   }
 
   // ~1 second seems to be a good amount of time till all the exchanges respond
-  setTimeout(() => { return }, 1200);
+  setTimeout(() => { 
+    suggestions.generateSuggestions(currentPrices);
+    return; 
+  }, 1200);
 }
 
 //get all prices ever n ms

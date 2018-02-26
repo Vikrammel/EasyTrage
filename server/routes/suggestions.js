@@ -6,8 +6,17 @@ var axios = require('axios');
 //object to store APIURLs and paths to prices within JSON response
 var exchangeInfo = require("../exchangeInfo.json");
 
+//function for comoparing prices and generating suggestions
+function generateSuggestions(currentPrices) {
+    console.log("suggestions call");
+    // console.log("prices: " + JSON.stringify(currentPrices));
+}
+
 router.get('/', function (req, res) {
     res.json("/suggestions endpoint");
 });
 
-module.exports = router;
+module.exports = {
+    router:router,
+    generateSuggestions:generateSuggestions
+};
