@@ -7,10 +7,7 @@ import Suggestions from './Suggestions';
 import Tableprices from './Tableprices';
 //import Coindata from './coindata';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar'; 
+
 
 const styles = {
   headline: {
