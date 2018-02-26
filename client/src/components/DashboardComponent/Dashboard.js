@@ -5,7 +5,7 @@ import env from '../../../config/env';
 import './Dashboard.css';
 import Suggestions from './Suggestions';
 import Tableprices from './Tableprices';
-
+import CoinData from './coindata';
 
 class Dashboard extends Component {
 
@@ -22,7 +22,8 @@ class Dashboard extends Component {
       return (
         <div className="Dashboard">
           <Navbar />
-          <h2>Dashboard</h2>    
+          <h2>Dashboard</h2>
+          <CoinData />    
           <Suggestions />
           <Tableprices />
         </div>
