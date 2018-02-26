@@ -7,6 +7,7 @@ class Suggestions extends Component {
     render() {
       return (
         <div className="Suggestedtrades">
+    }
   <span className="Cards">
   <span className="card card-1">
     <span style={{ color: 'green' }}><h2>Bianace(.4213) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'red' }}>CoinBase(.30942)</span></h2></span>
