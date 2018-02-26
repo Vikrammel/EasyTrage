@@ -6,6 +6,21 @@ import './Dashboard.css';
 import Suggestions from './Suggestions';
 import Tableprices from './Tableprices';
 //import Coindata from './coindata';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar'; 
+
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
+
 
 class Dashboard extends Component {
 
@@ -17,22 +32,45 @@ class Dashboard extends Component {
     this.getCoinPrice();
 
   }
-
+  
   render() {
-      return (
-        <div className="Dashboard">
-          <Navbar />
-          <h2>Dashboard</h2>    
-          <Suggestions />
-          <Tableprices />
-        </div>
-      );
-    }
+    return (
+      
+      <div className="Dashboard">
 
-    getCoinPrice() {
-      console.log('I was triggered during getCoinPrice')
-      axios.get(env.API_URL + '/price/BTC/chasing-coins')
-      .then( (res) => {
+        <Navbar />
+          <h2>Dashboard</h2> 
+          <Tabs inkBarStyle={{background: 'green'}}>
+    <Tab label="Prices" >
+      <div>
+        <h2 style={styles.headline}>Recent Prices</h2>
+        <Tableprices />
+      </div>
+    </Tab>
+    <Tab label=" Trades" >
+      <div>
+        <h2 style={styles.headline}>Suggested Trades</h2>
+        <Suggestions />
+      </div>
+    </Tab>
+    <Tab
+      label="Item Three">
+      <div>
+         <h2 style={styles.headline}>Tab Three</h2>
+      </div>
+    </Tab>
+  </Tabs> 
+        
+        
+      </div>
+
+      );
+  }
+
+  getCoinPrice() {
+    console.log('I was triggered during getCoinPrice')
+    axios.get(env.API_URL + '/price/BTC/chasing-coins')
+    .then( (res) => {
         //use res from back-end server and check status code
         //forwarded from external API server
         if (res.data.APIStatusCode === 200) {
@@ -44,11 +82,11 @@ class Dashboard extends Component {
           console.log(String(res.data));
         }
       })
-      .catch( (err) => {
+    .catch( (err) => {
         //log error
         console.log(String(err));
       });
-    }
+  }
 
 }
 

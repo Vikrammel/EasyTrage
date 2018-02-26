@@ -1,4 +1,10 @@
 body{
-  background-color: #FFF;
-  color: #c1c6cb;
+  background-color: #222;
+  font-color: #c1c6cb;
 }
+
+.DataTabs {
+	backgroundColor: #222;
+	font-color: #c1c6cb;
+}
+
