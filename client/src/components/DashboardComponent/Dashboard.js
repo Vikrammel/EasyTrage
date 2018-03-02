@@ -37,7 +37,7 @@ class Dashboard extends Component {
 
         <Navbar />
           <h2>Dashboard</h2> 
-          <Tabs inkBarStyle={{background: 'green'}}>
+          <Tabs Style={{background: 'green'}}>
     <Tab label="Prices" >
       <div>
         <h2 style={styles.headline}>Recent Prices</h2>
