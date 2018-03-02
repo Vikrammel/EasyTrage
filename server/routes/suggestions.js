@@ -24,6 +24,8 @@ function generateSuggestions(currentPrices) {
             var bid = price1.prices["bid"];
             var ask = price1.prices["ask"];
             var profit = bid - ask;
+            var profitPercent = ((bid - ask) / ask) * 100;
+            profitPercent = profitPercent.toFixed(4);
             if (profit > 0.0) {
               newProfitList.push({
                 "pair": pair,
@@ -34,7 +36,8 @@ function generateSuggestions(currentPrices) {
                 "ask": {
                   "exchange": exchange2,
                   "price": ask
-                }
+                },
+                "profit": profitPercent
               });
             }
           }
@@ -42,7 +45,11 @@ function generateSuggestions(currentPrices) {
       }
     }
   }
+  //sorts array by max profit
+  newProfitList.sort(function(a, b){return b.profit - a.profit});
   profitList = newProfitList;
+
+  
   // console.log("Trade suggestions: ");
   // console.log(profitList);
   return profitList;
