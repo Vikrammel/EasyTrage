@@ -9,6 +9,7 @@ img {
   margin-top: 15%;
   -webkit-animation: shake 4s infinite;
   -webkit-animation-fill-mode: forwards;
+  animation-name: shake;
 }
 
 .App-logo {
@@ -32,7 +33,6 @@ img {
   margin-bottom: 10px;
 }
 
-.App-logo{
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(-45deg); }
   1% { transform: translate(-1px, -2px) rotate(-47deg); }
@@ -135,5 +135,4 @@ img {
   98% { transform: translate(3px, 1px) rotate(-47deg); }
   99% { transform: translate(-1px, -1px) rotate(-44deg); }
   100% { transform: translate(1px, 2px) rotate(-45deg); }
-}
 }

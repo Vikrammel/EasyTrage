@@ -12,6 +12,7 @@ img.arrow {
   margin-right: auto;
   width: 50%;
   transform: rotate(90deg);
+  animation-name: none;
 }
 
 .card {
