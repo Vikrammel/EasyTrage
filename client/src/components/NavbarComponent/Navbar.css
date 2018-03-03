@@ -4,22 +4,11 @@
 }
 
 .active {
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.8);
-  padding-bottom: 16px;
-  margin-top:0;
-  margin-bottom: 0;
-  border-bottom: 2px rgba(0, 0, 0, 0.8) solid;
-  pointer-events: none;
+    font-weight: bold;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: rgb(24, 139, 1);
     margin-right: 15px;
-    text-align: center;
-}
-
-a:hover{
-
 }
