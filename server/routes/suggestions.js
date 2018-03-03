@@ -15,30 +15,52 @@ function generateSuggestions(currentPrices) {
   var pairs = ["XRPBTC", "XRPUSDT", "XRPUSD", "XRPETH"];
   for (i in pairs) {
     var pair = pairs[i];
-    for (var exchange1 in currentPrices) {
-      for (var exchange2 in currentPrices) {
-        var price1 = currentPrices[exchange1][pair];
-        var price2 = currentPrices[exchange2][pair];
-        if (price1 && price2 && (exchange1 != exchange2)) {
-          if (price1.prices && price2.prices) {
-            var bid = price1.prices["bid"];
-            var ask = price1.prices["ask"];
-            var profit = bid - ask;
-            var profitPercent = ((bid - ask) / ask) * 100;
-            profitPercent = profitPercent.toFixed(4);
-            if (profit > 0.0) {
-              newProfitList.push({
-                "pair": pair,
-                "bid": {
-                  "exchange": exchange1,
-                  "price": bid
-                },
-                "ask": {
-                  "exchange": exchange2,
-                  "price": ask
-                },
-                "profit": profitPercent
-              });
+    for (var bidExchange in currentPrices) {
+      for (var askExchange in currentPrices) {
+        if (exchangeInfo[bidExchange] && exchangeInfo[askExchange] &&
+            exchangeInfo[bidExchange]["XRPwithdraw"] && exchangeInfo[askExchange]["XRPwithdraw"]) {
+          var bidPrice = currentPrices[bidExchange][pair];
+          var askPrice = currentPrices[askExchange][pair];
+          if (bidPrice && askPrice && (bidExchange != askExchange)) {
+            if (bidPrice.prices && askPrice.prices) {
+              var bid = bidPrice.prices["bid"];
+              var ask = askPrice.prices["ask"];
+              var bidFee = exchangeInfo[bidExchange].taker;
+              var askFee = exchangeInfo[askExchange].taker;
+              //convert to decimal for math
+              bidFee /=  100
+              askFee /= 100
+              var profit = bid - ask;
+              var profitPercent = (( (bid - (bid*bidFee)) - (ask + (ask*askFee)) ) / (ask + (ask*askFee))) * 100;
+              profitPercent = profitPercent.toFixed(4);
+              if (profitPercent > 0.0) {
+                newProfitList.push({
+                  "pair": pair,
+                  "bid": {
+                    "exchange": bidExchange,
+                    "price": bid,
+                    "taker fee": bidFee * 100,
+                    "withdraw fee": {
+                      "XRP": exchangeInfo[bidExchange]["XRPwithdraw"],
+                      "BTC": exchangeInfo[bidExchange]["BTCwithdraw"],
+                      "ETH": exchangeInfo[bidExchange]["ETHwithdraw"],
+                      "USDT": exchangeInfo[bidExchange]["USDTwithdraw"]
+                    } 
+                  },
+                  "ask": {
+                    "exchange": askExchange,
+                    "price": ask,
+                    "taker fee": askFee * 100,
+                    "withdraw fee": {
+                      "XRP": exchangeInfo[askExchange]["XRPwithdraw"],
+                      "BTC": exchangeInfo[askExchange]["BTCwithdraw"],
+                      "ETH": exchangeInfo[askExchange]["ETHwithdraw"],
+                      "USDT": exchangeInfo[askExchange]["USDTwithdraw"]
+                    }
+                  },
+                  "profit": profitPercent
+                });
+              }
             }
           }
         }
@@ -46,10 +68,10 @@ function generateSuggestions(currentPrices) {
     }
   }
   //sorts array by max profit
-  newProfitList.sort(function(a, b){return b.profit - a.profit});
+  newProfitList.sort(function (a, b) { return b.profit - a.profit });
   profitList = newProfitList;
 
-  
+
   // console.log("Trade suggestions: ");
   // console.log(profitList);
   return profitList;
