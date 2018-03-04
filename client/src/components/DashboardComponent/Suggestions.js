@@ -1,24 +1,45 @@
 import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
-import axios from 'axios'
+import axios from 'axios';
 import env from '../../../config/env';
 
 import './Suggestions.css';
 
-class Suggestions extends Component {
+export default class Suggestions extends Component {
+
+  constructor() {
+  super();
+  this.state = {
+      exchanges:[],
+    };
+  }
+
+  componentDidMount(){
+    axios.get(env.API_URL + 'api/suggestions')
+    .then( (res) => {
+      console.log(res.data);
+      let suggestionsArray= res.data.map((prices)=> {
+        console.log(prices);
+        return(
+          <span className="Cards">
+          <span className="card card-1">
+            <span ><h2>{prices.ask.exchange}({prices.ask.price}) <img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})</span></h2></span>
+            {prices.profit}%
+          </span>
+          </span>
+
+        )
+      })
+      this.setState({exchange: suggestionsArray});
+
+    })
+  }
 
     render() {
-      axios.get(env.API_URL + 'api/suggestions')
-      .then( (res) => {
-        var suggestionsArray = res.data;
-        console.log(suggestionsArray);
-      })
       return (
         <div className="Suggestedtrades">
-
+          {this.state.exchange}
         </div>
         );
       }
   }
-
-export default Suggestions;

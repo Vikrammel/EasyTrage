@@ -11,49 +11,7 @@ import {
 import axios from 'axios'
 import env from '../../../config/env';
 
-const tableData = [
-  {
-    exchange: 'CoinBase',
-    price: '100',
-    pair: 'BTC',
-  },
-  {
-    exchange: 'Bitterex',
-    price: '200',
-    pair: 'ETH',
-  },
-  {
-    exchange: 'Bitfenix',
-    price: '300',
-    pair: 'ETH',
-  },
-  {
-    exchange: 'Gemini',
-    price: '400',
-    pair: 'ETH',
-  },
-  {
-    exchange: 'Bianace',
-    price: '500',
-    pair: 'BTC',
-  },
-  {
-    exchange: 'CoinBase',
-    price: '600',
-    pair: 'ETH',
-  },
-  {
-    exchange: 'BitGrail',
-    price: '700',
-    pair: 'ETH',
-  },
-];
-
 var exchangeData = [];
-
-/**
- * A more complex example, allowing the table height to be set, and key boolean properties to be toggled.
- */
 export default class TableExampleComplex extends Component {
 
   constructor(props) {
@@ -64,12 +22,12 @@ export default class TableExampleComplex extends Component {
   }
 
   componentWillMount() {
-    console.log('I was triggered during getCoinPrice')
+    // console.log('I was triggered during getCoinPrice')
     axios.get(env.API_URL + 'api/price')
     .then( (res) => {
       //use res from back-end server and check status code
       //forwarded from external API server
-      console.log(res.data);
+      // console.log(res.data);
 
       for (var key in res.data) {
           if (res.data.hasOwnProperty(key)) {
@@ -109,8 +67,8 @@ export default class TableExampleComplex extends Component {
 
           }
       }
-      console.log(exchangeData);
-      console.log(tableData);
+      // console.log(exchangeData);
+      // console.log(tableData);
     })
     }
 
@@ -122,17 +80,17 @@ export default class TableExampleComplex extends Component {
 
 
   state = {
-    fixedHeader: true,
-    fixedFooter: true,
-    stripedRows: false,
-    showRowHover: false,
-    selectable: true,
-    multiSelectable: false,
-    enableSelectAll: false,
-    deselectOnClickaway: true,
-    showCheckboxes: false,
-    height: '500px',
-  };
+  fixedHeader: false,
+  fixedFooter: false,
+  stripedRows: false,
+  showRowHover: false,
+  selectable: false,
+  multiSelectable: false,
+  enableSelectAll: false,
+  deselectOnClickaway: false,
+  showCheckboxes: false,
+  height: '500px',
+};
 
   handleToggle = (event, toggled) => {
     this.setState({
@@ -147,17 +105,16 @@ export default class TableExampleComplex extends Component {
   render() {
     let renderContainer = false
     if(this.state.render){
-    console.log("I AM RENDERING NOW");
+    // console.log("I AM RENDERING NOW");
     return (
       <div id="container">
       <div style={{width: '100%', backgroundColor: "#FFF"}}>
         <Table style={{width: '75%',textAlign: 'center', backgroundColor: "#15202e", margin: 'auto'}}
-          height={this.state.height}
-          fixedHeader={this.state.fixedHeader}
-          fixedFooter={this.state.fixedFooter}
-          selectable={this.state.selectable}
-          multiSelectable={this.state.multiSelectable}
-          adjustForCheckbox={this.state.showCheckboxes}
+        height={this.state.height}
+        fixedHeader={this.state.fixedHeader}
+        fixedFooter={this.state.fixedFooter}
+        selectable={this.state.selectable}
+        multiSelectable={this.state.multiSelectable}
         >
           <TableHeader style={{textAlign: 'center', backgroundColor: "#607D8B"}}
           displaySelectAll={this.state.showCheckboxes}
@@ -171,11 +128,11 @@ export default class TableExampleComplex extends Component {
             </TableRow>
           </TableHeader>
           <TableBody style={{textAlign: 'center', backgroundColor: "#fff"}}
-            displayRowCheckbox={this.state.showCheckboxes}
-            deselectOnClickaway={this.state.deselectOnClickaway}
-            showRowHover={this.state.showRowHover}
-            stripedRows={this.state.stripedRows}
-            adjustForCheckbox={this.state.showCheckboxes}
+          displayRowCheckbox={this.state.showCheckboxes}
+          deselectOnClickaway={this.state.deselectOnClickaway}
+          showRowHover={this.state.showRowHover}
+          stripedRows={this.state.stripedRows}
+          adjustForCheckbox={this.state.showCheckboxes}
           >
             {exchangeData.map( (row, index) => (
               <TableRow key={index}>

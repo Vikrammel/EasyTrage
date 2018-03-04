@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Navbar from '../NavbarComponent/Navbar';
-import axios from 'axios';
-import env from '../../../config/env';
 import './Dashboard.css';
 import Suggestions from './Suggestions';
 import Tableprices from './Tableprices';
+import Clock from './Clock';
 //import Coindata from './coindata';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
@@ -30,6 +29,7 @@ class Dashboard extends Component {
     <Tab label="Prices" >
       <div>
         <h2 style={styles.headline}>Recent Prices</h2>
+        <Clock />
         <Tableprices />
       </div>
     </Tab>
