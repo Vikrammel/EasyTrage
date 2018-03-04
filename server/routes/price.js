@@ -185,7 +185,7 @@ function callAndStore(pairArr, exchange, pair, resObj) {
 }////////////end of callAndStore function
 
 //function to fetch all prices and store them in currentPrices
-function getAllPrices() {
+function getAllPrices(callback) {
   for (var exchange in XRPAPIInfo) {
     if (XRPAPIInfo.hasOwnProperty(exchange)) {
       //grab exchange object from JSON of XRP API info
@@ -213,7 +213,8 @@ function getAllPrices() {
 }
 
 //get all prices ever n ms
-setInterval(getAllPrices, 1500);
+getAllPrices();
+setInterval(getAllPrices, 50000); 
 
 //routes for /price
 router.get('/:pair?/:exchange?/:bidask?', function (req, res) {

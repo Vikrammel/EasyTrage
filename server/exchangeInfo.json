@@ -28,21 +28,6 @@
         "apiUrl": "https://www.bitstamp.net/api/",
         "feesURL": "https://www.bitstamp.net/fee_schedule/"
     },
-    "coinegg": {
-        "maker": 0.1,
-        "taker": 0.1,
-        "XRPwithdraw": "1%",
-        "BTCwithdraw": 0.003,
-        "ETHwithdraw": 0.01,
-        "apiUrl": "https://www.coinegg.com/explain.api.html",
-        "feesURL": "https://www.coinegg.com/fee.html"
-    },
-    "okex": {
-        "maker": 0.15,
-        "taker": 0.2,
-        "apiUrl": "https://www.okex.com/rest_getStarted.html",
-        "feesURL": "https://www.okex.com/fees.html"
-    },
     "hitbtc": {
         "maker": -0.01,
         "taker": 0.1,
