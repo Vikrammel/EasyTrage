@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
 import axios from 'axios';
-import env from '../../../config/env';
+import env from '../../../../config/env';
 
 import './Suggestions.css';
 
@@ -43,4 +43,3 @@ export default class Suggestions extends Component {
         );
       }
   }
-

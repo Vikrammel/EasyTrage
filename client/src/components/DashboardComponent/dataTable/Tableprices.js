@@ -9,7 +9,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import axios from 'axios'
-import env from '../../../config/env';
+import env from '../../../../config/env';
 
 var exchangeData = [];
 export default class TableExampleComplex extends Component {

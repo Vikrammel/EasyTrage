@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Navbar from '../NavbarComponent/Navbar';
 import './Dashboard.css';
-import Suggestions from './Suggestions';
-import Tableprices from './Tableprices';
-import Clock from './Clock';
+import Suggestions from './suggestions/Suggestions';
+import Tableprices from './dataTable/Tableprices';
+import Clock from './dataTable/Clock';
 //import Coindata from './coindata';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
@@ -22,7 +21,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <Navbar />
           <h2>Dashboard</h2>
           <Tabs Style={{background: 'green'}}>
     <Tab label="Prices" >
