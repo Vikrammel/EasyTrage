@@ -37,6 +37,14 @@ router.post('/login', function(req, res) {
               } 
               if(isMatch){
                 const token = jwt.sign({ user: req.user }, 'temp_pass');
+                User.findOneAndUpdate({email: email}, {token: token}, (err,user) => {
+                  if(err){
+                    res.json({success: false, msg:String(err)});
+                  } else {
+                    logger(user);
+                  }
+                });
+
                 logger("{ success: true, token: '" + token + "' }");
                 return res.json({ success: true, token: token });
               } else {
@@ -49,6 +57,17 @@ router.post('/login', function(req, res) {
     });
   });
   
+// Settings
+router.put('/settings', (req, res, next) => {
+  User.findOneAndUpdate({token: req.body.token}, req.body, (err,user) => {
+    if(err){
+      res.json({success: false, msg:String(err)});
+    } else {
+      res.json({success: true, msg:JSON.stringify(user)});
+    }
+  });
+});
+
   router.post('/register', function(req,res) {
     const newUser = new User({
       email: req.body.email,

@@ -46,6 +46,6 @@ class Dashboard extends Component {
       </div>
       );
     }
-  }
+}
 
 export default Dashboard;

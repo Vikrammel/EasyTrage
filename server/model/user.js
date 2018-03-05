@@ -19,6 +19,10 @@ var UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    token: {
+        type: String,
+        required: false  
     }
 }, {runSettersOnQuery: true} );
 
