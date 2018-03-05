@@ -15,7 +15,7 @@ export default class Suggestions extends Component {
   }
 
   componentDidMount(){
-    axios.get(env.API_URL + 'api/suggestions')
+    axios.get(env.API_URL + '/api/suggestions')
     .then( (res) => {
       console.log(res.data);
       let suggestionsArray= res.data.map((prices)=> {
