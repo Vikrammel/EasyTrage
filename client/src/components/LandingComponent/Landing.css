@@ -4,11 +4,12 @@ html {
   position: relative;
 }
 
-img.App-logo {
+img {
   margin-left: 45%;
   margin-top: 15%;
   -webkit-animation: shake 4s infinite;
   -webkit-animation-fill-mode: forwards;
+  animation-name: shake;
 }
 
 .App-logo {

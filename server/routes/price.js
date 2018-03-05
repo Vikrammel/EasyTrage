@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 var axios = require('axios');
+var suggestions = require('./suggestions.js');
 
 //object to store APIURLs and paths to prices within JSON response
 var XRPAPIInfo = require("./XRPAPIInfo.json");
@@ -184,7 +185,7 @@ function callAndStore(pairArr, exchange, pair, resObj) {
 }////////////end of callAndStore function
 
 //function to fetch all prices and store them in currentPrices
-function getAllPrices() {
+function getAllPrices(callback) {
   for (var exchange in XRPAPIInfo) {
     if (XRPAPIInfo.hasOwnProperty(exchange)) {
       //grab exchange object from JSON of XRP API info
@@ -205,11 +206,15 @@ function getAllPrices() {
   }
 
   // ~1 second seems to be a good amount of time till all the exchanges respond
-  setTimeout(() => { return }, 1200);
+  setTimeout(() => { 
+    suggestions.generateSuggestions(currentPrices);
+    return; 
+  }, 1200);
 }
 
 //get all prices ever n ms
-setInterval(getAllPrices, 1500);
+getAllPrices();
+setInterval(getAllPrices, 50000); 
 
 //routes for /price
 router.get('/:pair?/:exchange?/:bidask?', function (req, res) {

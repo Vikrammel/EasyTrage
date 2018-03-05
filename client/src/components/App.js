@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Landing from './LandingComponent/Landing';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './DashboardComponent/Dashboard';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   render() {
     return (
+      <MuiThemeProvider>
       <BrowserRouter>
         <div className="App">
           <Switch>
@@ -17,6 +19,7 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }

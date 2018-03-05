@@ -5,3 +5,4 @@ package-lock.json
 *.pem
 easytrage-key.pem
 easytrage-cert.pem
+.DS_Store

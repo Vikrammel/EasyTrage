@@ -1,46 +1,46 @@
 import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
+import axios from 'axios';
+import env from '../../../config/env';
 
 import './Suggestions.css';
 
-class Suggestions extends Component {
+export default class Suggestions extends Component {
+
+  constructor() {
+  super();
+  this.state = {
+      exchanges:[],
+    };
+  }
+
+  componentDidMount(){
+    axios.get(env.API_URL + '/api/suggestions')
+    .then( (res) => {
+      console.log(res.data);
+      let suggestionsArray= res.data.map((prices)=> {
+        console.log(prices);
+        return(
+          <span className="Cards">
+          <span className="card card-1">
+            <span ><h2>{prices.ask.exchange}({prices.ask.price}) <img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})</span></h2></span>
+            {prices.profit}%
+          </span>
+          </span>
+
+        )
+      })
+      this.setState({exchange: suggestionsArray});
+
+    })
+  }
+
     render() {
       return (
         <div className="Suggestedtrades">
-  <span className="Cards">
-  <span className="card card-1">
-    <span style={{ color: 'green' }}><h2>Bianace(.4213) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'red' }}>CoinBase(.30942)</span></h2></span>
-  </span>
-  </span>
-
-  <span className="Cards">
-  <span className="card card-1">
-  <span style={{ color: 'red' }}><h2>Gemini(.9174) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'green' }}>CoinBase(1.4389)</span></h2></span>
-  </span>
-  </span>
-  <span className="Cards">
-  <span className="card card-1">
-  <span style={{ color: 'red' }}><h2>CoinBase(.1894) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'green' }}>BitGrail(.5084)</span></h2></span>
-  </span>
-  </span>
-  <span className="Cards">
-  <span className="card card-1">
-  <span style={{ color: 'green' }}><h2>bittrex(.9183) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'red' }}>CoinBase(.4324)</span></h2></span>
-  </span>
-  </span>
-  <span className="Cards">
-  <span className="card card-1">
-  <span style={{ color: 'red' }}><h2>Kraken(.4213) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'green' }}>bittrex(.4351)</span></h2></span>
-  </span>
-  </span>
-  <span className="Cards">
-  <span className="card card-1">
-  <span style={{ color: 'green' }}><h2>BitFinex(.546772) <img src={arrow} className="arrow" alt="logo"/><span style={{ color: 'red' }}>CoinBase(.2145)</span></h2></span>
-  </span>
-  </span>
-  </div>
+          {this.state.exchange}
+        </div>
         );
       }
   }
 
-export default Suggestions;

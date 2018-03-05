@@ -1,7 +1,9 @@
-body {
-  background: #FFFFFF;
+body{
+  background-color: #FFFFFF;
+  font-color: #c1c6cb;
 }
 
-h1 {
-  text-align: center;
+img{
+  -webkit-animation: none;
 }
+
