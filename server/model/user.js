@@ -44,6 +44,7 @@ module.exports.addUser = function(newUser, callback){
     });
 }
 
+
 module.exports.validatePassword = function(password, hash, callback){
     // const query = {email: email};
     // const currUser = User.findOne(query, null);
@@ -54,10 +55,21 @@ module.exports.validatePassword = function(password, hash, callback){
     });
     // }
 }
+    
 
 module.exports.comparePassword = function(password, hash, callback){
     bcrypt.compare(password, hash, (err, isMatch) => {
         if(err) throw err;
         callback(null, isMatch);
+    });
+}
+
+module.exports.editUser = function(modUser, newPassword){
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newPassword, salt, (err, hash) => {
+            if(err) throw err;
+            modUser.password = hash;
+            modUser.save((err, callback));
+        });
     });
 }
