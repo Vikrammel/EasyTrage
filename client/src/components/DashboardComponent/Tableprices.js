@@ -23,7 +23,7 @@ export default class TableExampleComplex extends Component {
 
   componentWillMount() {
     // console.log('I was triggered during getCoinPrice')
-    axios.get(env.API_URL + 'api/price')
+    axios.get(env.API_URL + '/api/price')
     .then( (res) => {
       //use res from back-end server and check status code
       //forwarded from external API server
