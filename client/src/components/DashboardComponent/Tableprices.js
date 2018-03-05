@@ -92,6 +92,7 @@ export default class TableExampleComplex extends Component {
   height: '500px',
 };
 
+
   handleToggle = (event, toggled) => {
     this.setState({
       [event.target.name]: toggled,
@@ -106,6 +107,7 @@ export default class TableExampleComplex extends Component {
     let renderContainer = false
     if(this.state.render){
     // console.log("I AM RENDERING NOW");
+
     return (
       <div id="container">
       <div style={{width: '100%', backgroundColor: "#FFF"}}>
@@ -120,6 +122,7 @@ export default class TableExampleComplex extends Component {
           displaySelectAll={this.state.showCheckboxes}
           adjustForCheckbox={this.state.showCheckboxes}
           enableSelectAll={this.state.enableSelectAll}
+
           >
             <TableRow style={{textAlign: 'center', backgroundColor: "#E0E0E0"}}>
               <TableHeaderColumn tooltip="The ID">Exchange</TableHeaderColumn>
@@ -135,6 +138,7 @@ export default class TableExampleComplex extends Component {
           adjustForCheckbox={this.state.showCheckboxes}
           >
             {exchangeData.map( (row, index) => (
+
               <TableRow key={index}>
                 <TableRowColumn>{row.exchange}</TableRowColumn>
                 <TableRowColumn>{row.price}</TableRowColumn>

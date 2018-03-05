@@ -43,3 +43,4 @@ export default class Suggestions extends Component {
         );
       }
   }
+

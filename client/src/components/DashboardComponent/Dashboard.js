@@ -21,7 +21,6 @@ const styles = {
 class Dashboard extends Component {
   render() {
     return (
-
       <div className="Dashboard">
         <Navbar />
           <h2>Dashboard</h2>
