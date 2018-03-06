@@ -3,8 +3,9 @@ import './Dashboard.css';
 import Suggestions from './suggestions/Suggestions';
 import Tableprices from './dataTable/Tableprices';
 import Clock from './dataTable/Clock';
-//import Coindata from './coindata';
+import Settings from './accountSettings/Settings';
 import {Tabs, Tab} from 'material-ui/Tabs';
+
 
 
 const styles = {
@@ -37,9 +38,10 @@ class Dashboard extends Component {
       </div>
     </Tab>
     <Tab
-      label="Item Three">
+      label="Settings">
       <div>
-         <h2 style={styles.headline}>Tab Three</h2>
+         <h2 style={styles.headline}>Api Keys and Account Settings</h2>
+         <Settings />
       </div>
     </Tab>
   </Tabs>
