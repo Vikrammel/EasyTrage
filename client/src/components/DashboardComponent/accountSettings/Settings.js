@@ -7,16 +7,16 @@ import axios from 'axios';
 import env from '../../../../config/env';
 
 const style = {
-  margin: 12,
+  margin: 12
 };
 
 export default class Settings extends Component {
 
-  _authenticate = function(buttonPressed){
+  _authenticate = function (buttonPressed) {
     //close all Alerts
     Alert.closeAll();
     //disable text boxes
-    this.setState({formDisabled: true});
+    this.setState({ formDisabled: true });
     var bittrex = this.refs["bittrex"].value;
     var bitfinex = this.refs["bitfinex"].value;
     var bitstamp = this.refs["bitstamp"].value;
@@ -44,86 +44,89 @@ export default class Settings extends Component {
     };
 
     axios.post(env.API_URL + '/auth/settings', API)
-    .then( (res) => {
-      if (res.data.success === true){
-        Alert.success('API keys have been saved!');
-      }
-      else{
-        Alert.error(res.data.message);
-      }
-    })
+      .then((res) => {
+        if (res.data.success === true) {
+          Alert.success('API keys have been saved!');
+        }
+        else {
+          Alert.error(res.data.message);
+        }
+      })
+      .catch( (err) => {
+        Alert(err);
+      })
   }
 
   render() {
-    return(
+    return (
       <span>
-    <h3>Bittrex Api Key:</h3>
-    <span><TextField ref='bittrex'
-      hintText="bittrex"
-    /></span><br />
-    <br />
-    <br />
-    <h3>bitfinex Api Key:</h3>
-    <span><TextField ref='bitfinex'
-      hintText="bitfinex"
-    /></span><br />
-    <br />
-    <br />
-    <h3>bitstamp Api Key:</h3>
-    <span><TextField ref='bitstamp'
-      hintText="bitstamp"
-    /></span><br />
-    <br />
-    <br />
-    <h3>hitbtc Api Key:</h3>
-    <span><TextField ref='hitbtc'
-      hintText="hitbtc"
-    /></span><br />
-    <br />
-    <br />
-    <h3>binance Api Key:</h3>
-    <span><TextField ref='binance'
-      hintText="binance"
-    /></span><br />
-    <br />
-    <br />
-    <h3>poloniex Api Key:</h3>
-    <span><TextField ref='poloniex'
-      hintText="poloniex"
-    /></span><br />
-    <br />
-    <br />
-    <h3>kraken Api Key:</h3>
-    <span><TextField ref='kraken'
-      hintText="kraken"
-    /></span><br />
-    <br />
-    <br />
-    <h3>exmo Api Key:</h3>
-    <span><TextField ref='exmo'
-      hintText="exmo"
-    /></span><br />
-    <br />
-    <br />
-    <h3>cex.io Api Key:</h3>
-    <span><TextField ref='cexio'
-      hintText="cex.io"
-    /></span><br />
-    <br />
-    <br />
-    <h3>gate.io Api Key:</h3>
-    <span><TextField ref='gateio'
-      hintText="gate.io"
-    /></span><br />
-    <br />
-    <br />
-    <h3>Enter Account Password:</h3>
-    <span><TextField ref='password'
-    type="password"
-      hintText="password"
-    /></span><br />
-    <RaisedButton label="Submit" style={style} onClick={() => this._authenticate()}/>
-    </span>
+        <h3>Bittrex Api Key:</h3>
+        <span><TextField ref='bittrex'
+          hintText="bittrex"
+        /></span><br />
+        <br />
+        <br />
+        <h3>bitfinex Api Key:</h3>
+        <span><TextField ref='bitfinex'
+          hintText="bitfinex"
+        /></span><br />
+        <br />
+        <br />
+        <h3>bitstamp Api Key:</h3>
+        <span><TextField ref='bitstamp'
+          hintText="bitstamp"
+        /></span><br />
+        <br />
+        <br />
+        <h3>hitbtc Api Key:</h3>
+        <span><TextField ref='hitbtc'
+          hintText="hitbtc"
+        /></span><br />
+        <br />
+        <br />
+        <h3>binance Api Key:</h3>
+        <span><TextField ref='binance'
+          hintText="binance"
+        /></span><br />
+        <br />
+        <br />
+        <h3>poloniex Api Key:</h3>
+        <span><TextField ref='poloniex'
+          hintText="poloniex"
+        /></span><br />
+        <br />
+        <br />
+        <h3>kraken Api Key:</h3>
+        <span><TextField ref='kraken'
+          hintText="kraken"
+        /></span><br />
+        <br />
+        <br />
+        <h3>exmo Api Key:</h3>
+        <span><TextField ref='exmo'
+          hintText="exmo"
+        /></span><br />
+        <br />
+        <br />
+        <h3>cex.io Api Key:</h3>
+        <span><TextField ref='cexio'
+          hintText="cex.io"
+        /></span><br />
+        <br />
+        <br />
+        <h3>gate.io Api Key:</h3>
+        <span><TextField ref='gateio'
+          hintText="gate.io"
+        /></span><br />
+        <br />
+        <br />
+        <h3>Enter Account Password:</h3>
+        <span><TextField ref='password'
+          type="password"
+          hintText="password"
+        /></span><br />
+        <RaisedButton label="Submit" style={style} onClick={() => this._authenticate()} />
+      </span>
 
     )
   }
