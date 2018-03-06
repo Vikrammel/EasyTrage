@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
 import axios from 'axios';
 import env from '../../../../config/env';
-
 import './Suggestions.css';
 
 export default class Suggestions extends Component {
@@ -23,8 +22,8 @@ export default class Suggestions extends Component {
         return(
           <span className="Cards">
           <span className="card card-1">
-            <span ><h2>{prices.ask.exchange}({prices.ask.price}) <img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})</span></h2></span>
-            {prices.profit}%
+            <span ><h2>{prices.ask.exchange}({prices.ask.price})<br></br>{prices.pair}<img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})<br></br>{prices.pair}</span></h2></span>
+            <b>Profit: {prices.profit}%</b>
           </span>
           </span>
 
