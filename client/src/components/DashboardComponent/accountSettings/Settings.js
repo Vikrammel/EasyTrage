@@ -43,7 +43,8 @@ class Settings extends Component {
         cexio: 'cexio API key',
         gateio: 'gateio API key',
         password: '',
-        newPassword: ''
+        newPassword: '',
+        token: localStorage.getItem("token")
       }
     };
 
