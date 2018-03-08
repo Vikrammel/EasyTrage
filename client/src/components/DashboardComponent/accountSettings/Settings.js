@@ -4,6 +4,7 @@ import './Settings.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import Alert from 'react-s-alert';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import env from '../../../../config/env';
 import Center from 'react-center';
 
@@ -14,7 +15,7 @@ const buttonStyle = {
 const exchanges = ['bittrex','bitfinex','bitstamp','hitbtc','binance',
                     'poloniex','kraken','exmo','cexio','gateio'];
 
-export default class Settings extends Component {
+class Settings extends Component {
 
   constructor(props) {
     super(props);
@@ -173,7 +174,8 @@ export default class Settings extends Component {
               <Alert stack={{ limit: 2, spacing: 50 }} />
             </Center>
             <Center>
-            <RaisedButton label="Submit" type="submit" style={buttonStyle} /> 
+            <RaisedButton label="Submit" type="submit" style={buttonStyle} />
+            <RaisedButton label="Cancel" type="button" style={buttonStyle} onClick={() => this.props.history.push("/")}/>  
             </Center>
           </form>
 
@@ -183,3 +185,5 @@ export default class Settings extends Component {
     return(null);
   }
 }
+
+export default withRouter(Settings);
