@@ -111,7 +111,7 @@ export default class TableExampleComplex extends Component {
           deselectOnClickaway={this.state.deselectOnClickaway}
           showRowHover={this.state.showRowHover}
           stripedRows={this.state.stripedRows}
-          adjustForCheckbox={this.state.showCheckboxes}
+          // adjustForCheckbox={this.state.showCheckboxes}
           >
             {exchangeData.map( (row, index) => (
 

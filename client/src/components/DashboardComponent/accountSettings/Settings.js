@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-// import TextField from 'material-ui/TextField';
+import TextField from 'material-ui/TextField';
 import './Settings.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import Alert from 'react-s-alert';
 import axios from 'axios';
 import env from '../../../../config/env';
+import Center from 'react-center';
 
 const style = {
   margin: 12
@@ -14,9 +15,15 @@ export default class Settings extends Component {
 
   constructor(props) {
     super(props);
+    this.alertOptions = {
+      offset: 100,
+      position: 'top',
+      theme: 'dark',
+      timeout: 5000,
+      transition: 'scale',
+      html: true
+    };
     this.state = {
-      exchanges: ['bittrex','bitfinex','bitstamp','hitbtc','binance',
-                  'poloniex','kraken','exmo','cexio','gateio'],
       bittrex: 'bittrex API key',
       bitfinex: 'bitfinex API key',
       bitstamp: 'bitstamp API key',
@@ -27,185 +34,121 @@ export default class Settings extends Component {
       exmo: 'exmo API key',
       cexio: 'cexio API key',
       gateio: 'gateio API key',
-      password: 'password',
-      newPassword: 'new password'
+      password: '',
+      newPassword: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event, field){
-    // this.setState({[field]: event.target.value});
-    console.log(field);
+  handleChange(event){
+    //not working using setState
+    // var stateChange = {};
+    // stateChange[event.target.name]=event.target.value;
+    // this.setState(stateChange, function(){
+    //   console.log(event.target.name + ": " + this.state[event.target.name]);
+    // });
+    this.state[event.target.name] = event.target.value;
+    console.log(event.target.name + ": " + this.state[event.target.name])
+    console.log(JSON.stringify(this.state));
   }
 
   handleSubmit(event){
-    // this.setState({field: event.target.value});
-    console.log("submit");
-  }
-
-  /*
-  _authenticate = function (buttonPressed) {
-    //close all Alerts
-    // Alert.closeAll();
-    //disable text boxes
+    //close alerts and disable form text fields
+    Alert.closeAll();
     this.setState({ formDisabled: true });
-    var bittrex = this.refs["bittrex"].value;
-    var bitfinex = this.refs["bitfinex"].value;
-    var bitstamp = this.refs["bitstamp"].value;
-    var hitbtc = this.refs["hitbtc"].value;
-    var binance = this.refs["binance"].value;
-    var poloniex = this.refs["poloniex"].value;
-    var kraken = this.refs["kraken"].value;
-    var exmo = this.refs["exmo"].value;
-    var cexio = this.refs["cexio"].value;
-    var gateio = this.refs["gateio"].value;
-    var password = this.refs["password"].value;
-    var newPassword = this.refs["newPassword"].value;
-
-    var API = {
-      bittrex: bittrex,
-      bitfinex: bitfinex,
-      bitstamp: bitstamp,
-      hitbtc: hitbtc,
-      binance: binance,
-      poloniex: poloniex,
-      kraken: kraken,
-      exmo: exmo,
-      cexio: cexio,
-      gateio: gateio,
-      password: password,
-      newPassword: newPassword
-    };
-
-    if( (!API.password) || (API.password.length < 0) ){
-      console.log("Acount password must be entered to save settings");
-      Alert.warning("Acount password must be entered to save settings");
-      return;
+    //validate password existance and length of new password
+    event.preventDefault();
+    if( (this.state["password"]==='' || this.state["password"].length < 6) ){
+      console.log("Acount password with length of 6 or more characters must be entered to save settings");
+      Alert.warning("<span style='color:red'>Acount password with length of 6 or more characters must be" 
+                    + "entered to save settings</span>",
+        this.alertOptions);
+      this.setState({ formDisabled: false });
+      this.router.history.push('/');
     }
-    else if( (API.newPassword && API.newPassword.length > 0) && (API.newPassword.length < 6) ){
+    else if( this.state["newPassword"]!=='' && this.state["newPassword"].length < 6 ){
       console.log("Please make sure your new password is more than 6 characters long");
-      Alert.warning("Please make sure your new password is more than 6 characters long");
-      return;
+      Alert.warning("<span style='color:red'>Please make sure your new password is more than 6 characters "
+                    + "long</span>", this.alertOptions);
+      this.setState({ formDisabled: false });
     }
     else {
-      axios.post(env.API_URL + '/auth/settings', API)
+      axios.post(env.API_URL + '/auth/settings', this.state)
         .then((res) => {
           if (res.data.success === true) {
-            Alert.success('API keys have been saved!');
+            Alert.success("<span style='color:green'>API keys have been saved!</span>");
+            this.setState({ formDisabled: false });
           }
           else {
-            Alert.error(res.data.message);
+            Alert.error("<span style='color:red'>" + res.data.message + "</span>");
+            this.setState({ formDisabled: false });
           }
         })
         .catch( (err) => {
-          Alert(err);
+          Alert("<span style='color:red'>" + String(err) + "</span>");
+          this.setState({ formDisabled: false });
         })
     }
   }
-  */
 
   render() {
+    const exchanges = ['bittrex','bitfinex','bitstamp','hitbtc','binance',
+                        'poloniex','kraken','exmo','cexio','gateio'];
     return(
-      <form onSubmit={this.handleSubmit}> 
-        {
-          this.state.exchanges.map((exchange, index) => (
+        <div>
+        <form onSubmit={this.handleSubmit} style={{float:"center"}}>
+          {
+            exchanges.map((exchange, index) => (
+            <Center>
+            <div  >
+              <span style={{fontWeight:"bold"}}>{exchange} API key</span>
+              <br />
+                <div><TextField name={exchange}
+                  type="text"
+                  placeholder={this.state[exchange]}
+                  onChange={this.handleChange.bind(this)}
+                  disabled={this.state.formDisabled}
+                /></div>
+              <br />
+              <br />
+            </div>
+            </Center>
+          ))}
+          <Center>
           <div>
-            <span style={{fontWeight:"bold"}}>{exchange} API key:</span>
+            <span style={{fontWeight:"bold"}}>Password: </span>
             <br />
-            <input type="text" defaultValue={this.state[exchange]} onChange={this.handleChange(exchange)} />
+            <TextField name='password'
+              type="password"
+              hintText="password"
+              onChange={this.handleChange.bind(this)}
+              disabled={this.state.formDisabled}
+            />
+          <br />
+          <br />
+            <span style={{fontWeight:"bold"}}>New Password (optional): </span>
             <br />
-            <br />
+            <TextField name='newPassword'
+              type="password"
+              hintText="new password"
+              onChange={this.handleChange.bind(this)}
+              disabled={this.state.formDisabled}
+            />
           </div>
-        ))}
-        <RaisedButton label="Submit" type="submit" style={style} /> 
-      </form>
+          </Center>
+          <br />
+          <Center>
+            <Alert stack={{ limit: 2, spacing: 50 }} />
+          </Center>
+          <Center>
+          <RaisedButton label="Submit" type="submit" style={style} /> 
+          </Center>
+        </form>
+
+      </div>
     )
-    /*
-    return (
-      <form>
-        <label>
-          Bittrex API key:
-        <input type="text" value={this.state.bittrex} onChange={this.handleChange('bittrex')} />
-        </label>
-        <h3>Bittrex Api Key:</h3>
-        <span><TextField ref='bittrex'
-          hintText="bittrex"
-        /></span><br />
-        <br />
-        <br />
-        <h3>bitfinex Api Key:</h3>
-        <span><TextField ref='bitfinex'
-          hintText="bitfinex"
-        /></span><br />
-        <br />
-        <br />
-        <h3>bitstamp Api Key:</h3>
-        <span><TextField ref='bitstamp'
-          hintText="bitstamp"
-        /></span><br />
-        <br />
-        <br />
-        <h3>hitbtc Api Key:</h3>
-        <span><TextField ref='hitbtc'
-          hintText="hitbtc"
-        /></span><br />
-        <br />
-        <br />
-        <h3>binance Api Key:</h3>
-        <span><TextField ref='binance'
-          hintText="binance"
-        /></span><br />
-        <br />
-        <br />
-        <h3>poloniex Api Key:</h3>
-        <span><TextField ref='poloniex'
-          hintText="poloniex"
-        /></span><br />
-        <br />
-        <br />
-        <h3>kraken Api Key:</h3>
-        <span><TextField ref='kraken'
-          hintText="kraken"
-        /></span><br />
-        <br />
-        <br />
-        <h3>exmo Api Key:</h3>
-        <span><TextField ref='exmo'
-          hintText="exmo"
-        /></span><br />
-        <br />
-        <br />
-        <h3>cex.io Api Key:</h3>
-        <span><TextField ref='cexio'
-          hintText="cex.io"
-        /></span><br />
-        <br />
-        <br />
-        <h3>gate.io Api Key:</h3>
-        <span><TextField ref='gateio'
-          hintText="gate.io"
-        /></span><br />
-        <br />
-        <br />
-        <h3>Enter Account Password:</h3>
-        <span><TextField ref='password'
-          type="password"
-          hintText="password"
-        /></span><br />
-        <br />
-        <br />
-        <h3>Enter New Password (Optional):</h3>
-        <span><TextField ref='newPassword'
-          type="password"
-          hintText="new password"
-        /></span><br />
-        <RaisedButton label="Submit" type="submit" style={style} onClick={() => this._authenticate()} />
-      </form>
-
-    )*/
-
   }
 
 }
