@@ -57,9 +57,9 @@ router.post('/login', function (req, res) {
 router.post('/settings', (req, res, next) => {
   User.findOneAndUpdate({ token: req.body.token }, req.body, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
+      res.json({ success: false, message: String(err) });
     } else {
-      res.json({ success: true, msg: JSON.stringify(user) });
+      res.json({ success: true, message: JSON.stringify(user) });
     }
   });
 });
@@ -67,11 +67,12 @@ router.post('/settings', (req, res, next) => {
 // get settings for populating client form fields
 router.get('/settings', (req, res, next) => {
   const token = req.header("token");
+  console.log("Settings requested with token: " + token);
   User.findOne({ token: token }, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
+      res.json({ success: false, message: String(err) });
     } else {
-      res.json({ success: true, msg: JSON.stringify(user) });
+      res.json({ success: true, message: JSON.stringify(user) });
     }
   });
 });
