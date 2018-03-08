@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+// import TextField from 'material-ui/TextField';
 import './Settings.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import Alert from 'react-s-alert';
@@ -12,9 +12,43 @@ const style = {
 
 export default class Settings extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      exchanges: ['bittrex','bitfinex','bitstamp','hitbtc','binance',
+                  'poloniex','kraken','exmo','cexio','gateio'],
+      bittrex: 'bittrex API key',
+      bitfinex: 'bitfinex API key',
+      bitstamp: 'bitstamp API key',
+      hitbtc: 'hitbtc API key',
+      binance: 'binance API key',
+      poloniex: 'poloniex API key',
+      kraken: 'kraken API key',
+      exmo: 'exmo API key',
+      cexio: 'cexio API key',
+      gateio: 'gateio API key',
+      password: 'password',
+      newPassword: 'new password'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event, field){
+    // this.setState({[field]: event.target.value});
+    console.log(field);
+  }
+
+  handleSubmit(event){
+    // this.setState({field: event.target.value});
+    console.log("submit");
+  }
+
+  /*
   _authenticate = function (buttonPressed) {
     //close all Alerts
-    Alert.closeAll();
+    // Alert.closeAll();
     //disable text boxes
     this.setState({ formDisabled: true });
     var bittrex = this.refs["bittrex"].value;
@@ -28,6 +62,7 @@ export default class Settings extends Component {
     var cexio = this.refs["cexio"].value;
     var gateio = this.refs["gateio"].value;
     var password = this.refs["password"].value;
+    var newPassword = this.refs["newPassword"].value;
 
     var API = {
       bittrex: bittrex,
@@ -40,26 +75,60 @@ export default class Settings extends Component {
       exmo: exmo,
       cexio: cexio,
       gateio: gateio,
-      password: password
+      password: password,
+      newPassword: newPassword
     };
 
-    axios.post(env.API_URL + '/auth/settings', API)
-      .then((res) => {
-        if (res.data.success === true) {
-          Alert.success('API keys have been saved!');
-        }
-        else {
-          Alert.error(res.data.message);
-        }
-      })
-      .catch( (err) => {
-        Alert(err);
-      })
+    if( (!API.password) || (API.password.length < 0) ){
+      console.log("Acount password must be entered to save settings");
+      Alert.warning("Acount password must be entered to save settings");
+      return;
+    }
+    else if( (API.newPassword && API.newPassword.length > 0) && (API.newPassword.length < 6) ){
+      console.log("Please make sure your new password is more than 6 characters long");
+      Alert.warning("Please make sure your new password is more than 6 characters long");
+      return;
+    }
+    else {
+      axios.post(env.API_URL + '/auth/settings', API)
+        .then((res) => {
+          if (res.data.success === true) {
+            Alert.success('API keys have been saved!');
+          }
+          else {
+            Alert.error(res.data.message);
+          }
+        })
+        .catch( (err) => {
+          Alert(err);
+        })
+    }
   }
+  */
 
   render() {
+    return(
+      <form onSubmit={this.handleSubmit}> 
+        {
+          this.state.exchanges.map((exchange, index) => (
+          <div>
+            <span style={{fontWeight:"bold"}}>{exchange} API key:</span>
+            <br />
+            <input type="text" defaultValue={this.state[exchange]} onChange={this.handleChange(exchange)} />
+            <br />
+            <br />
+          </div>
+        ))}
+        <RaisedButton label="Submit" type="submit" style={style} /> 
+      </form>
+    )
+    /*
     return (
-      <span>
+      <form>
+        <label>
+          Bittrex API key:
+        <input type="text" value={this.state.bittrex} onChange={this.handleChange('bittrex')} />
+        </label>
         <h3>Bittrex Api Key:</h3>
         <span><TextField ref='bittrex'
           hintText="bittrex"
@@ -125,10 +194,18 @@ export default class Settings extends Component {
           type="password"
           hintText="password"
         /></span><br />
-        <RaisedButton label="Submit" style={style} onClick={() => this._authenticate()} />
-      </span>
+        <br />
+        <br />
+        <h3>Enter New Password (Optional):</h3>
+        <span><TextField ref='newPassword'
+          type="password"
+          hintText="new password"
+        /></span><br />
+        <RaisedButton label="Submit" type="submit" style={style} onClick={() => this._authenticate()} />
+      </form>
 
-    )
+    )*/
+
   }
 
 }
