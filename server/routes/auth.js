@@ -3,6 +3,7 @@
 const express = require('express');
 var jwt = require('jsonwebtoken');
 var User = require('../model/user');
+var bcrypt = require('bcryptjs');
 const router = express.Router();
 
 //logs to console if toggle is on
@@ -55,11 +56,37 @@ router.post('/login', function (req, res) {
 
 // update user settings
 router.post('/settings', (req, res, next) => {
-  User.findOneAndUpdate({ token: req.body.token }, req.body, (err, user) => {
+  var token = req.body.token;
+  var newPass = req.body.newPassword;
+  var pass = req.body.password;
+  var failure = {success: false};
+  var success = {success: true, msg: "password modified!"};
+  User.getUserByToken(token, (err, user) => {
     if (err) {
-      res.json({ success: false, message: String(err) });
-    } else {
-      res.json({ success: true, message: JSON.stringify(user) });
+      res.json(failure);
+    }
+    if (user) {
+      User.validatePassword(pass, user.password, (err, isMatch) => {
+        if (err) {
+          logger("error: " + String(err));
+          res.json(failure);
+        }
+        if (isMatch) {
+          User.editUser(user, newPass, err => {
+            if (err) {
+              logger("failed to edit pass: " + String(err));
+              res.json(failure);
+            }
+            console.log(success);
+            res.json(success);
+          });
+        }
+        else {
+          var badpass = {success: false, msg: "bad password"};
+          console.log(badpass);
+          res.json(badpass);
+        }
+      });
     }
   });
 });

@@ -34,6 +34,11 @@ module.exports.getUserByEmail = function(email, callback){
     User.findOne(query, callback);
 }
 
+module.exports.getUserByToken = function(token, callback){
+    const query = {token: token};
+    User.findOne(query, callback);
+}
+
 module.exports.addUser = function(newUser, callback){
     if(!newUser.password) {
         newUser.save(callback);
@@ -68,7 +73,7 @@ module.exports.comparePassword = function(password, hash, callback){
     });
 }
 
-module.exports.editUser = function(modUser, newPassword){
+module.exports.editUser = function(modUser, newPassword, callback){
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newPassword, salt, (err, hash) => {
             if(err) throw err;
