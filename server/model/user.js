@@ -23,7 +23,17 @@ var UserSchema = new Schema({
     token: {
         type: String,
         required: false  
-    }
+    },
+    bittrex: {type: String},
+    bitfinex: {type: String},
+    bitstamp: {type: String},
+    hitbtc: {type: String},
+    binance: {type: String},
+    poloniex: {type: String},
+    kraken: {type: String},
+    exmo: {type: String},
+    cexio: {type: String},
+    gateio: {type: String},
 }, {runSettersOnQuery: true} );
 
 //export module to use in server.js

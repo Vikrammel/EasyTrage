@@ -36,7 +36,7 @@ router.post('/login', function (req, res) {
             const token = jwt.sign({ user: req.user }, 'temp_pass');
             User.findOneAndUpdate({ email: email }, { token: token }, (err, user) => {
               if (err) {
-                res.json({ success: false, msg: String(err) });
+                res.json({ success: false, message: String(err) });
               } else {
                 logger(user.email + " logged in");
               }
@@ -60,9 +60,9 @@ router.post('/settings', (req, res, next) => {
   var newPass = req.body.newPassword;
   var pass = req.body.password;
   var failure = {success: false};
-  var success = {success: true, msg: "password modified!"};
-  var goodset = {success: true, msg: "settings saved!"};
-  var exchanges = req.body;
+  var success = {success: true, message: "password modified!"};
+  var goodset = {success: true, message: "settings saved!"};
+  var exchanges = Object.assign({},req.body);
   delete exchanges.newPassword;
   delete exchanges.password;
   delete exchanges.token;
@@ -74,6 +74,7 @@ router.post('/settings', (req, res, next) => {
       User.validatePassword(pass, user.password, (err, isMatch) => {
         if (err) {
           logger("error: " + String(err));
+          failure.message = String(err);
           res.json(failure);
         }
         if (isMatch) {
@@ -83,21 +84,23 @@ router.post('/settings', (req, res, next) => {
                 logger("failed to edit pass: " + String(err));
                 res.json(failure);
               }
-              console.log(success);
+              // console.log(success);
             });
           }
-          User.findOneAndUpdate({token: token}, exchanges, err => {
+          // {upsert: true, new: true},
+          User.findOneAndUpdate({token: token}, exchanges, (err, user) => {
             if (err) {
               logger("error updating exchanges: " + String(err));
-              failure.msg = String(err);
+              failure.message = String(err);
               res.json(failure);
+            } else {
+              logger("keys updated");
+              res.json(goodset);
             }
-            logger(goodset);
-            res.json(goodset);
           });
         }
         else {
-          var badpass = {success: false, msg: "bad password"};
+          var badpass = {success: false, message: "bad password"};
           console.log(badpass);
           res.json(badpass);
         }
@@ -123,10 +126,10 @@ router.get('/settings', (req, res, next) => {
 router.post('/logout', (req, res, next) => {
   User.findOneAndUpdate({ token: req.body.token }, {token: ""}, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
+      res.json({ success: false, message: String(err) });
     } else {
       logger("logged out " + String(user.email));
-      return res.json({ success: true, msg: "Successfully logged out" });
+      return res.json({ success: true, message: "Successfully logged out" });
     }
   });
 });
