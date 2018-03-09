@@ -3,7 +3,6 @@ import './Dashboard.css';
 import Suggestions from './suggestions/Suggestions';
 import Tableprices from './dataTable/Tableprices';
 import Clock from './dataTable/Clock';
-//import Coindata from './coindata';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 

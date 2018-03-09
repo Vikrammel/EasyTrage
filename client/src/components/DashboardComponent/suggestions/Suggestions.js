@@ -3,7 +3,6 @@ import arrow from './arrowcropped.png';
 import axios from 'axios';
 import env from '../../../../config/env';
 import './Suggestions.css';
-
 export default class Suggestions extends Component {
 
   constructor() {
@@ -22,11 +21,35 @@ export default class Suggestions extends Component {
         return(
           <span className="Cards">
           <span className="card card-1">
-            <span ><h2>{prices.ask.exchange}({prices.ask.price})<br></br>{prices.pair}<img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})<br></br>{prices.pair}</span></h2></span>
+          <table>
+            <span className="red"><b>Sell</b></span>
+            <tr>
+            <td>Exchange: <b>{prices.ask.exchange}</b></td>
+            </tr>
+            <tr>
+            <td>Price: <span className="red">({prices.ask.price})</span></td>
+            </tr>
+            <tr>
+            <td>Pair: <b>({prices.pair})</b></td>
+            </tr>
+            <span><img src={arrow} className="arrow" alt="logo"/></span>
+            
+            <tr>
+            <td><span className="green"><b>Buy</b></span></td>
+            </tr>
+            <tr>
+            <td>Exchange: <b>{prices.bid.exchange}</b></td>
+            </tr>   
+            <tr>
+            <td>Price: <span className="green">({prices.bid.price})</span></td>
+            </tr>
+            <tr>
+            <td>Pair: <b>({prices.pair})</b></td>
+            </tr>
             <b>Profit: {prices.profit}%</b>
+          </table>
           </span>
           </span>
-
         )
       })
       this.setState({exchange: suggestionsArray});

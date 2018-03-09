@@ -38,7 +38,7 @@ export default class TableExampleComplex extends Component {
                 exchangeData.push({
                   exchange: key,
                   price: JSON.stringify(res.data[key].XRPBTC.prices.last),
-                  pair: 'XRPBTC'
+                  pair: 'XRP/BTC'
                 });
               }
             }
@@ -49,7 +49,7 @@ export default class TableExampleComplex extends Component {
                 exchangeData.push({
                   exchange: key,
                   price: JSON.stringify(res.data[key].XRPUSD.prices.last),
-                  pair: 'XRPUSD'
+                  pair: 'XRP/USD'
                 });
               }
             }
@@ -60,7 +60,7 @@ export default class TableExampleComplex extends Component {
                 exchangeData.push({
                   exchange: key,
                   price: JSON.stringify(res.data[key].XRPETH.prices.last),
-                  pair: 'XRPETH'
+                  pair: 'XRP/ETH'
                 });
               }
             }

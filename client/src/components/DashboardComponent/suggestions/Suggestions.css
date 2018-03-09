@@ -22,6 +22,19 @@ img.arrow {
   display: inline-block;
   height: 210px;
   width: 210px;
-  margin-bottom: 2%;
+  margin-bottom: 8%;
   margin-left: 5%;
+}
+
+table {
+  text-align: center;
+  margin: auto;
+}
+.green {
+  color: green;
+  font-weight: bold;
+}
+.red {
+  color: red;
+  font-weight: bold;
 }
