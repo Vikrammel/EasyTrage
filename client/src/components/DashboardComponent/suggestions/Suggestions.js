@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import env from '../../../../config/env';
 import Alert from 'react-s-alert';
 
@@ -41,23 +44,22 @@ export default class Suggestions extends Component {
 
     this.state = {
       trades: [],
+      open: false,
       modalStyle:{
         display: "none"
       }
     };
-    // this.spanButton = this.tradeButton.bind(this)
-    this.tradeButton = this.tradeButton.bind(this)
   }
 
-  tradeButton() {
-    this.setState({ modalStyle: {display: "block"} })
-  }
 
-  spanButton() {
-    this.setState({ modalStyle: {display: "none"} })
-    // this.state.modalStyle.display = "none";
-    console.log("span")
-  }
+  handleOpen = () => {
+    this.setState({open: true});
+    // this.setState({eName: n});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
 
   componentDidMount() {
     axios.get(env.API_URL + '/api/suggestions')
@@ -92,7 +94,7 @@ export default class Suggestions extends Component {
 
                     <tr>
                       <td>
-                      <RaisedButton label="Trade" type="submit" onClick={this.tradeButton} buttonStyle={tradeButtonStyle} />
+                      <RaisedButton label="Trade" type="submit" onClick={this.handleOpen} buttonStyle={tradeButtonStyle} />
                       <br/>
                       </td>
                     </tr>
@@ -129,19 +131,38 @@ export default class Suggestions extends Component {
   }
 
   render() {
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleClose}
+      />,
+    ];
+
     return (
       <div className="Suggestedtrades">
         <Alert stack={{ limit: 1, spacing: 50 }} />
         {this.state.trades}
 
-        <div id="myModal" className="modal" style={this.state.modalStyle} >
-        
-          <div className="modal-content">
-            <span style={{background:"red"}} onClick={this.spanButton.bind(this)} className="close">X</span>
-            <p>Some text in the Modal..</p>
-          </div>
-        
-        </div>
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+        <TextField name="sellExchange"
+                      type="text"
+                      placeholder= "Sell Wallet Key"
+                    />
+        </Dialog>
 
       </div>
        
