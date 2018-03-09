@@ -28,20 +28,21 @@ class Settings extends Component {
       transition: 'scale',
       html: true
     };
+
     this.state = {
       formDisabled: false,
       render: false,
       data: {
-        bittrex: 'bittrex API key',
-        bitfinex: 'bitfinex API key',
-        bitstamp: 'bitstamp API key',
-        hitbtc: 'hitbtc API key',
-        binance: 'binance API key',
-        poloniex: 'poloniex API key',
-        kraken: 'kraken API key',
-        exmo: 'exmo API key',
-        cexio: 'cexio API key',
-        gateio: 'gateio API key',
+        bittrex: '',
+        bitfinex: '',
+        bitstamp: '',
+        hitbtc: '',
+        binance: '',
+        poloniex: '',
+        kraken: '',
+        exmo: '',
+        cexio: '',
+        gateio: '',
         password: '',
         newPassword: '',
         token: localStorage.getItem("token")
@@ -54,38 +55,64 @@ class Settings extends Component {
 
   //fetch existing settings
   componentWillMount() {
+    // axios.get(env.API_URL + '/auth/settings',{ headers: { token: localStorage.getItem("token") } })
+    // .then( (res) => {
+    //   if(res.data.success===true){
+    //     var stateChange = JSON.parse(res.data.message);
+    //     //delete properties of response we don't need
+    //     var throwAwayData = ['password', '_id','email','__v'];
+    //     for (var prop in throwAwayData){ delete stateChange[throwAwayData[prop]]; }
+    //     this.setState(stateChange);
+    //   } else{
+    //     Alert.error("<span style='color:red'>Error fetching existing account settings: " + 
+    //                 res.data.message + "</span>", this.alertOptions);
+    //   }
+    // })
+    // .catch( (err) => {
+    //   Alert.error("<span style='color:red'>Error fetching existing account settings: " + 
+    //   String(err) + "</span>", this.alertOptions);
+    // })
+  }
+
+  componentDidMount() {
+    // setTimeout(function() { //Start the timer
+    //     this.setState({render: true}) //After 1 second, set render to true
+    // }.bind(this), 1000)
+    this.setState({ formDisabled: true });
     axios.get(env.API_URL + '/auth/settings',{ headers: { token: localStorage.getItem("token") } })
     .then( (res) => {
       if(res.data.success===true){
         var stateChange = JSON.parse(res.data.message);
+        //delete properties of response we don't need
+        var throwAwayData = ['password', '_id','email','__v'];
+        for (var prop in throwAwayData){ delete stateChange[throwAwayData[prop]]; }
         this.setState(stateChange);
       } else{
         Alert.error("<span style='color:red'>Error fetching existing account settings: " + 
-                    res.data.message + "</span>");
+                    res.data.message + "</span>", this.alertOptions);
       }
+      this.setState({render: true})
+      this.setState({ formDisabled: false });
     })
     .catch( (err) => {
       Alert.error("<span style='color:red'>Error fetching existing account settings: " + 
-      String(err) + "</span>");
+      String(err) + "</span>", this.alertOptions);
+      this.setState({render: true})
+      this.setState({ formDisabled: false });
     })
-  }
-
-  componentDidMount() {
-    setTimeout(function() { //Start the timer
-        this.setState({render: true}) //After 1 second, set render to true
-    }.bind(this), 1000)
   }
   
   handleChange(event){
     //not working using setState
-    // var stateChange = {};
-    // stateChange[event.target.name]=event.target.value;
-    // this.setState(stateChange, function(){
-    //   console.log(event.target.name + ": " + this.state[event.target.name]);
+    var stateChange = {};
+    stateChange[event.target.name]=event.target.value;
+    this.setState(stateChange);
+    // , function(){
+      // console.log(event.target.name + ": " + this.state[event.target.name]);
     // });
-    this.state.data[event.target.name] = event.target.value;
-    console.log(event.target.name + ": " + this.state.data[event.target.name])
-    console.log(JSON.stringify(this.state.data));
+    // this.state.data[event.target.name] = event.target.value;
+    // console.log(event.target.name + ": " + this.state.data[event.target.name])
+    // console.log(JSON.stringify(this.state.data));
   }
 
   handleSubmit(event){
@@ -97,8 +124,7 @@ class Settings extends Component {
     if( (this.state.data["password"]==='' || this.state.data["password"].length < 6) ){
       console.log("Acount password with length of 6 or more characters must be entered to save settings");
       Alert.warning("<span style='color:red'>Acount password with length of 6 or more characters must be" 
-                    + "entered to save settings</span>",
-        this.alertOptions);
+                    + "entered to save settings</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     else if( this.state.data["newPassword"]!=='' && this.state.data["newPassword"].length < 6 ){
@@ -111,16 +137,16 @@ class Settings extends Component {
       axios.post(env.API_URL + '/auth/settings', this.state.data)
         .then((res) => {
           if (res.data.success === true) {
-            Alert.success("<span style='color:green'>API keys have been saved!</span>");
+            Alert.success("<span style='color:green'>" + res.data.message + "</span>", this.alertOptions);
             this.setState({ formDisabled: false });
           }
           else {
-            Alert.error("<span style='color:red'>" + res.data.message + "</span>");
+            Alert.error("<span style='color:red'>" + res.data.message + "</span>", this.alertOptions);
             this.setState({ formDisabled: false });
           }
         })
         .catch( (err) => {
-          Alert("<span style='color:red'>" + String(err) + "</span>");
+          Alert.error("<span style='color:red'>" + String(err) + "</span>", this.alertOptions);
           this.setState({ formDisabled: false });
         })
     }
@@ -133,13 +159,14 @@ class Settings extends Component {
           <form onSubmit={this.handleSubmit} style={{float:"center"}}>
             {
               exchanges.map((exchange, index) => (
-              <Center>
+              <Center key={index}>
               <div  >
                 <span style={{fontWeight:"bold"}}>{exchange} API key</span>
                 <br />
                   <div><TextField name={exchange}
                     type="text"
-                    placeholder={this.state.data[exchange]}
+                    placeholder={exchange + " API key"}
+                    defaultValue={this.state.data[exchange]}
                     onChange={this.handleChange.bind(this)}
                     disabled={this.state.formDisabled}
                   /></div>
