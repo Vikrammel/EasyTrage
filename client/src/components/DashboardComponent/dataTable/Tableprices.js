@@ -35,10 +35,11 @@ export default class TableExampleComplex extends Component {
                 // console.log(exchange + " XRPBTC -> " + JSON.stringify(res.data[exchange].XRPBTC.APIStatusCode));
                 if (res.data[exchange][pairs[pair]].APIStatusCode === 200) {
                   // console.log(exchange + res.data[exchange]);
+                  const pairText = pairs[pair].slice(0, 3) + '/' + pairs[pair].slice(3);
                   exchangeData.push({
                     exchange: exchange,
                     price: JSON.stringify(res.data[exchange][pairs[pair]].prices.last),
-                    pair: pairs[pair]
+                    pair: pairText
                   });
                 }
               }

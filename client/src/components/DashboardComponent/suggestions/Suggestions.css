@@ -5,12 +5,13 @@ h2 {
 }
 
 img.arrow {
-  height: 100px;
-  width: 100px;
+  /* height: 100px;
+  width: 100px; */
   margin-top: 15px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5%;
   width: 50%;
   transform: rotate(90deg);
   animation-name: none;
@@ -22,6 +23,19 @@ img.arrow {
   display: inline-block;
   height: 210px;
   width: 210px;
-  margin-bottom: 2%;
+  margin-bottom: 8%;
   margin-left: 5%;
+}
+
+table {
+  text-align: center;
+  margin: auto;
+}
+.green {
+  color: green;
+  font-weight: bold;
+}
+.red {
+  color: red;
+  font-weight: bold;
 }
