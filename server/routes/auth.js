@@ -87,7 +87,6 @@ router.post('/settings', (req, res, next) => {
               // console.log(success);
             });
           }
-          // {upsert: true, new: true},
           User.findOneAndUpdate({token: token}, exchanges, (err, user) => {
             if (err) {
               logger("error updating exchanges: " + String(err));

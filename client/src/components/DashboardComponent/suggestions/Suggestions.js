@@ -32,7 +32,7 @@ export default class Suggestions extends Component {
       let suggestionsArray= res.data.map((prices, index)=> {
         // console.log(prices);
         return(
-          <span className="Cards" id={index}>
+          <span className="Cards" key={index}>
           <span className="card card-1">
             <span ><h2>{prices.ask.exchange}({prices.ask.price}) <img src={arrow} className="arrow" alt="logo"/><span>{prices.bid.exchange}({prices.bid.price})</span></h2></span>
             {prices.profit}%

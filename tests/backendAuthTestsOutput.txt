@@ -18,12 +18,12 @@ bye
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCQ3aHVoSG5LSTlCL0NPZE80aXhjR08uT0dnODF1SEM4MTVXN1NGcFozaTc3SndvNUd6VEwyLiIsIl9pZCI6IjVhOTBmNjE5MWYyZDRlMDAzNDIyMGRkMyIsIl9fdiI6MH0sImlhdCI6MTUxOTQ0OTYyNX0.avV4voY31qKE-vls_Mg2-sQvURB0iiwsqh8JTnz7LDU"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCRKSEcxL0VzMkhNUUNKQWVFN0pSeVV1d3FUQ21UMDZkQkNiWnVGL0VLamFweG5vVWVHcVdGbSIsIl9pZCI6IjVhYTIxMjMyOTk3NDZjMDAzM2Q0NzY1MCIsIl9fdiI6MH0sImlhdCI6MTUyMDU3MDkzMH0.7BZoCQEmjZbqXjeKnX69CeIVgRey4-RXjUixZEJ-GEY"}
 
 
 Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTk0NDk2MjZ9.bZ7ODSyamJxefI0r2obbfGAXhQ6gGlDVf6tMdp9qEqU"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjA1NzA5MzB9.vzon3WOgKySvzaCp47kRwLdJZVTp6Jz5nOB8IQcL5yc"}
 
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): 
