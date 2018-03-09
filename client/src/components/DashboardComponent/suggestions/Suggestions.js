@@ -22,7 +22,7 @@ export default class Suggestions extends Component {
           <span className="Cards">
           <span className="card card-1">
           <table>
-            <span className="red"><b>Sell</b></span>
+            <span className="red"><b>Buy</b></span>
             <tr>
             <td>Exchange: <b>{prices.ask.exchange}</b></td>
             </tr>
@@ -35,7 +35,7 @@ export default class Suggestions extends Component {
             <span><img src={arrow} className="arrow" alt="logo"/></span>
             
             <tr>
-            <td><span className="green"><b>Buy</b></span></td>
+            <td><span className="green"><b>Sell</b></span></td>
             </tr>
             <tr>
             <td>Exchange: <b>{prices.bid.exchange}</b></td>

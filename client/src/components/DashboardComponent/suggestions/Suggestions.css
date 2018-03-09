@@ -5,12 +5,13 @@ h2 {
 }
 
 img.arrow {
-  height: 100px;
-  width: 100px;
+  /* height: 100px;
+  width: 100px; */
   margin-top: 15px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5%;
   width: 50%;
   transform: rotate(90deg);
   animation-name: none;
