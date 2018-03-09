@@ -101,8 +101,8 @@ export default class TableExampleComplex extends Component {
 
           >
             <TableRow style={{textAlign: 'center', backgroundColor: "#E0E0E0"}}>
-              <TableHeaderColumn tooltip="The ID">Exchange</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Name">Price</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Exchange">Exchange</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Price">Price</TableHeaderColumn>
               <TableHeaderColumn tooltip="Currency Pair">Btc/Eth</TableHeaderColumn>
             </TableRow>
           </TableHeader>

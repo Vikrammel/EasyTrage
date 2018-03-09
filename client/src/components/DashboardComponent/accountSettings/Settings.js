@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import './Settings.css';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 import Alert from 'react-s-alert';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
@@ -45,6 +46,7 @@ class Settings extends Component {
         gateio: '',
         password: '',
         newPassword: '',
+        // trade: false,
         token: localStorage.getItem("token")
       }
     };
@@ -79,6 +81,10 @@ class Settings extends Component {
     setTimeout(function () { //Start the timer
       this.setState({ render: true }) //After 1 second, set render to true
     }.bind(this), 1000)
+  }
+
+  handleCheck(event) {
+    this.setState({data:{trade:!this.state.data.trade}});
   }
 
   handleChange(event) {
@@ -135,6 +141,7 @@ class Settings extends Component {
     if (this.state.render) {
       return (
         <div>
+          <br />
           <form onSubmit={this.handleSubmit} style={{ float: "center" }}>
             {
               exchanges.map((exchange, index) => (
@@ -154,6 +161,14 @@ class Settings extends Component {
                   </div>
                 </Center>
               ))}
+            {/* <Center>
+                <div>
+                  <h3>Let Bot Trade: </h3>
+                  <Checkbox name="trade" defaultChecked={this.state.data.trade}
+                    onCheck={() => this.handleCheck} disabled={true} />
+                    <br /><br />
+                </div>
+            </Center> */}
             <Center>
               <div>
                 <span style={{ fontWeight: "bold" }}>Password: </span>
@@ -182,7 +197,8 @@ class Settings extends Component {
             </Center>
             <Center>
               <RaisedButton label="Submit" type="submit" style={buttonStyle} />
-              <RaisedButton label="Cancel" type="button" style={buttonStyle} onClick={() => this.props.history.push("/")} />
+              <RaisedButton label="Cancel" type="button" style={buttonStyle} onClick={() =>
+                this.props.history.push("/")} />
             </Center>
           </form>
 
