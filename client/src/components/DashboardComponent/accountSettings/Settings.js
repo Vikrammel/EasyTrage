@@ -9,9 +9,13 @@ import { withRouter } from 'react-router-dom';
 import env from '../../../../config/env';
 import Center from 'react-center';
 
-const buttonStyle = {
-  margin: 12
+const submitButtonStyle = {
+  backgroundColor: "#67c26f"
 };
+
+const cancelButtonStyle = {
+  backgroundColor: "#FF1744"
+}
 
 const exchanges = ['bittrex', 'bitfinex', 'bitstamp', 'hitbtc', 'binance',
   'poloniex', 'kraken', 'exmo', 'cexio', 'gateio'];
@@ -67,12 +71,12 @@ class Settings extends Component {
           this.setState({ data: stateChange });
         }
         else {
-          Alert.error("<span style='color:red'>Error fetching existing account settings: " +
+          Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
             res.data.message + "</span>", this.alertOptions);
         }
       })
       .catch((err) => {
-        Alert.error("<span style='color:red'>Error fetching existing account settings: " +
+        Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
           String(err) + "</span>", this.alertOptions);
       })
   }
@@ -103,17 +107,17 @@ class Settings extends Component {
 
     //validate password existance and length of new password
     if (!this.state.data.password || this.state.data.password.length < 6) {
-      Alert.warning("<span style='color:red'>Acount password with length of 6 or more characters must be"
+      Alert.warning("<span style='color:#FF1744'>Acount password with length of 6 or more characters must be"
         + " entered to save settings</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     else if (this.state.data.newPassword && this.state.data.newPassword.length < 6) {
-      Alert.warning("<span style='color:red'>Please make sure your new password is more than 6 characters "
+      Alert.warning("<span style='color:#FF1744'>Please make sure your new password is more than 6 characters "
         + "long</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     else if (this.state.data.newPassword === this.state.data.password){ 
-      Alert.warning("<span style='color:red'>New password must be different </span>", this.alertOptions);
+      Alert.warning("<span style='color:#FF1744'>New password must be different </span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     //send request to edit settings
@@ -122,16 +126,16 @@ class Settings extends Component {
       axios.post(env.API_URL + '/auth/settings', this.state.data)
         .then((res) => {
           if (res.data.success === true) {
-            Alert.success("<span style='color:green'>" + res.data.message + "</span>", this.alertOptions);
+            Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
             this.setState({ formDisabled: false });
           }
           else {
-            Alert.error("<span style='color:red'>" + res.data.message + "</span>", this.alertOptions);
+            Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
             this.setState({ formDisabled: false });
           }
         })
         .catch((err) => {
-          Alert.error("<span style='color:red'>" + String(err) + "</span>", this.alertOptions);
+          Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
           this.setState({ formDisabled: false });
         })
     }
@@ -196,9 +200,9 @@ class Settings extends Component {
               <Alert stack={{ limit: 2, spacing: 50 }} />
             </Center>
             <Center>
-              <RaisedButton label="Submit" type="submit" style={buttonStyle} />
-              <RaisedButton label="Cancel" type="button" style={buttonStyle} onClick={() =>
-                this.props.history.push("/")} />
+              <div style={{margin:"1%"}}><RaisedButton label="Submit" type="submit" buttonStyle={submitButtonStyle} /></div>
+              <div style={{margin:"1%"}}><RaisedButton label="Cancel" type="button" buttonStyle={cancelButtonStyle} onClick={() =>
+                this.props.history.push("/")} /></div>
             </Center>
           </form>
 

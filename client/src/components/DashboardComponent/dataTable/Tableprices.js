@@ -62,10 +62,10 @@ export default class TableExampleComplex extends Component {
   stripedRows: false,
   showRowHover: false,
   selectable: false,
-  multiSelectable: false,
-  enableSelectAll: false,
-  deselectOnClickaway: false,
-  showCheckboxes: false,
+  // multiSelectable: false,
+  // enableSelectAll: false,
+  // deselectOnClickaway: false,
+  // showCheckboxes: false,
   height: '500px',
 };
 
@@ -87,31 +87,31 @@ export default class TableExampleComplex extends Component {
 
     return (
       <div id="container">
-      <div style={{width: '100%', backgroundColor: "#FFF"}}>
-        <Table style={{width: '75%',textAlign: 'center', backgroundColor: "#15202e", margin: 'auto'}}
+      <div style={{width: '100%'}}>
+        <Table style={{width: '75%',textAlign: 'center', margin: 'auto'}}
         height={this.state.height}
         fixedHeader={this.state.fixedHeader}
         fixedFooter={this.state.fixedFooter}
-        selectable={this.state.selectable}
-        multiSelectable={this.state.multiSelectable}
+        selectable={false}
+        // multiSelectable={this.state.multiSelectable}
         >
-          <TableHeader style={{textAlign: 'center', backgroundColor: "#607D8B"}}
-          displaySelectAll={this.state.showCheckboxes}
-          adjustForCheckbox={this.state.showCheckboxes}
-          enableSelectAll={this.state.enableSelectAll}
+          <TableHeader style={{textAlign: 'center'}}
+          displaySelectAll={false}
+          adjustForCheckbox={false}
+          // enableSelectAll={this.state.enableSelectAll}
 
           >
-            <TableRow style={{textAlign: 'center', backgroundColor: "#E0E0E0"}}>
-              <TableHeaderColumn tooltip="The Exchange">Exchange</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Price">Price</TableHeaderColumn>
-              <TableHeaderColumn tooltip="Currency Pair">Btc/Eth</TableHeaderColumn>
+            <TableRow style={{textAlign: 'center'}}>
+              <TableHeaderColumn style={{color:"#FF1744", fontSize:"32"}} tooltip="The Exchange">Exchange</TableHeaderColumn>
+              <TableHeaderColumn style={{color:"#FF1744" , fontSize:"32"}} tooltip="The Price">Price</TableHeaderColumn>
+              <TableHeaderColumn style={{color:"#FF1744" , fontSize:"32"}} tooltip="Currency Pair">Pair</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody style={{textAlign: 'center', backgroundColor: "#fff"}}
-          displayRowCheckbox={this.state.showCheckboxes}
-          deselectOnClickaway={this.state.deselectOnClickaway}
+          <TableBody displayRowCheckbox={false} style={{textAlign: 'center'}}
+          // displayRowCheckbox={this.state.showCheckboxes}
+          // deselectOnClickaway={this.state.deselectOnClickaway}
           showRowHover={this.state.showRowHover}
-          stripedRows={this.state.stripedRows}
+          // stripedRows={this.state.stripedRows}
           // adjustForCheckbox={this.state.showCheckboxes}
           >
             {exchangeData.map( (row, index) => (
