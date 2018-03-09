@@ -61,6 +61,11 @@ router.post('/settings', (req, res, next) => {
   var pass = req.body.password;
   var failure = {success: false};
   var success = {success: true, msg: "password modified!"};
+  var goodset = {success: true, msg: "settings saved!"};
+  var exchanges = req.body;
+  delete exchanges.newPassword;
+  delete exchanges.password;
+  delete exchanges.token;
   User.getUserByToken(token, (err, user) => {
     if (err) {
       res.json(failure);
@@ -72,13 +77,23 @@ router.post('/settings', (req, res, next) => {
           res.json(failure);
         }
         if (isMatch) {
-          User.editUser(user, newPass, err => {
+          if (newPass) {
+            User.editUser(user, newPass, err => {
+              if (err) {
+                logger("failed to edit pass: " + String(err));
+                res.json(failure);
+              }
+              console.log(success);
+            });
+          }
+          User.findOneAndUpdate({token: token}, exchanges, err => {
             if (err) {
-              logger("failed to edit pass: " + String(err));
+              logger("error updating exchanges: " + String(err));
+              failure.msg = String(err);
               res.json(failure);
             }
-            console.log(success);
-            res.json(success);
+            logger(goodset);
+            res.json(goodset);
           });
         }
         else {
