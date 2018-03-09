@@ -3,6 +3,7 @@
 const express = require('express');
 var jwt = require('jsonwebtoken');
 var User = require('../model/user');
+var bcrypt = require('bcryptjs');
 const router = express.Router();
 
 //logs to console if toggle is on
@@ -35,7 +36,7 @@ router.post('/login', function (req, res) {
             const token = jwt.sign({ user: req.user }, 'temp_pass');
             User.findOneAndUpdate({ email: email }, { token: token }, (err, user) => {
               if (err) {
-                res.json({ success: false, msg: String(err) });
+                res.json({ success: false, message: String(err) });
               } else {
                 logger(user.email + " logged in");
               }
@@ -55,11 +56,54 @@ router.post('/login', function (req, res) {
 
 // update user settings
 router.post('/settings', (req, res, next) => {
-  User.findOneAndUpdate({ token: req.body.token }, req.body, (err, user) => {
+  var token = req.body.token;
+  var newPass = req.body.newPassword;
+  var pass = req.body.password;
+  var failure = {success: false};
+  var success = {success: true, message: "password modified!"};
+  var goodset = {success: true, message: "settings saved!"};
+  var exchanges = Object.assign({},req.body);
+  delete exchanges.newPassword;
+  delete exchanges.password;
+  delete exchanges.token;
+  User.getUserByToken(token, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
-    } else {
-      res.json({ success: true, msg: JSON.stringify(user) });
+      res.json(failure);
+    }
+    if (user) {
+      User.validatePassword(pass, user.password, (err, isMatch) => {
+        if (err) {
+          logger("error: " + String(err));
+          failure.message = String(err);
+          res.json(failure);
+        }
+        if (isMatch) {
+          if (newPass) {
+            User.editUser(user, newPass, err => {
+              if (err) {
+                logger("failed to edit pass: " + String(err));
+                res.json(failure);
+              }
+              // console.log(success);
+            });
+          }
+          User.findOneAndUpdate({token: token}, exchanges, (err, user) => {
+            if (err) {
+              logger("error updating exchanges: " + String(err));
+              failure.message = String(err);
+              res.json(failure);
+            } else {
+              logger("keys updated");
+              res.json(goodset);
+            }
+          });
+        }
+        else {
+          var badpass = {success: false, message: "bad password"};
+          console.log(badpass);
+          res.json(badpass);
+        }
+      });
     }
   });
 });
@@ -67,11 +111,12 @@ router.post('/settings', (req, res, next) => {
 // get settings for populating client form fields
 router.get('/settings', (req, res, next) => {
   const token = req.header("token");
+  console.log("Settings requested with token: " + token);
   User.findOne({ token: token }, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
+      res.json({ success: false, message: String(err) });
     } else {
-      res.json({ success: true, msg: JSON.stringify(user) });
+      res.json({ success: true, message: JSON.stringify(user) });
     }
   });
 });
@@ -80,10 +125,10 @@ router.get('/settings', (req, res, next) => {
 router.post('/logout', (req, res, next) => {
   User.findOneAndUpdate({ token: req.body.token }, {token: ""}, (err, user) => {
     if (err) {
-      res.json({ success: false, msg: String(err) });
+      res.json({ success: false, message: String(err) });
     } else {
       logger("logged out " + String(user.email));
-      return res.json({ success: true, msg: "Successfully logged out" });
+      return res.json({ success: true, message: "Successfully logged out" });
     }
   });
 });

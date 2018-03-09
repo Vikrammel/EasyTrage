@@ -22,53 +22,30 @@ export default class TableExampleComplex extends Component {
   }
 
   componentWillMount() {
-    // console.log('I was triggered during getCoinPrice')
     axios.get(env.API_URL + '/api/price')
     .then( (res) => {
       //use res from back-end server and check status code
       //forwarded from external API server
-      // console.log(res.data);
 
-      for (var key in res.data) {
-          if (res.data.hasOwnProperty(key)) {
-            if (!(res.data[key].XRPBTC === undefined)) {
-              // console.log(key + " XRPBTC -> " + JSON.stringify(res.data[key].XRPBTC.APIStatusCode));
-              if (res.data[key].XRPBTC.APIStatusCode === 200) {
-                // console.log(key + res.data[key]);
-                exchangeData.push({
-                  exchange: key,
-                  price: JSON.stringify(res.data[key].XRPBTC.prices.last),
-                  pair: 'XRPBTC'
-                });
+      for (var exchange in res.data) {
+          if (res.data.hasOwnProperty(exchange)) {
+            var pairs = ['XRPBTC','XRPUSD','XRPETH','XRPUSDT'];
+            for(var pair in pairs){
+              if (!(res.data[exchange][pairs[pair]] === undefined)) {
+                // console.log(exchange + " XRPBTC -> " + JSON.stringify(res.data[exchange].XRPBTC.APIStatusCode));
+                if (res.data[exchange][pairs[pair]].APIStatusCode === 200) {
+                  // console.log(exchange + res.data[exchange]);
+                  const pairText = pairs[pair].slice(0, 3) + '/' + pairs[pair].slice(3);
+                  exchangeData.push({
+                    exchange: exchange,
+                    price: JSON.stringify(res.data[exchange][pairs[pair]].prices.last),
+                    pair: pairText
+                  });
+                }
               }
             }
-            if (!(res.data[key].XRPUSD === undefined)) {
-              // console.log(key + " XRPUSD -> " + JSON.stringify(res.data[key].XRPUSD.APIStatusCode));
-              if (res.data[key].XRPUSD.APIStatusCode === 200) {
-                // console.log(key + res.data[key]);
-                exchangeData.push({
-                  exchange: key,
-                  price: JSON.stringify(res.data[key].XRPUSD.prices.last),
-                  pair: 'XRPUSD'
-                });
-              }
-            }
-            if (!(res.data[key].XRPETH === undefined)) {
-              // console.log(key + " XRPETH -> " + JSON.stringify(res.data[key].XRPETH.APIStatusCode));
-              if (res.data[key].XRPETH.APIStatusCode === 200) {
-                // console.log(key + res.data[key]);
-                exchangeData.push({
-                  exchange: key,
-                  price: JSON.stringify(res.data[key].XRPETH.prices.last),
-                  pair: 'XRPETH'
-                });
-              }
-            }
-
           }
       }
-      // console.log(exchangeData);
-      // console.log(tableData);
     })
     }
 
@@ -125,8 +102,8 @@ export default class TableExampleComplex extends Component {
 
           >
             <TableRow style={{textAlign: 'center', backgroundColor: "#E0E0E0"}}>
-              <TableHeaderColumn tooltip="The ID">Exchange</TableHeaderColumn>
-              <TableHeaderColumn tooltip="The Name">Price</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Exchange">Exchange</TableHeaderColumn>
+              <TableHeaderColumn tooltip="The Price">Price</TableHeaderColumn>
               <TableHeaderColumn tooltip="Currency Pair">Btc/Eth</TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -135,7 +112,7 @@ export default class TableExampleComplex extends Component {
           deselectOnClickaway={this.state.deselectOnClickaway}
           showRowHover={this.state.showRowHover}
           stripedRows={this.state.stripedRows}
-          adjustForCheckbox={this.state.showCheckboxes}
+          // adjustForCheckbox={this.state.showCheckboxes}
           >
             {exchangeData.map( (row, index) => (
 
