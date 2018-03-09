@@ -40,13 +40,13 @@ export default class Suggestions extends Component {
                         <span className="red"><b>Buy</b></span></td>
                     </tr>
                     <tr>
-                      <td>Exchange: <b>{prices.ask.exchange}</b></td>
+                      <td>Exchange: <b className="red">{prices.ask.exchange}</b></td>
                     </tr>
                     <tr>
                       <td>Price: <span className="red">({prices.ask.price})</span></td>
                     </tr>
                     <tr>
-                      <td>Pair: <b>({prices.pair})</b></td>
+                      <td>Pair: <b className="red">({prices.pair})</b></td>
                     </tr>
 
                     <tr>
@@ -58,17 +58,17 @@ export default class Suggestions extends Component {
                       <td><span className="green"><b>Sell</b></span></td>
                     </tr>
                     <tr>
-                      <td>Exchange: <b>{prices.bid.exchange}</b></td>
+                      <td>Exchange: <b className="green">{prices.bid.exchange}</b></td>
                     </tr>
                     <tr>
                       <td>Price: <span className="green">({prices.bid.price})</span></td>
                     </tr>
                     <tr>
-                      <td>Pair: <b>({prices.pair})</b></td>
+                      <td>Pair: <b className="green">({prices.pair})</b></td>
                     </tr>
                     <tr>
                       <td>
-                        <b>Profit: {prices.profit}%</b></td>
+                        Profit: <b className="green">{prices.profit}%</b></td>
                     </tr>
                   </tbody>
                 </table>

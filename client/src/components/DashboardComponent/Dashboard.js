@@ -10,6 +10,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Alert from 'react-s-alert';
 import axios from 'axios';
 import env from '../../../config/env';
+import Center from 'react-center';
 
 
 const styles = {
@@ -23,12 +24,26 @@ const styles = {
     position: "absolute",
     right: "1%",
     top: "1%",
-    backgroundColor: "#E05757",
-    disabledBackgroundColor: "#E05757"
+    backgroundColor: "#FF1744",
+    width: "7%"
+    // disabledBackgroundColor: "#FF1744"
+  },
+  tabs: {
+    backgroundColor: "#67c26f",
+    color: "white"
+  },
+  tabsActive: {
+    // #139149
+    backgroundColor: "#FF1744"
+    // backgroundColor: "#FF1744"
   }
 };
 
 class Dashboard extends Component {
+
+  activeTab(e){
+    e.target.style=styles.tabsActive;
+  }
 
   _logOut() {
     axios.post(env.API_URL + '/auth/logout', {token: localStorage.getItem("token")})
@@ -50,8 +65,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <h2>Dashboard</h2>
-        <RaisedButton label="Log Out" style={styles.logOut} onClick={() => this._logOut()} />
+        <Center><h1>Dashboard</h1></Center>
+        <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
         <Tabs>
           <Tab label="Prices" >
             <div>
@@ -63,11 +78,11 @@ class Dashboard extends Component {
           <Tab label=" Trades" >
             <div>
               <h2 style={styles.headline}>Suggested Trades</h2>
+              <br />
               <Suggestions />
             </div>
           </Tab>
-          <Tab
-            label="Settings">
+          <Tab label="Settings">
             <div>
               <h2 style={styles.headline}>Api Keys and Account Settings</h2>
               <Settings />

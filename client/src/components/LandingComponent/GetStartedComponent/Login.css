@@ -4,7 +4,7 @@
 
 body {
   font-family: sans-serif;
-  background: #2f313d;
+  background: #303030;
   color: #46485c;
 }
 
@@ -77,7 +77,7 @@ input[type="button"]:focus {
   outline: none;
 }
 input[id="login"]:hover {
-  background: #139149;
+  background: #7FCC86;
 }
 input[id="login"]:active {
   transform: translateY(2px);
@@ -96,7 +96,7 @@ input[id="signup"] {
 }
 
 input[id="signup"]:hover {
-  background: #139149;
+  background: #7FCC86;
 }
 
 input[id="signup"]:active {
