@@ -1,10 +1,30 @@
 import React, { Component } from 'react';
 import arrow from './arrowcropped.png';
 import axios from 'axios';
+import RaisedButton from 'material-ui/RaisedButton';
 import env from '../../../../config/env';
 import Alert from 'react-s-alert';
 
 import './Suggestions.css';
+
+const tradeButtonStyle = {
+  backgroundColor: "#67c26f"
+};
+
+
+
+// When the user clicks on <span> (x), close the modal
+// spanOnClick = function() {
+//   modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+// windowOnClick = function(event) {
+//   if (event.target == modal) {
+//       modal.style.display = "none";
+//   }
+// } 
+
 export default class Suggestions extends Component {
 
   constructor(props) {
@@ -21,7 +41,22 @@ export default class Suggestions extends Component {
 
     this.state = {
       trades: [],
+      modalStyle:{
+        display: "none"
+      }
     };
+    // this.spanButton = this.tradeButton.bind(this)
+    this.tradeButton = this.tradeButton.bind(this)
+  }
+
+  tradeButton() {
+    this.setState({ modalStyle: {display: "block"} })
+  }
+
+  spanButton() {
+    this.setState({ modalStyle: {display: "none"} })
+    // this.state.modalStyle.display = "none";
+    console.log("span")
   }
 
   componentDidMount() {
@@ -37,6 +72,7 @@ export default class Suggestions extends Component {
                   <tbody>
                     <tr>
                       <td>
+                      <br/>
                         <span className="red"><b>Buy</b></span></td>
                     </tr>
                     <tr>
@@ -55,6 +91,12 @@ export default class Suggestions extends Component {
                     </tr>
 
                     <tr>
+                      <td>
+                      <RaisedButton label="Trade" type="submit" onClick={this.tradeButton} buttonStyle={tradeButtonStyle} />
+                      <br/>
+                      </td>
+                    </tr>
+                    <tr>
                       <td><span className="green"><b>Sell</b></span></td>
                     </tr>
                     <tr>
@@ -70,8 +112,10 @@ export default class Suggestions extends Component {
                       <td>
                         Profit: <b className="green">{prices.profit}%</b></td>
                     </tr>
+                    
                   </tbody>
                 </table>
+                <br/>
               </span>
             </span>
           )
@@ -89,7 +133,19 @@ export default class Suggestions extends Component {
       <div className="Suggestedtrades">
         <Alert stack={{ limit: 1, spacing: 50 }} />
         {this.state.trades}
+
+        <div id="myModal" className="modal" style={this.state.modalStyle} >
+        
+          <div className="modal-content">
+            <span style={{background:"red"}} onClick={this.spanButton.bind(this)} className="close">X</span>
+            <p>Some text in the Modal..</p>
+          </div>
+        
+        </div>
+
       </div>
+       
+
     );
   }
 }
