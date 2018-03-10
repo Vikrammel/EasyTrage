@@ -115,8 +115,8 @@ export default class Suggestions extends Component {
                       <td>Pair: <b className="green">({prices.pair})</b></td>
                     </tr>
                     <tr>
-                      <td className="green2Bed">
-                        Profit: <b>{prices.profit}%</b></td>
+                      <td style={{fontWeight:"bold", paddingTop:"1%"}}>
+                        Profit: <b className="green2Bed">{prices.profit}%</b></td>
                     </tr>
                     
                   </tbody>
