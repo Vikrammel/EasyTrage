@@ -33,9 +33,28 @@ function generateSuggestions(currentPrices) {
               var profit = bid - ask;
               var profitPercent = (((bid - (bid * bidFee)) - (ask + (ask * askFee))) / (ask + (ask * askFee))) * 100;
               profitPercent = profitPercent.toFixed(4);
+
               //calculate minimum volume to break even with askExchange's XRP withdrawal fees
-              var minXRPVolume = exchangeInfo[askExchange]["XRPwithdraw"] / (profitPercent / 100.00)
-              var minOtherVolume = minXRPVolume * ask;
+              // n is amount of initial secondard (non-ripple) currency like BTC, ETH, USDT, ...
+              // beforeBidFee = ( ( ( n * (1/ask) ) - ( askFee * (n*1/ask) ) - exchangeInfo[askExchange]["XRPwithdraw"] ) * bid )
+              // final = beforeBidFee - bidFee * beforeBidFee
+              // so if final is to be profitable it must be higher than n, the initial non-xrp currency put into the trade
+              // simplified: n = (bid (bidFee - 1) (ask * withdrawalFee + (askFee - 1)n)) / a
+              // ... algebra, using a = ask, b = bid, f = askFee,, g = bidFee, w = withdraw:
+              // na = abgw - abw + bfgn - bfn - bgn + bn
+              // abw - abgw = bfgn + bn - bfn - bgn - na
+              // abw - abgw = n (bfg + b - bf - bg - a)
+              // n = (abw - abgw) / (bfg + b - bf - bg - a)
+              // ....
+              // n = ab(g-1)w / (a + b(-gf + f + g - 1)) if a + b(f + g) != bfg + b
+              // var minXRPVolume = exchangeInfo[askExchange]["XRPwithdraw"] / (profitPercent / 100.00) //old wrong min volume
+              // var minOtherVolume = minXRPVolume * ask;
+              var minOtherVolume = 0.000000;
+              if((ask + bid * (askFee+bidFee)) != ((bid * askFee * bidFee) + bid)){
+                minOtherVolume = (ask * bid * (bidFee - 1.00) * exchangeInfo[askExchange]["XRPwithdraw"])
+                                / (ask + bid * ((-1 * bidFee * askFee) + askFee + bidFee - 1.00));
+              }
+              var minXRPVolume = minOtherVolume / ask;
               minXRPVolume = minXRPVolume.toFixed(6);
               if (pair.slice(3) === "USD" || pair.slice(3) === "USDT") {
                 minOtherVolume = minOtherVolume.toFixed(2);
