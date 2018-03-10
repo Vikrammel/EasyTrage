@@ -114,14 +114,14 @@ table {
   margin-left: auto;
   margin-bottom: auto;
   position: absolute;
-  top: 25%;
+  top: 15%;
   right: 15%;
   width: 70%;
 }
 
 .exchangeDiv{
   position: absolute;
-  top: 25%;
+  top: 15%;
   /* display: inline-block; */
   margin-top: auto;
   margin-right: auto;
@@ -131,10 +131,11 @@ table {
 
 .exchangeGraphic{
   text-align: center;
-  /* display: inline-block; */
-  margin-top: 10%;
+  display: inline-block;
+  margin-top: 15%;
   margin-bottom: auto;
   position: relative;
+  width: 50%;
 }
 
 .exchangeLabel{
@@ -154,7 +155,7 @@ h3{
 }
 
 .tradeGraphic{
-  margin-top: 5%;
+  margin-top: auto;
   margin-bottom: auto;
 }
 
@@ -164,6 +165,10 @@ h3{
   width: 50%;
   margin-top: 3%;
 }
+
+/* .exchangeNames{
+} */
+
 h4{
   margin: auto;
 }

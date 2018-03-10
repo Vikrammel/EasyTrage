@@ -108,6 +108,7 @@ router.post('/settings', (req, res, next) => {
   });
 });
 
+//get 
 // get settings for populating client form fields
 router.get('/settings', (req, res, next) => {
   const token = req.header("token");

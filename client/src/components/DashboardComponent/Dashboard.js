@@ -25,7 +25,8 @@ const styles = {
     right: "1%",
     top: "1%",
     backgroundColor: "#FF1744",
-    width: "7%"
+    width: "7%",
+    margin: "1%"
     // disabledBackgroundColor: "#FF1744"
   },
   tabs: {

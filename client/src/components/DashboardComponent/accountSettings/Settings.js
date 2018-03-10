@@ -92,7 +92,7 @@ class Settings extends Component {
   }
 
   handleChange(event) {
-    //not working using setState
+    // not working using setState
     // var stateChange = {};
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
@@ -145,6 +145,7 @@ class Settings extends Component {
     if (this.state.render) {
       return (
         <div>
+          <br />
           <br />
           <form onSubmit={this.handleSubmit} style={{ float: "center" }}>
             {
@@ -205,7 +206,8 @@ class Settings extends Component {
                 this.props.history.push("/")} /></div>
             </Center>
           </form>
-
+          <br />
+          <br />
         </div>
       )
     }
