@@ -51,6 +51,11 @@ table {
   padding-top: 2%;
 }
 
+.yellow{
+  color: #FBC02D;
+  font-weight: bold;
+}
+
 .modal {
   display: none;   /*Hidden by default */
   position: fixed; /* Stay in place */
@@ -71,4 +76,94 @@ table {
   padding: 20px;
   border: 1px solid #888;
   width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.icon{
+  animation-name: none;
+  width: 18%;
+  height: 18%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: 15%;
+}
+
+.exchangeIcon{
+  animation-name: none;
+  width: 15%;
+  height: 15%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.transferArrow{
+  width: 11%;
+  animation-name: none;
+  /* margin-left: auto; */
+  margin-top: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+}
+
+.transferDiv{
+  align-self: center;
+  /* display: inline-block; */
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  width: 70%;
+}
+
+.exchangeDiv{
+  position: absolute;
+  top: 25%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-right: auto;
+  margin-left: auto;
+  width: 35%;
+}
+
+.exchangeGraphic{
+  text-align: center;
+  /* display: inline-block; */
+  margin-top: 10%;
+  margin-bottom: auto;
+  position: relative;
+}
+
+.exchangeLabel{
+  display: inline-block;
+  margin-left: 2%;
+  margin-top: auto;
+}
+
+#bid{
+  right: 0;
+}
+
+h3{
+  color:#e5e5e5;
+  margin: auto;
+  margin-top: auto;
+}
+
+.tradeGraphic{
+  margin-top: 5%;
+  margin-bottom: auto;
+}
+
+.exchangeInfo{
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  margin-top: 3%;
+}
+h4{
+  margin: auto;
 }

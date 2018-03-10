@@ -33,6 +33,15 @@ function generateSuggestions(currentPrices) {
               var profit = bid - ask;
               var profitPercent = (( (bid - (bid*bidFee)) - (ask + (ask*askFee)) ) / (ask + (ask*askFee))) * 100;
               profitPercent = profitPercent.toFixed(4);
+              //calculate minimum volume to break even with askExchange's XRP withdrawal fees
+              var minXRPVolume = exchangeInfo[askExchange]["XRPwithdraw"] / (profitPercent/100.00)
+              var minOtherVolume = minXRPVolume * ask;
+              minXRPVolume = minXRPVolume.toFixed(6);
+              if(pair.slice(3)==="USD" || pair.slice(3)==="USDT"){
+                minOtherVolume = minOtherVolume.toFixed(2);
+              } else{
+                minOtherVolume = minOtherVolume.toFixed(6);
+              }
               if (profitPercent > 0.0) {
                 newProfitList.push({
                   "pair": pair,
@@ -58,7 +67,9 @@ function generateSuggestions(currentPrices) {
                       "USDT": exchangeInfo[askExchange]["USDTwithdraw"]
                     }
                   },
-                  "profit": profitPercent
+                  "profit": profitPercent,
+                  "minXRPVolume": minXRPVolume,
+                  "minOtherVolume": minOtherVolume
                 });
               }
             }

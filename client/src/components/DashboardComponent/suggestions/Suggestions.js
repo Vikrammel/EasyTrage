@@ -1,5 +1,43 @@
 import React, { Component } from 'react';
+
+/* image imports */
 import arrow from './arrowcropped.png';
+import rightArrowCircle from './rightArrowCircle.png';
+import rightArrowLarge from './rightArrowLarge.png';
+import btcpng from './currency_icons/btc.png';
+import ethpng from './currency_icons/eth.png';
+import usdpng from './currency_icons/usd.png';
+import usdtpng from './currency_icons/usdt.png';
+import xrppng from './currency_icons/xrp.png';
+import binancepng from './exchange_icons/binance.png';
+import bitfinexpng from './exchange_icons/bitfinex.png';
+import bitstamppng from './exchange_icons/bitstamp.png';
+import bittrexpng from './exchange_icons/bittrex.png';
+import cexiopng from './exchange_icons/cexio.png';
+import exmopng from './exchange_icons/exmo.png';
+import gateiopng from './exchange_icons/gateio.png';
+import hitbtcpng from './exchange_icons/hitbtc.png';
+import krakenpng from './exchange_icons/kraken.png';
+import poloniexpng from './exchange_icons/poloniex.png';
+
+const imageVarName = {
+  "btcpng": btcpng,
+  "ethpng": ethpng,
+  "usdpng": usdpng,
+  "usdtpng": usdtpng,
+  "xrppng": xrppng,
+  "binancepng": binancepng,
+  "bitfinexpng": bitfinexpng,
+  "bitstamppng": bitstamppng,
+  "bittrexpng": bittrexpng,
+  "cexiopng": cexiopng,
+  "exmopng": exmopng,
+  "gateiopng": gateiopng,
+  "hitbtcpng": hitbtcpng,
+  "krakenpng": krakenpng,
+  "poloniexpng": poloniexpng
+}
+
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -115,10 +153,13 @@ export default class Suggestions extends Component {
                       <td>Pair: <b className="green">({prices.pair})</b></td>
                     </tr>
                     <tr>
+                      <td>
+                        Minimum: <b className="yellow">{prices.minOtherVolume + " " + prices.pair.slice(3)}</b></td>
+                    </tr>
+                    <tr>
                       <td style={{fontWeight:"bold", paddingTop:"1%"}}>
                         Profit: <b className="green2Bed">{prices.profit}%</b></td>
                     </tr>
-                    
                   </tbody>
                 </table>
                 <br/>
@@ -150,6 +191,17 @@ export default class Suggestions extends Component {
       />,
     ];
 
+    var modalTradeInfo = {};
+    var baseCurrency = ''
+    var askExchange = ''
+    var bidExchange = ''
+    if(this.state.trades[this.state.modalCardIndex]){
+      modalTradeInfo = this.state.trades[this.state.modalCardIndex];
+      baseCurrency = this.state.trades[this.state.modalCardIndex].pair.slice(3).toLowerCase();
+      askExchange = this.state.trades[this.state.modalCardIndex].ask.exchange;
+      bidExchange = this.state.trades[this.state.modalCardIndex].bid.exchange;
+    }
+
     return (
       <div className="Suggestedtrades">
         <Alert stack={{ limit: 1, spacing: 50 }} />
@@ -162,11 +214,100 @@ export default class Suggestions extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        <TextField name="sellExchange"
+        {/* <p>{JSON.stringify(this.state.trades[this.state.modalCardIndex])}</p> */}
+        {/* { "pair":"XRPUSDT",
+              "bid":{
+                "exchange":"hitbtc",
+                "price":0.8535,
+                "taker fee":0.1,
+                "withdraw fee":{"XRP":0.509,"BTC":0.001,"ETH":0.00958}
+              },
+              "ask":{
+                "exchange":"gate.io",
+                "price":0.83,
+                "taker fee":0.2,
+                "withdraw fee":{"XRP":1,"BTC":0.002,"ETH":0.003,"USDT":10}
+              },
+            "profit":"2.5234" } */}
+        
+        <div className="tradeGraphic">
+          <div className="exchangeDiv">
+            {/* <div> */}
+              <img src={imageVarName[baseCurrency + 'png']}
+                className="icon" alt={baseCurrency} />
+              <img src={rightArrowCircle} className="icon" alt="first trade" />
+              <img src={xrppng} className="icon" alt="ripple" />
+            {/* </div> */}
+          </div>
+
+          <div className="transferDiv">
+            <img src={rightArrowLarge} className="transferArrow" alt="transfer ripple" />
+            <h3>Transfer</h3>
+          </div>
+
+          <div className="exchangeDiv" id="bid">
+            {/* <div> */}
+              <img src={xrppng} className="icon" alt='ripple' />
+              <img src={rightArrowCircle} className="icon" alt="second trade" />
+              <img src={imageVarName[baseCurrency + 'png']} className="icon" alt={baseCurrency} />
+            {/* </div> */}
+          </div>
+        </div>
+
+        <div className="exchangeInfo">
+          <div className="exchangeGraphic">
+            <img src={imageVarName[askExchange.replace('.','') + 'png']} 
+              className="exchangeIcon" alt={askExchange} />
+            <h3 className="exchangeLabel">{askExchange}</h3>
+          </div>
+          <TextField name="sellExchange"
+                      type="number"
+                      placeholder="0.00"
+                      step="0.01"
+                      />
+          <h4>{"amount ("+ baseCurrency.toUpperCase() + ")"}</h4>
+
+          {/* <table>
+          <thead>
+            <tr>
+              <th>Pair</th>
+              <th>Buy</th>
+              <th>Sell</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table> */}
+
+        </div>
+        
+        <div className="exchangeInfo">
+          <div className="exchangeGraphic">
+            <img src={imageVarName[bidExchange.replace('.','') + 'png']} 
+              className="exchangeIcon" alt={bidExchange} />
+            <h3 className="exchangeLabel">{bidExchange}</h3>
+          </div>
+          <TextField name="sellExchange"
                       type="text"
-                      placeholder="Sell Wallet Key"
-                    />
-        <p>{JSON.stringify(this.state.trades[this.state.modalCardIndex])}</p>
+                      placeholder={bidExchange + " XRP Deposit Address"}
+          />
+          <h4>{bidExchange + " XRP Deposit Address"}</h4>
+
+          {/* <table>
+          <thead>
+            <tr>
+              <th>Pair</th>
+              <th>Buy</th>
+              <th>Sell</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table> */}
+
+        </div>
+        {/* <div style={{marginBottom:"10%"}}></div> */}
+
         </Dialog>
 
       </div>
