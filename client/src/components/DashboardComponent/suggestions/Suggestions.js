@@ -119,15 +119,18 @@ export default class Suggestions extends Component {
                         <span className="red"><b>Buy</b></span></td>
                     </tr>
                     <tr>
+                      <td>Ticker: <b className="red">{prices.pair}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Price: <span className="red">{prices.ask.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0,3)}</span></td>
+                    </tr>
+                    <tr>
                       <td>Exchange: <b className="red">{prices.ask.exchange}</b></td>
                     </tr>
                     <tr>
-                      <td>Price: <span className="red">({prices.ask.price})</span></td>
+                      <td>
+                        Minimum: <b className="yellow">{prices.minOtherVolume + " " + prices.pair.slice(3)}</b></td>
                     </tr>
-                    <tr>
-                      <td>Pair: <b className="red">({prices.pair})</b></td>
-                    </tr>
-
                     <tr>
                       <td>
                         <span><img src={arrow} className="arrow" alt="logo" /></span></td>
@@ -144,17 +147,13 @@ export default class Suggestions extends Component {
                       <td><span className="green"><b>Sell</b></span></td>
                     </tr>
                     <tr>
+                      <td>Ticker: <b className="green">{prices.pair}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Price: <span className="green">{prices.bid.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0,3)}</span></td>
+                    </tr>
+                    <tr>
                       <td>Exchange: <b className="green">{prices.bid.exchange}</b></td>
-                    </tr>
-                    <tr>
-                      <td>Price: <span className="green">({prices.bid.price})</span></td>
-                    </tr>
-                    <tr>
-                      <td>Pair: <b className="green">({prices.pair})</b></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Minimum: <b className="yellow">{prices.minOtherVolume + " " + prices.pair.slice(3)}</b></td>
                     </tr>
                     <tr>
                       <td style={{fontWeight:"bold", paddingTop:"1%"}}>
