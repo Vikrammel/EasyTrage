@@ -153,11 +153,12 @@ export default class Suggestions extends Component {
           return (
             <span className="Cards" key={index}>
               <span className="card card-1">
-                <table>
+              <br />
+                <table style={{border:"solid thin", borderRadius:"30px", borderColor:"#cbcbcb", width:"110%", position:"relative",right:"13%"}}>
                   <tbody>
+                    <br />
                     <tr>
                       <td>
-                        <br />
                         <span className="red"><b>Buy</b></span></td>
                     </tr>
                     <tr>
@@ -201,6 +202,7 @@ export default class Suggestions extends Component {
                       <td style={{ fontWeight: "bold", paddingTop: "1%" }}>
                         Profit: <b className="green2Bed">{prices.profit}%</b></td>
                     </tr>
+                    <br />
                   </tbody>
                 </table>
                 <br />
