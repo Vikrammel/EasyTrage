@@ -45,8 +45,14 @@ table {
   font-weight: bold;
 }
 
+.green2Bed{
+  color: #2bed00;
+  font-weight: bold;
+  padding-top: 2%;
+}
+
 .modal {
-   display: none;   /*Hidden by default */
+  display: none;   /*Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;

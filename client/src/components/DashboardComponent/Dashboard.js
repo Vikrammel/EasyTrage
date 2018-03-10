@@ -78,7 +78,6 @@ class Dashboard extends Component {
           <Tab label=" Trades" >
             <div>
               <h2 style={styles.headline}>Suggested Trades</h2>
-              <br />
               <Suggestions />
             </div>
           </Tab>

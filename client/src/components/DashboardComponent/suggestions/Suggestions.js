@@ -43,28 +43,31 @@ export default class Suggestions extends Component {
     };
 
     this.state = {
-      trades: [],
+      trades: {},
+      cards: [],
       open: false,
       modalStyle:{
         display: "none"
-      }
+      },
+      modalCardIndex: null
     };
   }
 
 
-  handleOpen = () => {
-    this.setState({open: true});
+  handleOpen = (index) => {
+    this.setState({open: true, modalCardIndex: index});
     // this.setState({eName: n});
   };
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({open: false, modalCardIndex: null});
   };
 
   componentDidMount() {
     axios.get(env.API_URL + '/api/suggestions')
       .then((res) => {
         // console.log(res.data);
+        this.setState({trades:res.data});
         let suggestionsArray = res.data.map((prices, index) => {
           // console.log(prices);
           return (
@@ -94,7 +97,8 @@ export default class Suggestions extends Component {
 
                     <tr>
                       <td>
-                      <RaisedButton label="Trade" type="submit" onClick={this.handleOpen} buttonStyle={tradeButtonStyle} />
+                      <RaisedButton label="Trade" type="submit" onClick={this.handleOpen.bind(this,index)} buttonStyle={tradeButtonStyle} />
+                      <br/>
                       <br/>
                       </td>
                     </tr>
@@ -111,8 +115,8 @@ export default class Suggestions extends Component {
                       <td>Pair: <b className="green">({prices.pair})</b></td>
                     </tr>
                     <tr>
-                      <td>
-                        Profit: <b className="green">{prices.profit}%</b></td>
+                      <td className="green2Bed">
+                        Profit: <b>{prices.profit}%</b></td>
                     </tr>
                     
                   </tbody>
@@ -122,7 +126,7 @@ export default class Suggestions extends Component {
             </span>
           )
         })
-        this.setState({ trades: suggestionsArray });
+        this.setState({ cards: suggestionsArray });
 
       })
       .catch((err) => {
@@ -149,10 +153,10 @@ export default class Suggestions extends Component {
     return (
       <div className="Suggestedtrades">
         <Alert stack={{ limit: 1, spacing: 50 }} />
-        {this.state.trades}
+        {this.state.cards}
 
         <Dialog
-          title="Dialog With Actions"
+          title="Make Trade"
           actions={actions}
           modal={false}
           open={this.state.open}
@@ -160,8 +164,9 @@ export default class Suggestions extends Component {
         >
         <TextField name="sellExchange"
                       type="text"
-                      placeholder= "Sell Wallet Key"
+                      placeholder="Sell Wallet Key"
                     />
+        <p>{JSON.stringify(this.state.trades[this.state.modalCardIndex])}</p>
         </Dialog>
 
       </div>
