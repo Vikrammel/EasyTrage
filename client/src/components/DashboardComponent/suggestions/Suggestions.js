@@ -83,7 +83,7 @@ export default class Suggestions extends Component {
       render: true,
       cards: [],
       open: false,
-      modalStyle:{
+      modalStyle: {
         display: "none"
       },
       modalCardIndex: null,
@@ -115,38 +115,39 @@ export default class Suggestions extends Component {
   }
 
   handleOpen = (index, bidExchange) => {
-    this.setState({render:false});
+    this.setState({ render: false });
     axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
-    .then((res) => {
-      if (res.data.success === true) {
-        var stateChange = JSON.parse(res.data.message);
-        this.setState({depositXRP: stateChange.depositXRP, render: true});
-        this.setState({open: true, modalCardIndex: index});
-        this.refs.depositAddress.getInputNode().value = stateChange.depositXRP[bidExchange.replace(".","")];
-      }
-      else {
+      .then((res) => {
+        if (res.data.success === true) {
+          var stateChange = JSON.parse(res.data.message);
+          this.setState({ depositXRP: stateChange.depositXRP, render: true });
+          this.setState({ open: true, modalCardIndex: index });
+          if (stateChange.depositXRP[bidExchange.replace(".", "")]) {
+            this.refs.depositAddress.getInputNode().value = stateChange.depositXRP[bidExchange.replace(".", "")];
+          }
+        }
+        else {
+          Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
+            res.data.message + "</span>", this.alertOptions);
+          this.setState({ open: true, modalCardIndex: index, render: true });
+        }
+      })
+      .catch((err) => {
         Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
-          res.data.message + "</span>", this.alertOptions);
-        this.setState({open: true, modalCardIndex: index, render: true});
-      }
-    })
-    .catch((err) => {
-      Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
-        String(err) + "</span>", this.alertOptions);
-      this.setState({open: true, modalCardIndex: index, render: true});
-    })
-    this.setState({});
+          String(err) + "</span>", this.alertOptions);
+        this.setState({ open: true, modalCardIndex: index, render: true });
+      })
   };
 
   handleClose = () => {
-    this.setState({open: false, modalCardIndex: null});
+    this.setState({ open: false, modalCardIndex: null });
   };
 
   componentDidMount() {
     axios.get(env.API_URL + '/api/suggestions')
       .then((res) => {
         // console.log(res.data);
-        this.setState({trades:res.data});
+        this.setState({ trades: res.data });
         let suggestionsArray = res.data.map((prices, index) => {
           // console.log(prices);
           return (
@@ -156,14 +157,14 @@ export default class Suggestions extends Component {
                   <tbody>
                     <tr>
                       <td>
-                      <br/>
+                        <br />
                         <span className="red"><b>Buy</b></span></td>
                     </tr>
                     <tr>
                       <td>Ticker: <b className="red">{prices.pair}</b></td>
                     </tr>
                     <tr>
-                      <td>Price: <span className="red">{prices.ask.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0,3)}</span></td>
+                      <td>Price: <span className="red">{prices.ask.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
                     </tr>
                     <tr>
                       <td>Exchange: <b className="red">{prices.ask.exchange}</b></td>
@@ -179,9 +180,9 @@ export default class Suggestions extends Component {
 
                     <tr>
                       <td>
-                      <RaisedButton label="Trade" type="submit" onClick={this.handleOpen.bind(this,index, prices.bid.exchange)} buttonStyle={tradeButtonStyle} />
-                      <br/>
-                      <br/>
+                        <RaisedButton label="Trade" type="submit" onClick={this.handleOpen.bind(this, index, prices.bid.exchange)} buttonStyle={tradeButtonStyle} />
+                        <br />
+                        <br />
                       </td>
                     </tr>
                     <tr>
@@ -191,18 +192,18 @@ export default class Suggestions extends Component {
                       <td>Ticker: <b className="green">{prices.pair}</b></td>
                     </tr>
                     <tr>
-                      <td>Price: <span className="green">{prices.bid.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0,3)}</span></td>
+                      <td>Price: <span className="green">{prices.bid.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
                     </tr>
                     <tr>
                       <td>Exchange: <b className="green">{prices.bid.exchange}</b></td>
                     </tr>
                     <tr>
-                      <td style={{fontWeight:"bold", paddingTop:"1%"}}>
+                      <td style={{ fontWeight: "bold", paddingTop: "1%" }}>
                         Profit: <b className="green2Bed">{prices.profit}%</b></td>
                     </tr>
                   </tbody>
                 </table>
-                <br/>
+                <br />
               </span>
             </span>
           )
@@ -222,17 +223,18 @@ export default class Suggestions extends Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose}
-        style={{backgroundColor: "#FF1744", color:"#e5e5e5", marginBottom:"2%", marginTop:"auto", marginLeft:"20%", float:"left"}}
+        style={{ backgroundColor: "#FF1744", color: "#e5e5e5", marginBottom: "2%", marginTop: "auto", marginLeft: "20%", float: "left" }}
       />,
       <FlatButton
         label="Confirm"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleClose}
-        style={{backgroundColor: "#67c26f", color:"#e5e5e5", marginBottom:"2%", marginTop:"auto", marginRight:"20%"}}
+        style={{ backgroundColor: "#67c26f", color: "#e5e5e5", marginBottom: "2%", marginTop: "auto", marginRight: "20%" }}
       />,
     ];
 
+    //vars so refering to this.state.trades[index].pair.ask[exchange] ... doesn't get messy
     var modalTradeInfo = {};
     var baseCurrency = ''
     var askExchange = ''
@@ -245,9 +247,8 @@ export default class Suggestions extends Component {
     var bidFee = null
     var baseWithdrawFee = null
     var secondaryWithdrawFee = null //for not XRP withdraw fees
-    var defaultXRPDeposit = {}
 
-    if(this.state.trades[this.state.modalCardIndex]){
+    if (this.state.trades[this.state.modalCardIndex]) {
       modalTradeInfo = this.state.trades[this.state.modalCardIndex];
       baseCurrency = modalTradeInfo.pair.slice(3)
       askExchange = modalTradeInfo.ask.exchange;
@@ -255,15 +256,13 @@ export default class Suggestions extends Component {
       bidExchange = modalTradeInfo.bid.exchange;
       bidPrice = modalTradeInfo.bid.price.toFixed(4);
       minimumBaseAmount = modalTradeInfo.minOtherVolume;
-      secondCurrency = modalTradeInfo.pair.slice(0,3);
+      secondCurrency = modalTradeInfo.pair.slice(0, 3);
       askFee = modalTradeInfo.ask["taker fee"];
       bidFee = modalTradeInfo.bid["taker fee"];
       secondaryWithdrawFee = modalTradeInfo.ask["withdraw fee"][secondCurrency]
       baseWithdrawFee = modalTradeInfo.ask["withdraw fee"][baseCurrency]
     }
-    if(this.state.depositXRP){
-      defaultXRPDeposit[bidExchange] = this.state.depositXRP[bidExchange]
-    }
+
     return (
       <div className="Suggestedtrades">
         <Alert stack={{ limit: 1, spacing: 50 }} />
@@ -275,8 +274,8 @@ export default class Suggestions extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-        {/* <p>{JSON.stringify(this.state.trades[this.state.modalCardIndex])}</p> */}
-        {/* { "pair":"XRPUSDT",
+          {/* <p>{JSON.stringify(this.state.trades[this.state.modalCardIndex])}</p> */}
+          {/* { "pair":"XRPUSDT",
               "bid":{
                 "exchange":"hitbtc",
                 "price":0.8535,
@@ -290,138 +289,118 @@ export default class Suggestions extends Component {
                 "withdraw fee":{"XRP":1,"BTC":0.002,"ETH":0.003,"USDT":10}
               },
             "profit":"2.5234" } */}
-        
-        <div className="tradeGraphic">
 
-        {/* {
-
-        } */}
-
-          <div className="exchangeDiv">
-            {/* <div> */}
+          <div className="tradeGraphic">
+            <div className="exchangeDiv">
               <img src={imageVarName[baseCurrency.toLowerCase() + 'png']}
                 className="icon" alt={baseCurrency} />
               <img src={rightArrowCircle} className="icon" alt="first trade" />
               <img src={imageVarName[secondCurrency.toLowerCase() + 'png']} className="icon" alt={secondCurrency} />
-            {/* </div> */}
-          </div>
+            </div>
 
-          <div className="transferDiv">
-            <img src={rightArrowLarge} className="transferArrow" alt="transfer ripple" />
-            <h3>Transfer</h3>
-          </div>
+            <div className="transferDiv">
+              <img src={rightArrowLarge} className="transferArrow" alt="transfer ripple" />
+              <h3>Transfer</h3>
+            </div>
 
-          <div className="exchangeDiv" id="bid">
-            {/* <div> */}
+            <div className="exchangeDiv" id="bid">
+              {/* <div> */}
               <img src={imageVarName[secondCurrency.toLowerCase() + 'png']} className="icon" alt={secondCurrency} />
               <img src={rightArrowCircle} className="icon" alt="second trade" />
               <img src={imageVarName[baseCurrency.toLowerCase() + 'png']} className="icon" alt={baseCurrency} />
-            {/* </div> */}
+              {/* </div> */}
+            </div>
           </div>
-        </div>
 
-        <div className="exchangeNames">
-          <div className="exchangeGraphic">
-              <img src={imageVarName[askExchange.replace('.','') + 'png']} 
+          <div className="exchangeNames">
+            <div className="exchangeGraphic">
+              <img src={imageVarName[askExchange.replace('.', '') + 'png']}
                 className="exchangeIcon" alt={askExchange} />
               <h3 className="exchangeLabel">{askExchange}</h3>
             </div>
             <div className="exchangeGraphic">
-              <img src={imageVarName[bidExchange.replace('.','') + 'png']} 
+              <img src={imageVarName[bidExchange.replace('.', '') + 'png']}
                 className="exchangeIcon" alt={bidExchange} />
               <h3 className="exchangeLabel">{bidExchange}</h3>
-            </div>  
-        </div>
+            </div>
+          </div>
 
-        <div className="exchangeInfo">
-          <TextField name="buyAmount"
-                      type="number"
-                      placeholder="0.00"
-                      step="0.01"
-                      onChange={this.handleChange.bind(this, bidExchange)}
-                      disabled={this.state.formDisabled}
-                      />
-          {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
-          <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency}</h6>
+          <div className="exchangeInfo">
+            <TextField name="buyAmount"
+              type="number"
+              placeholder="0.00"
+              step="0.01"
+              onChange={this.handleChange.bind(this, bidExchange)}
+              disabled={this.state.formDisabled}
+            />
+            {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
+            <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency}</h6>
 
 
-          <table>
-          {/* // <thead>
+            <table>
+              {/* // <thead>
           //   <tr>
           //     <th>Pair</th>
           //     <th>Buy</th>
           //     <th>Sell</th>
           //   </tr>
           // </thead> */}
-          <tbody>
-            <tr>
-              <td>
-              <br/>
-                <span className="red"><b>Buy</b></span></td>
-            </tr>
-            <tr>
-              <td>Ticker: <b className="red">{secondCurrency + "/" + baseCurrency}</b></td>
-            </tr>
-            <tr>
-              <td>Price: <span className="red">{askPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
-            </tr>
-            <tr>
-              <td>Trade Fee: <span className="red">{askFee + "%"}</span></td>
-            </tr>
-            <tr>
-              <td>withdraw Fee: <span className="red">{secondaryWithdrawFee + " " + secondCurrency}</span></td>
-            </tr>
-          </tbody>
-        </table>
+              <tbody>
+                <tr>
+                  <td>
+                    <br />
+                    <span className="red"><b>Buy</b></span></td>
+                </tr>
+                <tr>
+                  <td>Ticker: <b className="red">{secondCurrency + "/" + baseCurrency}</b></td>
+                </tr>
+                <tr>
+                  <td>Price: <span className="red">{askPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
+                </tr>
+                <tr>
+                  <td>Trade Fee: <span className="red">{askFee + "%"}</span></td>
+                </tr>
+                <tr>
+                  <td>withdraw Fee: <span className="red">{secondaryWithdrawFee + " " + secondCurrency}</span></td>
+                </tr>
+              </tbody>
+            </table>
 
-        
-        </div>
-        
-        <div className="exchangeInfo">
-          <TextField name="depositAddress"
-                      type="text"
-                      placeholder={bidExchange + " XRP Deposit Address"}
-                      defaultValue={this.state.depositXRP[bidExchange]}
-                      onChange={this.handleChange.bind(this)}
-                      disabled={this.state.formDisabled}
-                      ref="depositAddress"
-          />
-          <h5>{bidExchange + " XRP Deposit Address"}</h5>
 
-          {/* <table>
-          <thead>
-            <tr>
-              <th>Pair</th>
-              <th>Buy</th>
-              <th>Sell</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table> */}
-        <table>
-          <tbody>
-            <tr>
-              <td>
-              <br/>
-                <span className="green"><b>Sell</b></span></td>
-            </tr>
-            <tr>
-              <td>Ticker: <b className="green">{secondCurrency + "/" + baseCurrency}</b></td>
-            </tr>
-            <tr>
-              <td>Price: <span className="green">{bidPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
-            </tr>
-            <tr>
-              <td>Trade Fee: <span className="green">{bidFee + "%"}</span></td>
-            </tr>
-            <tr>
-              <td>withdraw Fee: <span className="green">{baseWithdrawFee + " " + baseCurrency}</span></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-        {/* <div style={{marginBottom:"10%"}}></div> */}
+          </div>
+
+          <div className="exchangeInfo">
+            <TextField name="depositAddress"
+              type="text"
+              placeholder={bidExchange + " XRP Deposit Address"}
+              defaultValue={this.state.depositXRP[bidExchange]}
+              onChange={this.handleChange.bind(this)}
+              disabled={this.state.formDisabled}
+              ref="depositAddress"
+            />
+            <h5>{bidExchange + " XRP Deposit Address"}</h5>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <br />
+                    <span className="green"><b>Sell</b></span></td>
+                </tr>
+                <tr>
+                  <td>Ticker: <b className="green">{secondCurrency + "/" + baseCurrency}</b></td>
+                </tr>
+                <tr>
+                  <td>Price: <span className="green">{bidPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
+                </tr>
+                <tr>
+                  <td>Trade Fee: <span className="green">{bidFee + "%"}</span></td>
+                </tr>
+                <tr>
+                  <td>withdraw Fee: <span className="green">{baseWithdrawFee + " " + baseCurrency}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
         </Dialog>
 

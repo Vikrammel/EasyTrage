@@ -59,10 +59,10 @@ router.post('/settings', (req, res, next) => {
   var token = req.body.token;
   var newPass = req.body.newPassword;
   var pass = req.body.password;
-  var failure = {success: false};
-  var success = {success: true, message: "password modified!"};
-  var goodset = {success: true, message: "settings saved!"};
-  var exchanges = Object.assign({},req.body);
+  var failure = { success: false };
+  var success = { success: true, message: "password modified!" };
+  var goodset = { success: true, message: "settings saved!" };
+  var exchanges = Object.assign({}, req.body);
   delete exchanges.newPassword;
   delete exchanges.password;
   delete exchanges.token;
@@ -87,7 +87,7 @@ router.post('/settings', (req, res, next) => {
               // console.log(success);
             });
           }
-          User.findOneAndUpdate({token: token}, exchanges, (err, user) => {
+          User.findOneAndUpdate({ token: token }, exchanges, (err, user) => {
             if (err) {
               logger("error updating exchanges: " + String(err));
               failure.message = String(err);
@@ -99,7 +99,7 @@ router.post('/settings', (req, res, next) => {
           });
         }
         else {
-          var badpass = {success: false, message: "bad password"};
+          var badpass = { success: false, message: "bad password" };
           console.log(badpass);
           res.json(badpass);
         }
@@ -124,7 +124,7 @@ router.get('/settings', (req, res, next) => {
 
 // get settings for populating client form fields
 router.post('/logout', (req, res, next) => {
-  User.findOneAndUpdate({ token: req.body.token }, {token: ""}, (err, user) => {
+  User.findOneAndUpdate({ token: req.body.token }, { token: "" }, (err, user) => {
     if (err) {
       res.json({ success: false, message: String(err) });
     } else {

@@ -42,12 +42,12 @@ const styles = {
 
 class Dashboard extends Component {
 
-  activeTab(e){
-    e.target.style=styles.tabsActive;
+  activeTab(e) {
+    e.target.style = styles.tabsActive;
   }
 
   _logOut() {
-    axios.post(env.API_URL + '/auth/logout', {token: localStorage.getItem("token")})
+    axios.post(env.API_URL + '/auth/logout', { token: localStorage.getItem("token") })
       .then((res) => {
         if (res.data.success === true) {
           Alert.success(res.data.message);
@@ -58,7 +58,7 @@ class Dashboard extends Component {
           Alert.error(res.data.message);
         }
       })
-      .catch( (err) => {
+      .catch((err) => {
         Alert(err);
       })
   }

@@ -18,7 +18,7 @@ function generateSuggestions(currentPrices) {
     for (var bidExchange in currentPrices) {
       for (var askExchange in currentPrices) {
         if (exchangeInfo[bidExchange] && exchangeInfo[askExchange] &&
-            exchangeInfo[bidExchange]["XRPwithdraw"] && exchangeInfo[askExchange]["XRPwithdraw"]) {
+          exchangeInfo[bidExchange]["XRPwithdraw"] && exchangeInfo[askExchange]["XRPwithdraw"]) {
           var bidPrice = currentPrices[bidExchange][pair];
           var askPrice = currentPrices[askExchange][pair];
           if (bidPrice && askPrice && (bidExchange != askExchange)) {
@@ -28,18 +28,18 @@ function generateSuggestions(currentPrices) {
               var bidFee = exchangeInfo[bidExchange].taker;
               var askFee = exchangeInfo[askExchange].taker;
               //convert to decimal for math
-              bidFee /=  100
+              bidFee /= 100
               askFee /= 100
               var profit = bid - ask;
-              var profitPercent = (( (bid - (bid*bidFee)) - (ask + (ask*askFee)) ) / (ask + (ask*askFee))) * 100;
+              var profitPercent = (((bid - (bid * bidFee)) - (ask + (ask * askFee))) / (ask + (ask * askFee))) * 100;
               profitPercent = profitPercent.toFixed(4);
               //calculate minimum volume to break even with askExchange's XRP withdrawal fees
-              var minXRPVolume = exchangeInfo[askExchange]["XRPwithdraw"] / (profitPercent/100.00)
+              var minXRPVolume = exchangeInfo[askExchange]["XRPwithdraw"] / (profitPercent / 100.00)
               var minOtherVolume = minXRPVolume * ask;
               minXRPVolume = minXRPVolume.toFixed(6);
-              if(pair.slice(3)==="USD" || pair.slice(3)==="USDT"){
+              if (pair.slice(3) === "USD" || pair.slice(3) === "USDT") {
                 minOtherVolume = minOtherVolume.toFixed(2);
-              } else{
+              } else {
                 minOtherVolume = minOtherVolume.toFixed(6);
               }
               if (profitPercent > 0.0) {
@@ -54,7 +54,7 @@ function generateSuggestions(currentPrices) {
                       "BTC": exchangeInfo[bidExchange]["BTCwithdraw"],
                       "ETH": exchangeInfo[bidExchange]["ETHwithdraw"],
                       "USDT": exchangeInfo[bidExchange]["USDTwithdraw"]
-                    } 
+                    }
                   },
                   "ask": {
                     "exchange": askExchange,
