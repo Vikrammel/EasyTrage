@@ -15,8 +15,9 @@ class Login extends Component {
       offset: 100,
       position: 'top',
       theme: 'dark',
-      timeout: 'none',
-      transition: 'scale'
+      timeout: 5000,
+      transition: 'scale',
+      html: true
     };
     //set form input elements to be enabled by default
     this.state = {
@@ -25,6 +26,11 @@ class Login extends Component {
     //this._authenticate = this._authenticate.bind(this)
   }
 
+  handleKeyDown(event){
+    if(event.key === 'Enter'){
+      this._authenticate('login');
+    }
+  }
 
   _authenticate = function (buttonPressed) {
     //close all Alerts
@@ -37,13 +43,13 @@ class Login extends Component {
     var password = this.refs["password"].value;
     //check email
     if (!email.includes('@')) {
-      Alert.warning('invalid email', this.alertOptions);
+      Alert.warning("<div style='color:#FF1744; text-align:center'> invalid email </div>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     //check pw
     else if (password.length < 6) {
       //alert('password must be at least 6 characters');
-      Alert.warning('password length must be 6+', this.alertOptions);
+      Alert.warning("<div style='color:#FF1744; text-align:center'>password length must be 6+</div>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     //both are valid
@@ -60,7 +66,7 @@ class Login extends Component {
           .then((res) => {
             //use res from server
             if (res.data.success === true) {
-              Alert.success('Account has been registered! Please log in');
+              Alert.success("<div style='color:#67c26f; text-align:center'>Account has been registered! Please log in</div>",this.alertOptions);
               localStorage.setItem("token", res.data.token);
               axios.defaults.headers.common['token'] = res.data.token;
             }
@@ -70,7 +76,7 @@ class Login extends Component {
           })
           .catch((err) => {
             //alert user there was a server error
-            Alert.error("Server error. Please try again later.");
+            Alert.error("<div style='color:#FF1744; text-align:center'>Server error. Please try again later.</div>", this.alertOptions);
           });
         this.setState({ formDisabled: false });
       }
@@ -80,20 +86,20 @@ class Login extends Component {
           .then((res) => {
             //use res from server
             if (res.data.success === true) {
-              Alert.success('Login Successful!');
+              Alert.success("<div style='color:#67c26f; text-align:center'>Login Successful!</div>", this.alertOptions);
               localStorage.setItem("token", res.data.token);
               //redirect to dashboard if signin successful
               setTimeout(this.props.history.push("/Dashboard"), 2000);
             }
             else {
               //else enable form fields again and display error
-              Alert.error("login failed. " + res.data.message);
+              Alert.error("<div style='color:#FF1744; text-align:center'>login failed. " + res.data.message + "</div>", this.alertOptions);
               this.setState({ formDisabled: false });
             }
           })
           .catch((err) => {
             //alert user there was a server error
-            Alert.error("Error: " + String(err));
+            Alert.error("<div style='color:#FF1744; text-align:center'>Error: " + String(err) + "</div>", this.alertOptions);
             this.setState({ formDisabled: false });
           });
       }
@@ -103,13 +109,14 @@ class Login extends Component {
   render() {
     return (
       <div className='login'>
-        <Alert stack={{ limit: 2, spacing: 50 }} />
         <h3 id='loginHeader'>Account Details</h3>
         <form onSubmit={this._onSubmit}>
           <input name='email' placeholder='email@domail.com' ref='email'
-            type='text' disabled={this.state.formDisabled} />
+            type='text' disabled={this.state.formDisabled} onKeyDown={this.handleKeyDown.bind(this)} />
           <input id='pw' name='password' placeholder='Password' ref='password'
-            type='password' disabled={this.state.formDisabled} />
+            type='password' disabled={this.state.formDisabled} onKeyDown={this.handleKeyDown.bind(this)} />
+          <Alert stack={{ limit: 2, spacing: 50 }} />
+          {/* <br/> */}
           <input id='login' type='button' defaultValue='Sign in' ref='signin'
             onClick={() => this._authenticate('login')} />
           <hr />

@@ -47,7 +47,7 @@ import env from '../../../../config/env';
 import Alert from 'react-s-alert';
 
 import './Suggestions.css';
-import { relative } from 'path';
+// import { relative } from 'path';
 
 const tradeButtonStyle = {
   backgroundColor: "#67c26f"

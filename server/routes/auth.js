@@ -128,7 +128,7 @@ router.post('/logout', (req, res, next) => {
     if (err) {
       res.json({ success: false, message: String(err) });
     } else {
-      logger("logged out " + String(user.email));
+      logger("logged out");
       return res.json({ success: true, message: "Successfully logged out" });
     }
   });
