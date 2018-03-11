@@ -103,16 +103,17 @@ export default class Suggestions extends Component {
         gateio: ''
       }
     };
+
   }
 
-  handleChange(event, exchange) {
+  handleChange(exchange, event) {
     //not working using setState
     // var stateChange = {};
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
     // this.state.data[event.target.name] = event.target.value;
     this.state.depositXRP[exchange] = event.target.value;
-    // console.log(this.state.depositXRP[exchange]);
+    console.log(exchange + " API key entered: " + this.state.depositXRP[exchange]);
   }
 
   handleOpen = (index, bidExchange) => {
@@ -339,7 +340,7 @@ export default class Suggestions extends Component {
               type="number"
               placeholder="0.00"
               step="0.01"
-              onChange={this.handleChange.bind(this, bidExchange)}
+              // onChange={this.handleChange.bind(this, bidExchange)}
               disabled={this.state.formDisabled}
             />
             {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
@@ -383,7 +384,7 @@ export default class Suggestions extends Component {
               type="text"
               placeholder={bidExchange + " XRP Deposit Address"}
               defaultValue={depositAddress}
-              onChange={this.handleChange.bind(this)}
+              onKeyDown={this.handleChange.bind(this, bidExchange)}
               disabled={this.state.formDisabled}
               ref="depositAddress"
             />
