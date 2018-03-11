@@ -47,6 +47,7 @@ import env from '../../../../config/env';
 import Alert from 'react-s-alert';
 
 import './Suggestions.css';
+import { relative } from 'path';
 
 const tradeButtonStyle = {
   backgroundColor: "#67c26f"
@@ -249,6 +250,7 @@ export default class Suggestions extends Component {
     var bidFee = null
     var baseWithdrawFee = null
     var secondaryWithdrawFee = null //for not XRP withdraw fees
+    var profit = null
 
     if (this.state.trades[this.state.modalCardIndex]) {
       modalTradeInfo = this.state.trades[this.state.modalCardIndex];
@@ -263,6 +265,7 @@ export default class Suggestions extends Component {
       bidFee = modalTradeInfo.bid["taker fee"];
       secondaryWithdrawFee = modalTradeInfo.ask["withdraw fee"][secondCurrency]
       baseWithdrawFee = modalTradeInfo.ask["withdraw fee"][baseCurrency]
+      profit = modalTradeInfo.profit;
     }
 
     return (
@@ -402,6 +405,14 @@ export default class Suggestions extends Component {
                 </tr>
               </tbody>
             </table>
+
+          </div>
+          <br />
+          <br />
+          <div>
+              <span style={{  position: "relative", left:"26%", fontWeight: "bold", paddingTop: "1%" }}>
+              Estimated Profit as Volume → ∞: <b className="green2Bed">{profit}%</b>
+          </span>
           </div>
 
         </Dialog>
