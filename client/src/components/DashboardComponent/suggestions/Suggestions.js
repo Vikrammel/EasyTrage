@@ -157,7 +157,7 @@ export default class Suggestions extends Component {
               <br />
                 <table style={{border:"solid thin", borderRadius:"30px", borderColor:"#cbcbcb", width:"110%", position:"relative",right:"13%"}}>
                   <tbody>
-                    <br />
+                    <tr><td><br /></td></tr>
                     <tr>
                       <td>
                         <span className="red"><b>Buy</b></span></td>
@@ -203,7 +203,7 @@ export default class Suggestions extends Component {
                       <td style={{ fontWeight: "bold", paddingTop: "1%" }}>
                         Profit: <b className="green2Bed">{prices.profit}%</b></td>
                     </tr>
-                    <br />
+                    <tr><td><br /></td></tr>
                   </tbody>
                 </table>
                 <br />
@@ -251,6 +251,7 @@ export default class Suggestions extends Component {
     var baseWithdrawFee = null
     var secondaryWithdrawFee = null //for not XRP withdraw fees
     var profit = null
+    var depositAddress = ''
 
     if (this.state.trades[this.state.modalCardIndex]) {
       modalTradeInfo = this.state.trades[this.state.modalCardIndex];
@@ -266,6 +267,9 @@ export default class Suggestions extends Component {
       secondaryWithdrawFee = modalTradeInfo.ask["withdraw fee"][secondCurrency]
       baseWithdrawFee = modalTradeInfo.ask["withdraw fee"][baseCurrency]
       profit = modalTradeInfo.profit;
+      if(this.state.depositXRP){
+        depositAddress = this.state.depositXRP[bidExchange];
+      }
     }
 
     return (
@@ -378,7 +382,7 @@ export default class Suggestions extends Component {
             <TextField name="depositAddress"
               type="text"
               placeholder={bidExchange + " XRP Deposit Address"}
-              defaultValue={this.state.depositXRP[bidExchange]}
+              defaultValue={depositAddress}
               onChange={this.handleChange.bind(this)}
               disabled={this.state.formDisabled}
               ref="depositAddress"
