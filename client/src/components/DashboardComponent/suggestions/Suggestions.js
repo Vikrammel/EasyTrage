@@ -112,8 +112,12 @@ export default class Suggestions extends Component {
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
     // this.state.data[event.target.name] = event.target.value;
-    this.state.depositXRP[exchange] = event.target.value;
-    console.log(exchange + " API key entered: " + this.state.depositXRP[exchange]);
+    if(this.state.depositXRP){
+      this.state.depositXRP[exchange] = event.target.value;
+      console.log(exchange + " API key entered: " + this.state.depositXRP[exchange]);
+    } else {
+      this.setState({depositXRP:{[exchange]:event.target.value}})
+    }
   }
 
   handleOpen = (index, bidExchange) => {
