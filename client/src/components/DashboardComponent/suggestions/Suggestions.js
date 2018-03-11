@@ -384,7 +384,7 @@ export default class Suggestions extends Component {
               type="text"
               placeholder={bidExchange + " XRP Deposit Address"}
               defaultValue={depositAddress}
-              onKeyDown={this.handleChange.bind(this, bidExchange)}
+              onChange={this.handleChange.bind(this, bidExchange)}
               disabled={this.state.formDisabled}
               ref="depositAddress"
             />
