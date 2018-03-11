@@ -27,6 +27,11 @@ img.arrow {
   margin-left: 5%;
 }
 
+.tradeButton {
+  color: #FF1744;
+  background-color: rgb(92, 190, 27);
+}
+
 table {
   text-align: center;
   margin: auto;
@@ -38,4 +43,132 @@ table {
 .red {
   color: #FF1744;
   font-weight: bold;
+}
+
+.green2Bed{
+  color: #2bed00;
+  font-weight: bold;
+  padding-top: 2%;
+}
+
+.yellow{
+  color: #FBC02D;
+  font-weight: bold;
+}
+
+.modal {
+  display: none;   /*Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #474747;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+.icon{
+  animation-name: none;
+  width: 18%;
+  height: 18%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: 15%;
+}
+
+.exchangeIcon{
+  animation-name: none;
+  width: 15%;
+  height: 15%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.transferArrow{
+  width: 11%;
+  animation-name: none;
+  /* margin-left: auto; */
+  margin-top: auto;
+  margin-right: auto;
+  margin-bottom: 2%;
+}
+
+.transferDiv{
+  align-self: center;
+  /* display: inline-block; */
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 70%;
+}
+
+.exchangeDiv{
+  position: absolute;
+  top: 15%;
+  /* display: inline-block; */
+  margin-top: auto;
+  margin-right: auto;
+  margin-left: auto;
+  width: 35%;
+}
+
+.exchangeGraphic{
+  text-align: center;
+  display: inline-block;
+  margin-top: 15%;
+  margin-bottom: auto;
+  position: relative;
+  width: 50%;
+}
+
+.exchangeLabel{
+  display: inline-block;
+  margin-left: 2%;
+  margin-top: auto;
+}
+
+#bid{
+  right: 0;
+}
+
+h3{
+  color:#e5e5e5;
+  margin: auto;
+  margin-top: auto;
+}
+
+.tradeGraphic{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.exchangeInfo{
+  display: inline-block;
+  text-align: center;
+  width: 50%;
+  margin-top: 3%;
+}
+
+/* .exchangeNames{
+} */
+
+h4{
+  margin: auto;
 }

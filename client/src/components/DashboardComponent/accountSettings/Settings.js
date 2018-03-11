@@ -88,11 +88,11 @@ class Settings extends Component {
   }
 
   handleCheck(event) {
-    this.setState({data:{trade:!this.state.data.trade}});
+    this.setState({ data: { trade: !this.state.data.trade } });
   }
 
   handleChange(event) {
-    //not working using setState
+    // not working using setState
     // var stateChange = {};
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
@@ -116,7 +116,7 @@ class Settings extends Component {
         + "long</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
-    else if (this.state.data.newPassword === this.state.data.password){ 
+    else if (this.state.data.newPassword === this.state.data.password) {
       Alert.warning("<span style='color:#FF1744'>New password must be different </span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
@@ -145,6 +145,7 @@ class Settings extends Component {
     if (this.state.render) {
       return (
         <div>
+          <br />
           <br />
           <form onSubmit={this.handleSubmit} style={{ float: "center" }}>
             {
@@ -200,12 +201,13 @@ class Settings extends Component {
               <Alert stack={{ limit: 2, spacing: 50 }} />
             </Center>
             <Center>
-              <div style={{margin:"1%"}}><RaisedButton label="Submit" type="submit" buttonStyle={submitButtonStyle} /></div>
-              <div style={{margin:"1%"}}><RaisedButton label="Cancel" type="button" buttonStyle={cancelButtonStyle} onClick={() =>
+              <div style={{ margin: "1%" }}><RaisedButton label="Submit" type="submit" buttonStyle={submitButtonStyle} /></div>
+              <div style={{ margin: "1%" }}><RaisedButton label="Cancel" type="button" buttonStyle={cancelButtonStyle} onClick={() =>
                 this.props.history.push("/")} /></div>
             </Center>
           </form>
-
+          <br />
+          <br />
         </div>
       )
     }

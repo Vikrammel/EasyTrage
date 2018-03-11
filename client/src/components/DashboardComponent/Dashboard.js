@@ -25,7 +25,8 @@ const styles = {
     right: "1%",
     top: "1%",
     backgroundColor: "#FF1744",
-    width: "7%"
+    width: "7%",
+    margin: "1%"
     // disabledBackgroundColor: "#FF1744"
   },
   tabs: {
@@ -41,12 +42,12 @@ const styles = {
 
 class Dashboard extends Component {
 
-  activeTab(e){
-    e.target.style=styles.tabsActive;
+  activeTab(e) {
+    e.target.style = styles.tabsActive;
   }
 
   _logOut() {
-    axios.post(env.API_URL + '/auth/logout', {token: localStorage.getItem("token")})
+    axios.post(env.API_URL + '/auth/logout', { token: localStorage.getItem("token") })
       .then((res) => {
         if (res.data.success === true) {
           Alert.success(res.data.message);
@@ -57,7 +58,7 @@ class Dashboard extends Component {
           Alert.error(res.data.message);
         }
       })
-      .catch( (err) => {
+      .catch((err) => {
         Alert(err);
       })
   }
@@ -78,7 +79,6 @@ class Dashboard extends Component {
           <Tab label=" Trades" >
             <div>
               <h2 style={styles.headline}>Suggested Trades</h2>
-              <br />
               <Suggestions />
             </div>
           </Tab>

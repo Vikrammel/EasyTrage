@@ -124,6 +124,8 @@ export default class TableExampleComplex extends Component {
               ))}
           </TableBody>
         </Table>
+        <br />
+        <br />
       </div>
       </div>
     );
