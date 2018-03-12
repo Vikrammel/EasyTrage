@@ -53,6 +53,10 @@ const tradeButtonStyle = {
   backgroundColor: "#67c26f"
 };
 
+const submitButtonStyle = {
+  backgroundColor: "#67c26f",
+};
+
 // When the user clicks on <span> (x), close the modal
 // spanOnClick = function() {
 //   modal.style.display = "none";
@@ -63,7 +67,7 @@ const tradeButtonStyle = {
 //   if (event.target == modal) {
 //       modal.style.display = "none";
 //   }
-// } 
+// }
 
 export default class Suggestions extends Component {
 
@@ -149,7 +153,7 @@ export default class Suggestions extends Component {
     this.setState({ open: false, modalCardIndex: null });
   };
 
-  componentDidMount() {
+  reRenderSuggestions(){
     axios.get(env.API_URL + '/api/suggestions')
       .then((res) => {
         // console.log(res.data);
@@ -224,6 +228,156 @@ export default class Suggestions extends Component {
       })
   }
 
+  componentDidMount() {
+    axios.get(env.API_URL + '/api/suggestions')
+      .then((res) => {
+        // console.log(res.data);
+        this.setState({ trades: res.data });
+        let suggestionsArray = res.data.map((prices, index) => {
+          // console.log(prices);
+          return (
+            <span className="Cards" key={index}>
+              <span className="card card-1">
+              <br />
+                <table style={{border:"solid thin", borderRadius:"30px", borderColor:"#cbcbcb", width:"110%", position:"relative",right:"13%"}}>
+                  <tbody>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                      <td>
+                        <span className="red"><b>Buy</b></span></td>
+                    </tr>
+                    <tr>
+                      <td>Ticker: <b className="red">{prices.pair}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Price: <span className="red">{prices.ask.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
+                    </tr>
+                    <tr>
+                      <td>Exchange: <b className="red">{prices.ask.exchange}</b></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Minimum: <b className="yellow">{prices.minOtherVolume + " " + prices.pair.slice(3)}</b></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span><img src={arrow} className="arrow" alt="logo" /></span></td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <RaisedButton label="Trade" type="submit" onClick={this.handleOpen.bind(this, index, prices.bid.exchange)} buttonStyle={tradeButtonStyle} />
+                        <br />
+                        <br />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span className="green"><b>Sell</b></span></td>
+                    </tr>
+                    <tr>
+                      <td>Ticker: <b className="green">{prices.pair}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Price: <span className="green">{prices.bid.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
+                    </tr>
+                    <tr>
+                      <td>Exchange: <b className="green">{prices.bid.exchange}</b></td>
+                    </tr>
+                    <tr>
+                      <td style={{ fontWeight: "bold", paddingTop: "1%" }}>
+                        Profit: <b className="green2Bed">{prices.profit}%</b></td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                  </tbody>
+                </table>
+                <br />
+              </span>
+            </span>
+          )
+        })
+        this.setState({ cards: suggestionsArray });
+
+      })
+      .catch((err) => {
+        Alert.error("<span style='color:red'>" + String(err) + "</span>", this.alertOptions);
+      })
+
+      setInterval(function() {
+        axios.get(env.API_URL + '/api/suggestions')
+          .then((res) => {
+            // console.log(res.data);
+            this.setState({ trades: res.data });
+            let suggestionsArray = res.data.map((prices, index) => {
+              // console.log(prices);
+              return (
+                <span className="Cards" key={index}>
+                  <span className="card card-1">
+                  <br />
+                    <table style={{border:"solid thin", borderRadius:"30px", borderColor:"#cbcbcb", width:"110%", position:"relative",right:"13%"}}>
+                      <tbody>
+                        <tr><td><br /></td></tr>
+                        <tr>
+                          <td>
+                            <span className="red"><b>Buy</b></span></td>
+                        </tr>
+                        <tr>
+                          <td>Ticker: <b className="red">{prices.pair}</b></td>
+                        </tr>
+                        <tr>
+                          <td>Price: <span className="red">{prices.ask.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
+                        </tr>
+                        <tr>
+                          <td>Exchange: <b className="red">{prices.ask.exchange}</b></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Minimum: <b className="yellow">{prices.minOtherVolume + " " + prices.pair.slice(3)}</b></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span><img src={arrow} className="arrow" alt="logo" /></span></td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <RaisedButton label="Trade" type="submit" onClick={this.handleOpen.bind(this, index, prices.bid.exchange)} buttonStyle={tradeButtonStyle} />
+                            <br />
+                            <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><span className="green"><b>Sell</b></span></td>
+                        </tr>
+                        <tr>
+                          <td>Ticker: <b className="green">{prices.pair}</b></td>
+                        </tr>
+                        <tr>
+                          <td>Price: <span className="green">{prices.bid.price.toFixed(4) + " " + prices.pair.slice(3) + "/" + prices.pair.slice(0, 3)}</span></td>
+                        </tr>
+                        <tr>
+                          <td>Exchange: <b className="green">{prices.bid.exchange}</b></td>
+                        </tr>
+                        <tr>
+                          <td style={{ fontWeight: "bold", paddingTop: "1%" }}>
+                            Profit: <b className="green2Bed">{prices.profit}%</b></td>
+                        </tr>
+                        <tr><td><br /></td></tr>
+                      </tbody>
+                    </table>
+                    <br />
+                  </span>
+                </span>
+              )
+            })
+            this.setState({ cards: suggestionsArray });
+
+          })
+          .catch((err) => {
+            Alert.error("<span style='color:red'>" + String(err) + "</span>", this.alertOptions);
+          })
+      }.bind(this), 15000)
+  }
+
   render() {
 
     const actions = [
@@ -279,6 +433,10 @@ export default class Suggestions extends Component {
 
     return (
       <div className="Suggestedtrades">
+      <div className="reRenderButton">
+      <RaisedButton label="Refresh" type="button" buttonStyle={submitButtonStyle} onClick={() =>
+        this.reRenderSuggestions()} />
+        </div>
         <Alert stack={{ limit: 1, spacing: 50 }} />
         {this.state.cards}
         <Dialog
