@@ -124,6 +124,7 @@ export default class Suggestions extends Component {
     }
   }
 
+  //open modal when 'trade' button on a card is clicked
   handleOpen = (index, bidExchange) => {
     this.setState({ render: false });
     axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
@@ -149,9 +150,15 @@ export default class Suggestions extends Component {
       })
   };
 
+  //close modal
   handleClose = () => {
     this.setState({ open: false, modalCardIndex: null });
   };
+
+  //send request to trade to backend
+  handleConfirm = () => {
+    this.setState({ open: false, modalCardIndex: null });
+  }
 
   reRenderSuggestions(){
     axios.get(env.API_URL + '/api/suggestions')
@@ -391,7 +398,7 @@ export default class Suggestions extends Component {
         label="Confirm"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose}
+        onClick={this.handleConfirm}
         style={{ backgroundColor: "#67c26f", color: "#e5e5e5", marginBottom: "2%", marginTop: "auto", marginRight: "20%" }}
       />,
     ];

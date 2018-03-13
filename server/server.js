@@ -37,9 +37,13 @@ app.use('/auth', auth);
 const price = require('./routes/price');
 app.use('/api/price', price);
 
-//import /time routes
+//import /suggestions routes
 const suggestions = require('./routes/suggestions');
 app.use('/api/suggestions', suggestions.router);
+
+//import /bot routes
+const bot = require('./routes/bot');
+app.use('/api/bot', bot);
 
 //set server to listen on port on any interface (0.0.0.0)
 app.listen(port, "0.0.0.0", function() {

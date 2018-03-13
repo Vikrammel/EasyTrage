@@ -56,81 +56,88 @@ router.post('/login', function (req, res) {
 
 // update user settings
 router.post('/settings', (req, res, next) => {
-  var token = req.body.token;
-  var newPass = req.body.newPassword;
-  var pass = req.body.password;
-  var failure = { success: false };
-  var success = { success: true, message: "password modified!" };
-  var goodset = { success: true, message: "settings saved!" };
-  var exchanges = Object.assign({}, req.body);
-  delete exchanges.newPassword;
-  delete exchanges.password;
-  delete exchanges.token;
-  User.getUserByToken(token, (err, user) => {
-    if (err) {
-      res.json(failure);
-    }
-    if (user) {
-      User.validatePassword(pass, user.password, (err, isMatch) => {
-        if (err) {
-          logger("error: " + String(err));
-          failure.message = String(err);
-          res.json(failure);
-        }
-        if (isMatch) {
-          if (newPass) {
-            User.editUser(user, newPass, err => {
+  ensureToken(req, (token)=> {
+    // var token = req.body.token;
+    var newPass = req.body.newPassword;
+    var pass = req.body.password;
+    var failure = { success: false };
+    var success = { success: true, message: "password modified!" };
+    var goodset = { success: true, message: "settings saved!" };
+    var exchanges = Object.assign({}, req.body);
+    delete exchanges.newPassword;
+    delete exchanges.password;
+    delete exchanges.token;
+    User.getUserByToken(token, (err, user) => {
+      if (err) {
+        res.json(failure);
+      }
+      if (user) {
+        User.validatePassword(pass, user.password, (err, isMatch) => {
+          if (err) {
+            logger("error: " + String(err));
+            failure.message = String(err);
+            res.json(failure);
+          }
+          if (isMatch) {
+            if (newPass) {
+              User.editUser(user, newPass, err => {
+                if (err) {
+                  logger("failed to edit pass: " + String(err));
+                  res.json(failure);
+                }
+                // console.log(success);
+              });
+            }
+            User.findOneAndUpdate({ token: token }, exchanges, (err, user) => {
               if (err) {
-                logger("failed to edit pass: " + String(err));
+                logger("error updating exchanges: " + String(err));
+                failure.message = String(err);
                 res.json(failure);
+              } else {
+                logger("keys updated");
+                res.json(goodset);
               }
-              // console.log(success);
             });
           }
-          User.findOneAndUpdate({ token: token }, exchanges, (err, user) => {
-            if (err) {
-              logger("error updating exchanges: " + String(err));
-              failure.message = String(err);
-              res.json(failure);
-            } else {
-              logger("keys updated");
-              res.json(goodset);
-            }
-          });
-        }
-        else {
-          var badpass = { success: false, message: "bad password" };
-          console.log(badpass);
-          res.json(badpass);
-        }
-      });
-    }
+          else {
+            var badpass = { success: false, message: "bad password" };
+            console.log(badpass);
+            res.json(badpass);
+          }
+        });
+      }
+    });
   });
 });
 
 //get 
 // get settings for populating client form fields
 router.get('/settings', (req, res, next) => {
-  const token = req.header("token");
-  console.log("Settings requested with token: " + token);
-  User.findOne({ token: token }, (err, user) => {
-    if (err) {
-      res.json({ success: false, message: String(err) });
-    } else {
-      res.json({ success: true, message: JSON.stringify(user) });
-    }
+  ensureToken(req, (token) =>{
+    console.log("Settings requested with token: " + token);
+    // const token = req.header("token");
+    User.findOne({ token: token }, (err, user) => {
+      if (err) {
+        res.json({ success: false, message: String(err) });
+      } else {
+        res.json({ success: true, message: JSON.stringify(user) });
+      }
+    });
   });
 });
 
 // get settings for populating client form fields
 router.post('/logout', (req, res, next) => {
-  User.findOneAndUpdate({ token: req.body.token }, { token: "" }, (err, user) => {
-    if (err) {
-      res.json({ success: false, message: String(err) });
-    } else {
-      logger("logged out");
-      return res.json({ success: true, message: "Successfully logged out" });
-    }
+  ensureToken(req, (token) => {
+    // const token = req.body.token;
+    User.findOneAndUpdate({ token: token }, { token: "" }, (err, user) => {
+      if (err) {
+        res.json({ success: false, message: String(err) });
+      } else {
+        logger("logged out " + String(user.email));
+        return res.json({ success: true, message: "Successfully logged out" });
+      }
+    });
   });
 });
 
@@ -171,28 +178,34 @@ router.post('/register', function (req, res) {
   });
 });
 
-router.get('/protected', ensureToken, function (req, res) {
-  jwt.verify(req.token, 'secret_key_goes_here', function (err, data) {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({
-        description: 'Protected information. Congrats!'
-      });
-    }
-  });
-});
-
-function ensureToken(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(403);
+//make sure a token was provided in a request, can be in req.body or a header
+function ensureToken(req, next) {
+  var headerToken = req.header("token");
+  var bodyToken = req.body.token;
+  if ((!headerToken || headerToken.length < 1) && (!bodyToken || bodyToken.length < 1)){
+    res.json({success: false, message: 
+      "Token is invalid. Please try clearing browsing history and logging in again"});
   }
+  else{
+    logger("ensured that token was provided. continuing with request...");
+    if (headerToken && headerToken.length > 0){ next(headerToken) }
+    else{
+      next(bodyToken);
+    }
+  }
+}
+
+//make sure the user with the provided token has a registered account in the db
+function ensureUser(req){
+  ensureToken(req, (token)=>{
+    User.findOne({ token: token }, (err, user) => {
+      if (err) {
+        return { success: false, message: String(err) };
+      } else {
+        return { success: true, message: JSON.stringify(user) };
+      }
+    });
+  });
 }
 
 module.exports = router;
