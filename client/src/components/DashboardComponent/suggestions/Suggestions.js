@@ -190,7 +190,7 @@ export default class Suggestions extends Component {
   //close modal
   handleClose = () => {
     if(!this.state.trading){
-      this.setState({ open: false, modalCardIndex: null });
+      this.setState({ open: false, modalCardIndex: null, trade1Status: '', trade2Status: '', trade1Message: '', trade2Message: '' });
     }
   };
 
@@ -222,17 +222,20 @@ export default class Suggestions extends Component {
       // Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
       // Alert.success("<span><img src=" + successpng +" alt='icon by Juliia Osadcha'/></span>",{theme:'dark',transition:'scale',html:true})
       this.setState({ trade1Status: 'success', trade1Message: res.data.message, formDisabled: false });
+      //this should be at the end of the last trade / move attempt but I've only simulated 2 trade right now
+      this.setState({ trading: false });
       }
       else {
         // Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
         this.setState({ tradeStatus: 'failure', trade1Message: res.data.message, formDisabled: false });
+        this.setState({ trading: false });
       }
     })
     .catch((err) => {
       // Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
       this.setState({ trade1Status: 'failure', trade1Message: String(err), formDisabled: false });
+      this.setState({ trading: false });
     })
-    this.setState({trading:false});
   }
 
   //generate HTML for a suggestion card
