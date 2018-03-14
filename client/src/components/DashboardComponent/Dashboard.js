@@ -62,15 +62,18 @@ class Dashboard extends Component {
     axios.post(env.API_URL + '/auth/logout', { token: localStorage.getItem("token") })
       .then((res) => {
         if (res.data.success === true) {
+          console.log(res.data.message);
           Alert.success(res.data.message);
           localStorage.removeItem("token");
           this.props.history.push("/");
         }
         else {
+          console.log(res.data.message);
           Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
         }
       })
       .catch((err) => {
+        console.log(String(err));
         Alert.error(String(err));
       })
   }
@@ -80,7 +83,7 @@ class Dashboard extends Component {
       <div className="Dashboard">
         <Center><h1>Dashboard</h1></Center>
         <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
-        <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
+        {/* <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center> */}
         <Tabs>
           <Tab label="Prices" >
             <div>

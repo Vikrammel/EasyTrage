@@ -149,8 +149,8 @@ router.get('/settings', (req, res, next) => {
         if(!user){
           res.json({success:false, message: "Bad Token. Please try clearing your browsing history and logging in again."});
         }else{
-          logger("successfully returned user settings: " + user.apiKeys);
-          res.json({ success: true, message: user.apiKeys });
+          logger("successfully returned user settings: " + user);
+          res.json({ success: true, message: user });
         }
 
       }
@@ -236,16 +236,20 @@ function ensureToken(req, res, next) {
 }
 
 //make sure the user with the provided token has a registered account in the db
-function ensureUser(req, res){
+function ensureUser(req, res, next){
   ensureToken(req, res, (token)=>{
     User.findOne({ token: token }, (err, user) => {
       if (err) {
-        return { success: false, message: String(err) };
+        res.json( { success: false, message: String(err) });
       } else {
-        return { success: true, message: JSON.stringify(user) };
+        next(user);
       }
     });
   });
 }
 
-module.exports = router;
+module.exports = {
+  router: router,
+  ensureToken: ensureToken,
+  ensureUser: ensureUser
+};

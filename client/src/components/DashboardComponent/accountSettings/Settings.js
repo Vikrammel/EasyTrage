@@ -52,6 +52,7 @@ class Settings extends Component {
         gateio: {key:'',secret:''}
         // trade: false,
       },
+
       token: localStorage.getItem("token")
     };
 
@@ -64,14 +65,13 @@ class Settings extends Component {
     axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
       .then((res) => {
         if (res.data.success === true) {
-          console.log("successfully retrieved apiKey settings: " + res.data.message);
+          console.log("successfully retrieved apiKey settings: " + JSON.stringify(res.data.message));
           if (res.data.message){
-            var stateChange = JSON.parse(res.data.message);
-            console.log(JSON.stringify(stateChange.gateio));
+            var stateChange = res.data.message;
             //delete properties of response we don't need, then set the state with that data
-            // var throwAwayData = ['password', '_id', 'email', '__v'];
-            // for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
-            this.setState({ data: stateChange });
+            var throwAwayData = ['password', '_id', 'email', '__v'];
+            for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
+            this.setState({ data: JSON.parse(stateChange.apiKeys) });
           }
         }
         else {
