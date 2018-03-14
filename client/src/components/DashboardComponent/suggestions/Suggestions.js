@@ -19,6 +19,9 @@ import gateiopng from './exchange_icons/gateio.png';
 import hitbtcpng from './exchange_icons/hitbtc.png';
 import krakenpng from './exchange_icons/kraken.png';
 import poloniexpng from './exchange_icons/poloniex.png';
+//success and failure icons by https://www.iconfinder.com/Juliia_Os (Juliia Osadcha)
+import successpng from './success.png';
+import failurepng from './failure.png';
 
 const imageVarName = {
   "btcpng": btcpng,
@@ -88,6 +91,15 @@ export default class Suggestions extends Component {
       render: true,
       cards: [],
       open: false,
+      trade1Success: false,
+      trade1Failure : false,
+      trade1Message: '',
+      moveSuccess: false,
+      moveFailure: false,
+      moveMessage: '',
+      trade2Success: false,
+      trade2Failure : false,
+      trade2Message: '',
       modalStyle: {
         display: "none"
       },
@@ -204,8 +216,9 @@ export default class Suggestions extends Component {
       console.log("got response for bot/trade call");
       if (res.data.success === true) {
       console.log("trade call success: " + res.data.message);
-      Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
-      this.setState({ formDisabled: false });
+      // Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
+      // Alert.success("<span><img src=" + successpng +" alt='icon by Juliia Osadcha'/></span>",{theme:'dark',transition:'scale',html:true})
+      this.setState({ trade1Success: true, trade1Message: res.data.message, formDisabled: false });
       }
       else {
         Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
@@ -397,7 +410,7 @@ export default class Suggestions extends Component {
               <img src={rightArrowCircle} className="icon" alt="first trade" />
               <img src={imageVarName[secondCurrency.toLowerCase() + 'png']} className="icon" alt={secondCurrency} />
             </div>
-
+           
             <div className="transferDiv">
               <img src={rightArrowLarge} className="transferArrow" alt="transfer ripple" />
               <h3>Transfer</h3>
@@ -410,6 +423,24 @@ export default class Suggestions extends Component {
               <img src={imageVarName[baseCurrency.toLowerCase() + 'png']} className="icon" alt={baseCurrency} />
               {/* </div> */}
             </div>
+
+            <div id="statusContainer">
+              {this.state.trade1Success?
+              <div id="trade1Status">
+                <img src={successpng} alt="Success and failure icons by Juliia Osadcha" width="5%" />
+                <span style={{color:'#67c26f'}}>{this.state.trade1Message}</span>
+              </div>
+              :
+              this.state.trade1Failure?
+              <div id="trade1Status">
+                <img src={failurepng} alt="Success and failure icons by Juliia Osadcha" width="5%" />
+                <span style={{color:'#FF1744'}}>{this.state.trade1Message}</span>
+              </div>
+              :
+              <div id="trade1Status"></div>
+              }
+            </div>
+                
           </div>
 
           <div className="exchangeNames">

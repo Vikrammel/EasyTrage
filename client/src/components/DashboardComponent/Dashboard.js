@@ -52,10 +52,19 @@ class Dashboard extends Component {
       transition: 'scale',
       html: true
     };
+    this.state = {
+      showAlert: false
+    }
   }
 
   activeTab(e) {
     e.target.style = styles.tabsActive;
+  }
+
+  //show alert for 5 seconds and then set the state to not display it (because otherwise other alerts from child components
+  //  are duplicated)
+  _toggleAlert(){
+    this.setState({showAlert:true}, () => { setTimeout( ()=>{ this.setState( {showAlert:false}) }, 5100 ) });
   }
 
   _logOut() {
@@ -63,17 +72,20 @@ class Dashboard extends Component {
       .then((res) => {
         if (res.data.success === true) {
           console.log(res.data.message);
+          this._toggleAlert();
           Alert.success(res.data.message);
           localStorage.removeItem("token");
           this.props.history.push("/");
         }
         else {
           console.log(res.data.message);
+          this._toggleAlert();
           Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
         }
       })
       .catch((err) => {
         console.log(String(err));
+        this._toggleAlert();
         Alert.error(String(err));
       })
   }
@@ -83,7 +95,12 @@ class Dashboard extends Component {
       <div className="Dashboard">
         <Center><h1>Dashboard</h1></Center>
         <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
-        <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
+        {
+              this.state.showAlert?
+              <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
+              :
+              <div></div>
+        }
         <Tabs>
           <Tab label="Prices" >
             <div>
