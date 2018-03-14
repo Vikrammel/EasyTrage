@@ -145,7 +145,7 @@ export default class Suggestions extends Component {
     console.log(exchange);
     if(this.state.depositXRP && this.state.amounts){
       if(event.target.name.indexOf("Amount") !== -1){
-        console.log("handleChange for amount");
+        // console.log("handleChange: {amounts: {"+askExchange+":{"+baseCurrency+":"+event.target.value+"}}}");
         this.setState({amounts:{[askExchange]:{[baseCurrency]:event.target.value}}});
       }
       else{
@@ -479,7 +479,7 @@ export default class Suggestions extends Component {
               type="number"
               placeholder="0.00"
               step="0.01"
-              onChange={this.handleChange.bind(this)}
+              onChange={this.handleChange.bind(this, "")}
               // ref={askExchange + "Amount"}
               disabled={this.state.formDisabled}
             />
