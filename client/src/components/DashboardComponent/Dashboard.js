@@ -43,7 +43,7 @@ const styles = {
 class Dashboard extends Component {
   constructor(props){
     super(props);
-    
+
     this.alertOptions = {
       offset: 100,
       position: 'top',
@@ -83,7 +83,7 @@ class Dashboard extends Component {
       <div className="Dashboard">
         <Center><h1>Dashboard</h1></Center>
         <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
-        {/* <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center> */}
+        <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
         <Tabs>
           <Tab label="Prices" >
             <div>

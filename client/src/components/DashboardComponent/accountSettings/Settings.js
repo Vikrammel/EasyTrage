@@ -71,9 +71,12 @@ class Settings extends Component {
             //delete properties of response we don't need, then set the state with that data
             var throwAwayData = ['password', '_id', 'email', '__v'];
             for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
-            this.setState({ data: JSON.parse(stateChange.apiKeys) });
+            if(stateChange.apiKeys){
+              this.setState({ apiKeys: stateChange.apiKeys });
+            }
           }
-        }
+            // this.setState({ data: JSON.parse(stateChange.apiKeys) });
+          }
         else {
           Alert.error("<span style='color:#FF1744'>Server error fetching existing account settings: " +
             res.data.message + "</span>", this.alertOptions);

@@ -4,8 +4,10 @@
 
 ===== clearing database =====
 
-MongoDB shell version: 2.6.10
-connecting to: test
+MongoDB shell version v3.6.2
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.2
+2018-03-14T09:56:57.679-0700 E -        [main] Error loading history file: FileOpenFailed: Unable to fopen() file /Users/kevinlee/.dbshell: No such file or directory
 switched to db easytrage
 { "dropped" : "easytrage", "ok" : 1 }
 bye
@@ -18,12 +20,12 @@ bye
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCRzUGxMVlB0RHdIa0FyQlRJTDZzRE51UjBIMGpSRjRpN2VLWGNhaHhUUTRPdThheGRDRlg3SyIsIl9pZCI6IjVhYTg5ZmUzMmRhZWVmMDIzMDBkOTA4ZiIsIl9fdiI6MH0sImlhdCI6MTUyMTAwMDQxOX0.MYdhnjoArP-Pe1nB1Lr2Lox8IQZgwdIfHrAGJT6mEIE"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidm1lbGtvdGVAdWNzYy5lZHUiLCJwYXNzd29yZCI6IiQyYSQxMCRjZ21MQlBpQVQxUHN4RGZuc0NKTWJlcVlFLjhMSnJBRC90ZGpwUzRRR3RqNVh5NmNrN2V4cSIsIl9pZCI6IjVhYTk1NDVhYjU2YjhmMDAzMjE4MTEwMCIsIl9fdiI6MH0sImlhdCI6MTUyMTA0NjYxOX0.tTFF-0sD9dCQNgIJkcm96BAEDHuZn8Jze120dzBVzYA"}
 
 
 Output of backend /login call with email 'vmelkote@ucsc.edu' and password 'password' : 
 
-{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjEwMDA0MTl9.T5dc5U1GKtkTwD-ElSNZOqE_d1oiRk7xS4Kx3vBfH-4"}
+{"success":true,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MjEwNDY2MTl9.YRrxAU_-0ir_h7BBzYCwURWS6TU6TbcO0S9IvcNJP_s"}
 
 
 Output of backend /register call with email 'vmelkote@ucsc.edu' and password 'password' for the second time (should fail): 
