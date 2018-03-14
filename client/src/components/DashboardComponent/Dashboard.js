@@ -41,6 +41,18 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  constructor(props){
+    super(props);
+    
+    this.alertOptions = {
+      offset: 100,
+      position: 'top',
+      theme: 'dark',
+      timeout: 5000,
+      transition: 'scale',
+      html: true
+    };
+  }
 
   activeTab(e) {
     e.target.style = styles.tabsActive;
@@ -55,11 +67,11 @@ class Dashboard extends Component {
           this.props.history.push("/");
         }
         else {
-          Alert.error(res.data.message);
+          Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
         }
       })
       .catch((err) => {
-        Alert(err);
+        Alert.error(String(err));
       })
   }
 
@@ -68,6 +80,7 @@ class Dashboard extends Component {
       <div className="Dashboard">
         <Center><h1>Dashboard</h1></Center>
         <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
+        <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
         <Tabs>
           <Tab label="Prices" >
             <div>

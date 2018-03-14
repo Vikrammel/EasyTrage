@@ -37,22 +37,22 @@ class Settings extends Component {
     this.state = {
       formDisabled: false,
       render: false,
+      password: '',
+      newPassword: '',
       data: {
-        bittrex: '',
-        bitfinex: '',
-        bitstamp: '',
-        hitbtc: '',
-        binance: '',
-        poloniex: '',
-        kraken: '',
-        exmo: '',
-        cexio: '',
-        gateio: '',
-        password: '',
-        newPassword: '',
+        bittrex: {key:'',secret:''},
+        bitfinex: {key:'',secret:''},
+        bitstamp: {key:'',secret:''},
+        hitbtc: {key:'',secret:''},
+        binance: {key:'',secret:''},
+        poloniex: {key:'',secret:''},
+        kraken: {key:'',secret:''},
+        exmo: {key:'',secret:''},
+        cexio: {key:'',secret:''},
+        gateio: {key:'',secret:''}
         // trade: false,
-        token: localStorage.getItem("token")
-      }
+      },
+      token: localStorage.getItem("token")
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -64,14 +64,18 @@ class Settings extends Component {
     axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
       .then((res) => {
         if (res.data.success === true) {
-          var stateChange = JSON.parse(res.data.message);
-          //delete properties of response we don't need, then set the state with that data
-          var throwAwayData = ['password', '_id', 'email', '__v'];
-          for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
-          this.setState({ data: stateChange });
+          console.log("successfully retrieved apiKey settings: " + res.data.message);
+          if (res.data.message){
+            var stateChange = JSON.parse(res.data.message);
+            console.log(JSON.stringify(stateChange.gateio));
+            //delete properties of response we don't need, then set the state with that data
+            // var throwAwayData = ['password', '_id', 'email', '__v'];
+            // for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
+            this.setState({ data: stateChange });
+          }
         }
         else {
-          Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
+          Alert.error("<span style='color:#FF1744'>Server error fetching existing account settings: " +
             res.data.message + "</span>", this.alertOptions);
         }
       })
@@ -91,13 +95,25 @@ class Settings extends Component {
     this.setState({ data: { trade: !this.state.data.trade } });
   }
 
+  //update state when user types in field
   handleChange(event) {
     // not working using setState
     // var stateChange = {};
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
-    this.state.data[event.target.name] = event.target.value;
+    if(event.target.name === 'password' || event.target.name === 'newPassword'){
+      // console.log("storing pw in state");
+      this.state[event.target.name] = event.target.value;
+    }
+    else{
+      if(event.target.name.indexOf("Secret") !== -1){
+        this.state.data[event.target.name.split("Secret")[0]].secret = event.target.value;
+      }else{
+        this.state.data[event.target.name].key = event.target.value;
+      }
+    }
   }
+
 
   handleSubmit(event) {
     //close alerts and disable form text fields
@@ -106,24 +122,25 @@ class Settings extends Component {
     event.preventDefault();
 
     //validate password existance and length of new password
-    if (!this.state.data.password || this.state.data.password.length < 6) {
+    if (!this.state.password || this.state.password.length < 6) {
       Alert.warning("<span style='color:#FF1744'>Acount password with length of 6 or more characters must be"
         + " entered to save settings</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
-    else if (this.state.data.newPassword && this.state.data.newPassword.length < 6) {
+    else if (this.state.newPassword && this.state.newPassword.length < 6) {
       Alert.warning("<span style='color:#FF1744'>Please make sure your new password is more than 6 characters "
         + "long</span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
-    else if (this.state.data.newPassword === this.state.data.password) {
+    else if (this.state.newPassword === this.state.password) {
       Alert.warning("<span style='color:#FF1744'>New password must be different </span>", this.alertOptions);
       this.setState({ formDisabled: false });
     }
     //send request to edit settings
     else {
-      console.log("sending");
-      axios.post(env.API_URL + '/auth/settings', this.state.data)
+      console.log("sending settings update request to backend");
+      axios.post(env.API_URL + '/auth/settings', {apiKeys:this.state.data, password: this.state.password,
+                  newPassword: this.state.newPassword} , { headers: { token: this.state.token } })
         .then((res) => {
           if (res.data.success === true) {
             Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
@@ -154,13 +171,22 @@ class Settings extends Component {
                   <div>
                     <span style={{ fontWeight: "bold" }}>{exchange} API key</span>
                     <br />
-                    <div><TextField name={exchange}
-                      type="text"
-                      placeholder={exchange + " API key"}
-                      defaultValue={this.state.data[exchange]}
-                      onChange={this.handleChange.bind(this)}
-                      disabled={this.state.formDisabled}
-                    /></div>
+                    <div>
+                      <TextField name={exchange}
+                        type="text"
+                        placeholder={exchange + " API key"}
+                        defaultValue={this.state.data[exchange].key}
+                        onChange={this.handleChange.bind(this)}
+                        disabled={this.state.formDisabled}
+                      />
+                      <TextField name={exchange + "Secret"}
+                        type="text"
+                        placeholder={exchange + " API secret"}
+                        defaultValue={this.state.data[exchange].secret}
+                        onChange={this.handleChange.bind(this)}
+                        disabled={this.state.formDisabled}
+                      />
+                    </div>
                     <br />
                     <br />
                   </div>

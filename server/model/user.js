@@ -24,16 +24,16 @@ var UserSchema = new Schema({
         type: String,
         required: false
     },
-    bittrex: { type: String },
-    bitfinex: { type: String },
-    bitstamp: { type: String },
-    hitbtc: { type: String },
-    binance: { type: String },
-    poloniex: { type: String },
-    kraken: { type: String },
-    exmo: { type: String },
-    cexio: { type: String },
-    gateio: { type: String },
+    apiKeys: {
+        type: String 
+        //store encrypted object as apiKeys
+        //decrypted: {
+        //              exchange1: {apiKey: exchange1apikey, 
+        //                          secret: exchange1apikeysecret}, 
+        //              exchange2: {...},
+        //              ...
+        //            }
+    },
     depositXRP: {
         bittrex: { type: String },
         bitfinex: { type: String },
