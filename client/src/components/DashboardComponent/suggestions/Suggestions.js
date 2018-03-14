@@ -22,6 +22,7 @@ import poloniexpng from './exchange_icons/poloniex.png';
 //success and failure icons by https://www.iconfinder.com/Juliia_Os (Juliia Osadcha)
 import successpng from './success.png';
 import failurepng from './failure.png';
+import loadingGif from './loading.gif'; //from loading.io
 
 const imageVarName = {
   "btcpng": btcpng,
@@ -91,15 +92,13 @@ export default class Suggestions extends Component {
       render: true,
       cards: [],
       open: false,
-      trade1Success: false,
-      trade1Failure : false,
+      trade1Status: '',
       trade1Message: '',
-      moveSuccess: false,
-      moveFailure: false,
+      moveStatus: '',
       moveMessage: '',
-      trade2Success: false,
-      trade2Failure : false,
+      trade2Status: '',
       trade2Message: '',
+      trading: false,
       modalStyle: {
         display: "none"
       },
@@ -190,11 +189,14 @@ export default class Suggestions extends Component {
 
   //close modal
   handleClose = () => {
-    this.setState({ open: false, modalCardIndex: null });
+    if(!this.state.trading){
+      this.setState({ open: false, modalCardIndex: null });
+    }
   };
 
   //send request to trade to backend
   handleConfirm = () => {
+    this.setState({trading:true});
     var modalTradeInfo = this.state.trades[this.state.modalCardIndex];
     var baseCurrency = modalTradeInfo.pair.slice(3)
     var askExchange = modalTradeInfo.ask.exchange;
@@ -206,6 +208,7 @@ export default class Suggestions extends Component {
     // console.log(baseCurrency);
     // console.log(askExchange);
     // this.setState({ open: false, modalCardIndex: null });
+    this.setState({trade1Status:"loading"});
     axios.post(env.API_URL + '/api/bot/trade', 
                 { exchange: askExchange, buySell:"buy",
                   amount: this.state.amounts[askExchange.replace(".","")][baseCurrency], 
@@ -218,17 +221,18 @@ export default class Suggestions extends Component {
       console.log("trade call success: " + res.data.message);
       // Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
       // Alert.success("<span><img src=" + successpng +" alt='icon by Juliia Osadcha'/></span>",{theme:'dark',transition:'scale',html:true})
-      this.setState({ trade1Success: true, trade1Message: res.data.message, formDisabled: false });
+      this.setState({ trade1Status: 'success', trade1Message: res.data.message, formDisabled: false });
       }
       else {
-        Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
-        this.setState({ formDisabled: false });
+        // Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
+        this.setState({ tradeStatus: 'failure', trade1Message: res.data.message, formDisabled: false });
       }
     })
     .catch((err) => {
-      Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
-      this.setState({ formDisabled: false });
+      // Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
+      this.setState({ trade1Status: 'failure', trade1Message: String(err), formDisabled: false });
     })
+    this.setState({trading:false});
   }
 
   //generate HTML for a suggestion card
@@ -361,6 +365,7 @@ export default class Suggestions extends Component {
         label="Cancel"
         primary={true}
         onClick={this.handleClose}
+        disabled={this.state.trading}
         style={{ backgroundColor: "#FF1744", color: "#e5e5e5", marginBottom: "2%", marginTop: "auto", marginLeft: "20%", float: "left" }}
       />,
       <FlatButton
@@ -368,6 +373,7 @@ export default class Suggestions extends Component {
         primary={true}
         keyboardFocused={true}
         onClick={this.handleConfirm}
+        disabled={this.state.trading}
         style={{ backgroundColor: "#67c26f", color: "#e5e5e5", marginBottom: "2%", marginTop: "auto", marginRight: "20%" }}
       />,
     ];
@@ -424,21 +430,30 @@ export default class Suggestions extends Component {
               {/* </div> */}
             </div>
 
-            <div id="statusContainer">
-              {this.state.trade1Success?
-              <div id="trade1Status">
-                <img src={successpng} alt="Success and failure icons by Juliia Osadcha" width="5%" />
-                <span style={{color:'#67c26f'}}>{this.state.trade1Message}</span>
-              </div>
-              :
-              this.state.trade1Failure?
-              <div id="trade1Status">
-                <img src={failurepng} alt="Success and failure icons by Juliia Osadcha" width="5%" />
-                <span style={{color:'#FF1744'}}>{this.state.trade1Message}</span>
-              </div>
-              :
-              <div id="trade1Status"></div>
-              }
+            <div id="statusContainer" style={{paddingTop:"5%"}}>
+                {this.state.trade1Status==='success'?
+                <div id="trade1Status">
+                  <p>{"Trade 1"}</p>
+                  <img src={successpng} alt="Trade Successful! Success and failure icons by Juliia Osadcha" width="5%" />
+                  <span style={{color:'#67c26f', marginLeft:"2%"}}>{this.state.trade1Message}</span>
+                </div>
+                :
+                this.state.trade1Status==='failure'?
+                <div id="trade1Status">
+                  <p>{"Trade 1"}</p>
+                  <img src={failurepng} alt="Trade Failed. Success and failure icons by Juliia Osadcha" width="5%" />
+                  <span style={{color:'#FF1744'}}>{this.state.trade1Message}</span>
+                </div>
+                :
+                this.state.trade1Status==='loading'?
+                <div id="trade1Status">
+                  <p>{"Trade 1"}</p>
+                  <img src={loadingGif} alt="trade attempt in progress. gif from loading.io" width="5%" />
+                  <span style={{color:'#4CC0CC'}}>{"Trade attempt in progress..."}</span>
+                </div>
+                :
+                <div id="trade1Status"></div>
+                }
             </div>
                 
           </div>
