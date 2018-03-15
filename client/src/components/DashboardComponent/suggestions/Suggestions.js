@@ -94,15 +94,15 @@ export default class Suggestions extends Component {
       open: false,
       trade1Status: '',
       trade1Message: '',
-      moveStatus: '',
-      moveMessage: '',
+      transferStatus: '',
+      transferMessage: '',
       trade2Status: '',
       trade2Message: '',
       trading: false,
       modalStyle: {
         display: "none"
       },
-      modalCardIndex: null,
+      modalCardInfo: {},
       formDisabled: false,
       token: localStorage.getItem("token"),
       depositXRP: {
@@ -117,17 +117,17 @@ export default class Suggestions extends Component {
         cexio: '',
         gateio: ''
       },
-      amounts:{
-        bittrex: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        bitfinex: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        bitstamp: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        hitbtc: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        binance: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        poloniex: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        kraken: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        exmo: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        cexio: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0},
-        gateio: {USD:0.0, USDT:0.0, BTC:0.0, ETH:0.0}
+      amounts: {
+        bittrex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        bitfinex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        bitstamp: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        hitbtc: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        binance: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        poloniex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        kraken: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        exmo: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        cexio: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+        gateio: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 }
       }
     };
 
@@ -139,21 +139,23 @@ export default class Suggestions extends Component {
     // stateChange[event.target.name] = event.target.value;
     // this.setState({data: stateChange});
     // this.state.data[event.target.name] = event.target.value;
-    var modalTradeInfo = this.state.trades[this.state.modalCardIndex];
+    var modalTradeInfo = this.state.modalCardInfo;
     var baseCurrency = modalTradeInfo.pair.slice(3);
     var askExchange = modalTradeInfo.ask.exchange;
+    var bidExchange = modalTradeInfo.bid.exchange;
     console.log(exchange);
-    if(this.state.depositXRP && this.state.amounts){
-      if(event.target.name.indexOf("Amount") !== -1){
+    if (this.state.depositXRP && this.state.amounts) {
+      if (event.target.name.indexOf("Amount") !== -1) {
         // console.log("handleChange: {amounts: {"+askExchange+":{"+baseCurrency+":"+event.target.value+"}}}");
-        this.setState({amounts:{[askExchange]:{[baseCurrency]:event.target.value}}});
+        this.setState({ amounts: { [askExchange]: { [baseCurrency]: event.target.value } } });
       }
-      else{
-        this.state.depositXRP[askExchange] = event.target.value;
-        console.log(exchange + " API key entered: " + this.state.depositXRP[askExchange]);
+      else {
+        this.state.depositXRP[bidExchange] = event.target.value;
+        console.log(exchange + " API key entered: " + this.state.depositXRP[bidExchange]);
       }
     } else {
-      this.setState({depositXRP:{[askExchange]:event.target.value}})
+      // this.setState({ depositXRP: { [bidExchange]: event.target.value } })
+      null;
     }
   }
 
@@ -166,85 +168,151 @@ export default class Suggestions extends Component {
           var stateChange = res.data.message;
           var throwAwayData = ['password', '_id', 'email', '__v'];
           for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
-          if(stateChange.depositXRP){
-            this.setState({ depositXRP: stateChange.depositXRP, render: true });
+          if (stateChange.depositXRP) {
+            this.setState({ depositXRP: stateChange.depositXRP });
             if (stateChange.depositXRP[bidExchange.replace(".", "")]) {
               this.refs.depositAddress.getInputNode().value = stateChange.depositXRP[bidExchange.replace(".", "")];
             }
           }
-          this.setState({ render:true, open: true, modalCardIndex: index });
+          this.setState({ render: true, open: true, modalCardInfo: this.state.trades[index] });
         }
         else {
           Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
             res.data.message + "</span>", this.alertOptions);
-          this.setState({ open: true, modalCardIndex: index, render: true });
+          this.setState({ open: true, modalCardInfo: this.state.trades[index], render: true });
         }
       })
       .catch((err) => {
         Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
           String(err) + "</span>", this.alertOptions);
-        this.setState({ open: true, modalCardIndex: index, render: true });
+        this.setState({ open: true, modalCardInfo: this.state.trades[index], render: true });
       })
   };
 
   //close modal
   handleClose = () => {
-    if(!this.state.trading){
-      this.setState({ open: false, modalCardIndex: null, trade1Status: '', trade2Status: '', trade1Message: '', trade2Message: '' });
+    if (!this.state.trading) {
+      this.setState({ open: false, modalCardInfo: {}, trade1Status: '', trade2Status: '',
+                      transferStatus:'', transferMessage: '', trade1Message: '', trade2Message: '', 
+                      amounts: {
+                        bittrex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        bitfinex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        bitstamp: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        hitbtc: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        binance: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        poloniex: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        kraken: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        exmo: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        cexio: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 },
+                        gateio: { USD: 0.0, USDT: 0.0, BTC: 0.0, ETH: 0.0 }
+                      }});
     }
   };
 
   //send request to trade to backend
   handleConfirm = () => {
-    this.setState({trading:true});
-    var modalTradeInfo = this.state.trades[this.state.modalCardIndex];
+    this.setState({ trading: true });
+    var modalTradeInfo = this.state.modalCardInfo;
     var baseCurrency = modalTradeInfo.pair.slice(3)
-    var askExchange = modalTradeInfo.ask.exchange;
+    var askExchange = modalTradeInfo.ask.exchange.replace(".","");
     var askPrice = modalTradeInfo.ask.price.toFixed(4);
-    // var bidExchange = modalTradeInfo.bid.exchange;
-    // var bidPrice = modalTradeInfo.bid.price.toFixed(4);
+    var secondCurrency = modalTradeInfo.pair.slice(0, 3);
+    var bidExchange = modalTradeInfo.bid.exchange;
+    var bidPrice = modalTradeInfo.bid.price.toFixed(4);
+    console.log(askExchange);
+    if(!this.state.depositXRP[bidExchange] || !this.state.amounts[askExchange][baseCurrency] ){
+      this.setState({ trading: false, formDisabled: false });
+      return;
+    }
     // var minimumBaseAmount = modalTradeInfo.minOtherVolume;
-    // var secondCurrency = modalTradeInfo.pair.slice(0, 3);
     // console.log(baseCurrency);
     // console.log(askExchange);
     // this.setState({ open: false, modalCardIndex: null });
-    this.setState({trade1Status:"loading"});
-    axios.post(env.API_URL + '/api/bot/trade', 
-                { exchange: askExchange, buySell:"buy",
-                  amount: this.state.amounts[askExchange.replace(".","")][baseCurrency], 
-                  pair: modalTradeInfo.pair, 
-                  price: askPrice } , 
+    this.setState({ trade1Status: "loading" });
+    //make call to buy secondary currency on first exchange with base currency
+    console.log(askExchange);
+    axios.post(env.API_URL + '/api/bot/trade',
+      {
+        exchange: askExchange, buySell: "buy",
+        amount: this.state.amounts[askExchange.replace(".", "")][baseCurrency],
+        pair: modalTradeInfo.pair,
+        price: askPrice
+      },
+      { headers: { token: this.state.token } })
+      .then((res) => {
+        console.log("got response for bot/trade call");
+        if (res.data.success === true) {
+          console.log("trade call success: " + res.data.message);
+          this.setState({ trade1Status: 'success', trade1Message: res.data.message });
+          //make call to transfer secondary currency to exchange where it will be sold for base surrency
+          this.setState({ transferStatus: "loading" });
+          axios.post(env.API_URL + '/api/bot/transfer',
+            {
+              exchange1: askExchange, exchange2: bidExchange, ticker: secondCurrency,
+              amount: this.state.amounts[askExchange.replace(".", "")][baseCurrency] / askPrice,
+              address: this.state.depositXRP[bidExchange]
+            },
+            { headers: { token: this.state.token } })
+            .then((res) => {
+              console.log("got response for bot/transfer call");
+              if (res.data.success === true) {
+                console.log("transfer call success: " + res.data.message);
+                this.setState({ transferStatus: 'success', transferMessage: res.data.message});
+                //make final call to sell secondary currency for base currency on second exchange
+                this.setState({ trade2Status: "loading" });
+                axios.post(env.API_URL + '/api/bot/trade',
+                {
+                  exchange: bidExchange, buySell: "sell",
+                  amount: this.state.amounts[askExchange.replace(".", "")][baseCurrency] / askPrice,
+                  pair: modalTradeInfo.pair,
+                  price: bidPrice
+                },
                 { headers: { token: this.state.token } })
-    .then((res) => {
-      console.log("got response for bot/trade call");
-      if (res.data.success === true) {
-      console.log("trade call success: " + res.data.message);
-      // Alert.success("<span style='color:#67c26f'>" + res.data.message + "</span>", this.alertOptions);
-      // Alert.success("<span><img src=" + successpng +" alt='icon by Juliia Osadcha'/></span>",{theme:'dark',transition:'scale',html:true})
-      this.setState({ trade1Status: 'success', trade1Message: res.data.message, formDisabled: false });
-      //this should be at the end of the last trade / move attempt but I've only simulated 2 trade right now
-      this.setState({ trading: false });
-      }
-      else {
-        // Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
-        this.setState({ tradeStatus: 'failure', trade1Message: res.data.message, formDisabled: false });
-        this.setState({ trading: false });
-      }
-    })
-    .catch((err) => {
-      // Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
-      this.setState({ trade1Status: 'failure', trade1Message: String(err), formDisabled: false });
-      this.setState({ trading: false });
-    })
+                .then((res) => {
+                  if (res.data.success === true) {
+                    console.log("trade call success: " + res.data.message);
+                    this.setState({ trade2Status: 'success', trade2Message: res.data.message });
+                    this.setState({ trading: false, formDisabled: false });
+                  }
+                  else {
+                    this.setState({ trade2Status: 'failure', trade2Message: res.data.message});
+                    this.setState({ trading: false, formDisabled: false });
+                  }
+                })
+                .catch((err) => {
+                  this.setState({ trade2Status: 'failure', trade2Message: String(err)});
+                  this.setState({ trading: false, formDisabled: false });
+                })
+              }
+              else {
+                this.setState({ transferStatus: 'failure', transferMessage: res.data.message});
+                this.setState({ trading: false, formDisabled: false });
+              }
+            })
+            .catch((err) => {
+              this.setState({ transferStatus: 'failure', transferMessage: String(err) });
+              this.setState({ trading: false, formDisabled: false });
+            })
+        }
+        else {
+          this.setState({ trade1Status: 'failure', trade1Message: res.data.message });
+          this.setState({ trading: false, formDisabled: false });
+        }
+      })
+      .catch((err) => {
+        // Alert.error("<span style='color:#FF1744'>" + String(err) + "</span>", this.alertOptions);
+        this.setState({ trade1Status: 'failure', trade1Message: String(err) });
+        this.setState({ trading: false, formDisabled: false });
+      })
   }
 
   //generate HTML for a suggestion card
-  generateCard(prices, index){
+  generateCard(prices, index) {
     return (
       <span className="Cards" key={index}>
         <span className="card card-1">
-        <br />
-          <table style={{border:"solid thin", borderRadius:"30px", borderColor:"#cbcbcb", width:"110%", position:"relative",right:"13%"}}>
+          <br />
+          <table style={{ border: "solid thin", borderRadius: "30px", borderColor: "#cbcbcb", width: "110%", position: "relative", right: "13%" }}>
             <tbody>
               <tr><td><br /></td></tr>
               <tr>
@@ -301,7 +369,7 @@ export default class Suggestions extends Component {
     )
   }
 
-  reRenderSuggestions(){
+  reRenderSuggestions() {
     axios.get(env.API_URL + '/api/suggestions')
       .then((res) => {
         // console.log(res.data);
@@ -318,12 +386,43 @@ export default class Suggestions extends Component {
       })
   }
 
+  //generate status visual for trade and transfer. take in operation (trade1/trade2/transfer)
+  _statusElement(operation){
+    var statusHeading = '';
+    if (operation === 'trade1'){statusHeading='Trade 1'}
+    else if (operation === 'transfer'){statusHeading='Transfer'}
+    else if (operation === 'trade2'){statusHeading='Trade 2'}
+    return(
+      this.state[operation + "Status"] === 'success' ?
+      <div id={operation + "Status"} style={{marginTop:"1%"}}>
+        <p>{statusHeading}</p>
+        <img src={successpng} alt={statusHeading + " Successful! Success and failure icons by Juliia Osadcha"} width="5%" />
+        <span style={{ color: '#67c26f', marginLeft: "2%" }}>{this.state[operation + "Message"]}</span>
+      </div>
+      :
+      this.state[operation + "Status"] === 'failure' ?
+        <div id={operation + "Status"}>
+          <p>{statusHeading}</p>
+          <img src={failurepng} alt={statusHeading + " Failed. Success and failure icons by Juliia Osadcha"} width="5%" />
+          <span style={{ color: '#FF1744', marginLeft: "2%" }}>{this.state[operation + "Message"]}</span>
+        </div>
+        :
+        this.state[operation + "Status"] === 'loading' ?
+          <div id={operation + "Status"}>
+            <p>{statusHeading}</p>
+            <img src={loadingGif} alt={statusHeading + " attempt in progress. gif from loading.io"} width="5%" />
+            <span style={{ color: '#4CC0CC', marginLeft: "2%" }}>{statusHeading.split(" ")[0] + " attempt in progress..."}</span>
+          </div>
+          :
+          <div id={operation + "Status"}></div>
+    )
+  }
   componentDidMount() {
     this.reRenderSuggestions();
 
-      setInterval(function() {
-        this.reRenderSuggestions();
-      }.bind(this), 15000)
+    setInterval(function () {
+      this.reRenderSuggestions();
+    }.bind(this), 15000)
   }
 
   render() {
@@ -344,8 +443,11 @@ export default class Suggestions extends Component {
     var profit = null
     var depositAddress = ''
 
-    if (this.state.trades[this.state.modalCardIndex]) {
-      modalTradeInfo = this.state.trades[this.state.modalCardIndex];
+    //index of trade at time of "trade" click so modal info doesn't change
+    // var cardIndex = this.state.modalCardIndex;
+    if (this.state.modalCardInfo.pair) {
+      // console.log(this.state.trades[this.state.modalCardIndex]);
+      modalTradeInfo = this.state.modalCardInfo;
       baseCurrency = modalTradeInfo.pair.slice(3)
       askExchange = modalTradeInfo.ask.exchange;
       askPrice = modalTradeInfo.ask.price.toFixed(4);
@@ -358,7 +460,7 @@ export default class Suggestions extends Component {
       secondaryWithdrawFee = modalTradeInfo.ask["withdraw fee"][secondCurrency]
       baseWithdrawFee = modalTradeInfo.ask["withdraw fee"][baseCurrency]
       profit = modalTradeInfo.profit;
-      if(this.state.depositXRP){
+      if (this.state.depositXRP) {
         depositAddress = this.state.depositXRP[bidExchange];
       }
     }
@@ -383,9 +485,9 @@ export default class Suggestions extends Component {
 
     return (
       <div className="Suggestedtrades">
-      <div className="reRenderButton">
-      <RaisedButton label="Refresh" type="button" buttonStyle={submitButtonStyle} onClick={() =>
-        this.reRenderSuggestions()} />
+        <div className="reRenderButton">
+          <RaisedButton label="Refresh" type="button" buttonStyle={submitButtonStyle} onClick={() =>
+            this.reRenderSuggestions()} />
         </div>
         <Alert stack={{ limit: 1, spacing: 50 }} />
         {this.state.cards}
@@ -419,7 +521,7 @@ export default class Suggestions extends Component {
               <img src={rightArrowCircle} className="icon" alt="first trade" />
               <img src={imageVarName[secondCurrency.toLowerCase() + 'png']} className="icon" alt={secondCurrency} />
             </div>
-           
+
             <div className="transferDiv">
               <img src={rightArrowLarge} className="transferArrow" alt="transfer ripple" />
               <h3>Transfer</h3>
@@ -433,32 +535,12 @@ export default class Suggestions extends Component {
               {/* </div> */}
             </div>
 
-            <div id="statusContainer" style={{paddingTop:"5%"}}>
-                {this.state.trade1Status==='success'?
-                <div id="trade1Status">
-                  <p>{"Trade 1"}</p>
-                  <img src={successpng} alt="Trade Successful! Success and failure icons by Juliia Osadcha" width="5%" />
-                  <span style={{color:'#67c26f', marginLeft:"2%"}}>{this.state.trade1Message}</span>
-                </div>
-                :
-                this.state.trade1Status==='failure'?
-                <div id="trade1Status">
-                  <p>{"Trade 1"}</p>
-                  <img src={failurepng} alt="Trade Failed. Success and failure icons by Juliia Osadcha" width="5%" />
-                  <span style={{color:'#FF1744'}}>{this.state.trade1Message}</span>
-                </div>
-                :
-                this.state.trade1Status==='loading'?
-                <div id="trade1Status">
-                  <p>{"Trade 1"}</p>
-                  <img src={loadingGif} alt="trade attempt in progress. gif from loading.io" width="5%" />
-                  <span style={{color:'#4CC0CC'}}>{"Trade attempt in progress..."}</span>
-                </div>
-                :
-                <div id="trade1Status"></div>
-                }
+            <div id="statusContainer" style={{ paddingTop: "5%" }}>
+              {this._statusElement('trade1')}
+              {this._statusElement('transfer')}
+              {this._statusElement('trade2')}
             </div>
-                
+
           </div>
 
           <div className="exchangeNames">
@@ -484,7 +566,7 @@ export default class Suggestions extends Component {
               disabled={this.state.formDisabled}
             />
             {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
-            <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency}</h6>
+            <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency + " (Required)"}</h6>
 
 
             <table>
@@ -528,7 +610,7 @@ export default class Suggestions extends Component {
               disabled={this.state.formDisabled}
               ref="depositAddress"
             />
-            <h5>{bidExchange + " XRP Deposit Address"}</h5>
+            <h5>{bidExchange + " XRP Deposit Address (Required)"}</h5>
             <table>
               <tbody>
                 <tr>
@@ -555,9 +637,9 @@ export default class Suggestions extends Component {
           <br />
           <br />
           <div>
-              <span style={{  position: "relative", left:"26%", fontWeight: "bold", paddingTop: "1%" }}>
+            <span style={{ position: "relative", left: "26%", fontWeight: "bold", paddingTop: "1%" }}>
               Estimated Profit as Volume → ∞: <b className="green2Bed">{profit}%</b>
-          </span>
+            </span>
           </div>
 
         </Dialog>
