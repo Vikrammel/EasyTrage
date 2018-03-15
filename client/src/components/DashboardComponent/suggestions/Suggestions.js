@@ -150,12 +150,11 @@ export default class Suggestions extends Component {
         this.setState({ amounts: { [askExchange]: { [baseCurrency]: event.target.value } } });
       }
       else {
-        this.state.depositXRP[bidExchange] = event.target.value;
-        console.log(exchange + " API key entered: " + this.state.depositXRP[bidExchange]);
+        var oldDepositXRPAddrs = this.state.depositXRP;
+        oldDepositXRPAddrs[bidExchange] = event.target.name;
+        this.setState({depositXRP:oldDepositXRPAddrs});
+        // console.log(exchange + " API key entered: " + this.state.depositXRP[bidExchange]);
       }
-    } else {
-      // this.setState({ depositXRP: { [bidExchange]: event.target.value } })
-      null;
     }
   }
 

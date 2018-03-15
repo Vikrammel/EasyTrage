@@ -60,9 +60,14 @@ class Settings extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //fetch existing settings
   componentWillMount() {
-    axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
+
+  }
+
+  //fetch existing settings
+  componentDidMount() {
+    setTimeout(function () { //Start the timer
+      axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
       .then((res) => {
         if (res.data.success === true) {
           console.log("successfully retrieved apiKey settings: " + res.data.message.apiKeys);
@@ -72,7 +77,8 @@ class Settings extends Component {
             var throwAwayData = ['password', '_id', 'email', '__v'];
             for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
             if(stateChange.apiKeys){
-              this.setState({ apiKeys: JSON.parse(stateChange.apiKeys) });
+              this.setState({ data: JSON.parse(stateChange.apiKeys) });
+              // console.log("apiKeys in state: " + JSON.stringify(this.state.data["bittrex"]));
             }
           }
             // this.setState({ data: JSON.parse(stateChange.apiKeys) });
@@ -86,10 +92,6 @@ class Settings extends Component {
         Alert.error("<span style='color:#FF1744'>Error fetching existing account settings: " +
           String(err) + "</span>", this.alertOptions);
       })
-  }
-
-  componentDidMount() {
-    setTimeout(function () { //Start the timer
       this.setState({ render: true }) //After 1 second, set render to true
     }.bind(this), 1000)
   }
@@ -100,19 +102,23 @@ class Settings extends Component {
 
   //update state when user types in field
   handleChange(event) {
-    // not working using setState
-    // var stateChange = {};
-    // stateChange[event.target.name] = event.target.value;
-    // this.setState({data: stateChange});
     if(event.target.name === 'password' || event.target.name === 'newPassword'){
       // console.log("storing pw in state");
-      this.state[event.target.name] = event.target.value;
+      // this.state[event.target.name] = event.target.value;
+      this.setState({[event.target.name]:event.target.value});
     }
     else{
+      var oldData = this.state.data;
       if(event.target.name.indexOf("Secret") !== -1){
-        this.state.data[event.target.name.split("Secret")[0]].secret = event.target.value;
+        // this.state.data[event.target.name.split("Secret")[0]].secret = event.target.value;
+        oldData[event.target.name.split("Secret")[0]].secret = event.target.value;
+        this.setState({data: oldData});
+        console.log(JSON.stringify(this.state.data));
       }else{
-        this.state.data[event.target.name].key = event.target.value;
+        // this.state.data[event.target.name].key = event.target.value;
+        oldData[event.target.name].key = event.target.value;
+        this.setState({data: oldData});
+        console.log(JSON.stringify(this.state.data));
       }
     }
   }
@@ -179,17 +185,17 @@ class Settings extends Component {
                         type="text"
                         placeholder={exchange + " API key"}
                         defaultValue={this.state.data[exchange].key}
-                        onChange={this.handleChange.bind(this)}
+                        onChange={this.handleChange}
                         disabled={this.state.formDisabled}
-                        style={{width:"100%", marginRight:"50%"}}
+                        // style={{width:"100%", marginRight:"50%"}}
                       /><br />
                       <TextField name={exchange + "Secret"}
                         type="text"
-                        placeholder={exchange + " API secret"}
+                        placeholder={exchange + " API key secret"}
                         defaultValue={this.state.data[exchange].secret}
-                        onChange={this.handleChange.bind(this)}
+                        onChange={this.handleChange}
                         disabled={this.state.formDisabled}
-                        style={{width:"100%"}}
+                        // style={{width:"100%"}}
                       />
                     </div>
                     <br />
