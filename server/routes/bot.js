@@ -4,6 +4,7 @@ const router = express.Router();
 var axios = require('axios');
 var ccxt = require ('ccxt')
 const auth = require('./auth');
+var User = require('../model/user');
 
 //routes for /bot/trade
 router.post('/trade', function (req, res) {
@@ -38,6 +39,15 @@ router.post('/trade', function (req, res) {
 //routes for /bot/move
 router.post('/transfer', function (req,res){
     auth.ensureUser(req, res, (user)=> {
+        var depositXRP = user.depositXRP;
+        depositXRP[req.body.exchange2] = req.body.address;
+        User.findOneAndUpdate({ email: user.email }, { depositXRP: depositXRP } , (err, user) => {
+            if (err) {
+              res.json({ success: false, message: String(err) });
+            } else {
+              console.log(user.email + " " + req.body.exchange2 + " " + req.body.ticker + " deposit address saved");
+            }
+        });
         console.log("ensured user in bot/transfer route");
         setTimeout(()=>{res.json({success: true, message: (user.email + " transferred " + 
             parseFloat(req.body.amount).toFixed(4) + " " + req.body.ticker + " from " + req.body.exchange1 + " to "

@@ -171,7 +171,9 @@ export default class Suggestions extends Component {
           if (stateChange.depositXRP) {
             this.setState({ depositXRP: stateChange.depositXRP });
             if (stateChange.depositXRP[bidExchange.replace(".", "")]) {
-              this.refs.depositAddress.getInputNode().value = stateChange.depositXRP[bidExchange.replace(".", "")];
+              if(this.refs.depositAddress){
+                this.refs.depositAddress.getInputNode().value = stateChange.depositXRP[bidExchange.replace(".", "")];
+              }
             }
           }
           this.setState({ render: true, open: true, modalCardInfo: this.state.trades[index] });
