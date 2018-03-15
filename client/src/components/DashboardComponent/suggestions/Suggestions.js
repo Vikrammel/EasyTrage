@@ -141,8 +141,8 @@ export default class Suggestions extends Component {
     // this.state.data[event.target.name] = event.target.value;
     var modalTradeInfo = this.state.modalCardInfo;
     var baseCurrency = modalTradeInfo.pair.slice(3);
-    var askExchange = modalTradeInfo.ask.exchange;
-    var bidExchange = modalTradeInfo.bid.exchange;
+    var askExchange = modalTradeInfo.ask.exchange.replace(".","");
+    var bidExchange = modalTradeInfo.bid.exchange.replace(".","");
     console.log(exchange);
     if (this.state.depositXRP && this.state.amounts) {
       if (event.target.name.indexOf("Amount") !== -1) {
@@ -217,7 +217,7 @@ export default class Suggestions extends Component {
     var askExchange = modalTradeInfo.ask.exchange.replace(".","");
     var askPrice = modalTradeInfo.ask.price.toFixed(4);
     var secondCurrency = modalTradeInfo.pair.slice(0, 3);
-    var bidExchange = modalTradeInfo.bid.exchange;
+    var bidExchange = modalTradeInfo.bid.exchange.replace(".","");
     var bidPrice = modalTradeInfo.bid.price.toFixed(4);
     console.log(askExchange);
     if(!this.state.depositXRP[bidExchange] || !this.state.amounts[askExchange][baseCurrency] ){
@@ -449,9 +449,9 @@ export default class Suggestions extends Component {
       // console.log(this.state.trades[this.state.modalCardIndex]);
       modalTradeInfo = this.state.modalCardInfo;
       baseCurrency = modalTradeInfo.pair.slice(3)
-      askExchange = modalTradeInfo.ask.exchange;
+      askExchange = modalTradeInfo.ask.exchange.replace(".","");
       askPrice = modalTradeInfo.ask.price.toFixed(4);
-      bidExchange = modalTradeInfo.bid.exchange;
+      bidExchange = modalTradeInfo.bid.exchange.replace(".","");
       bidPrice = modalTradeInfo.bid.price.toFixed(4);
       minimumBaseAmount = modalTradeInfo.minOtherVolume;
       secondCurrency = modalTradeInfo.pair.slice(0, 3);
