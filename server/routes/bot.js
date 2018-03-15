@@ -56,4 +56,8 @@ router.post('/transfer', function (req,res){
     // res.json({success:false, message: "error parsing move request"});
 });
 
+router.get('/test', function (req,res){
+    res.json({ccxt: ccxt});
+});
+
 module.exports = router;

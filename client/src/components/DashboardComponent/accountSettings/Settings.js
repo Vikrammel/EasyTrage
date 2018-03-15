@@ -65,14 +65,14 @@ class Settings extends Component {
     axios.get(env.API_URL + '/auth/settings', { headers: { token: localStorage.getItem("token") } })
       .then((res) => {
         if (res.data.success === true) {
-          console.log("successfully retrieved apiKey settings: " + JSON.stringify(res.data.message));
+          console.log("successfully retrieved apiKey settings: " + res.data.message.apiKeys);
           if (res.data.message){
             var stateChange = res.data.message;
             //delete properties of response we don't need, then set the state with that data
             var throwAwayData = ['password', '_id', 'email', '__v'];
             for (var prop in throwAwayData) { delete stateChange[throwAwayData[prop]]; }
             if(stateChange.apiKeys){
-              this.setState({ apiKeys: stateChange.apiKeys });
+              this.setState({ apiKeys: JSON.parse(stateChange.apiKeys) });
             }
           }
             // this.setState({ data: JSON.parse(stateChange.apiKeys) });
@@ -181,13 +181,15 @@ class Settings extends Component {
                         defaultValue={this.state.data[exchange].key}
                         onChange={this.handleChange.bind(this)}
                         disabled={this.state.formDisabled}
-                      />
+                        style={{width:"100%", marginRight:"50%"}}
+                      /><br />
                       <TextField name={exchange + "Secret"}
                         type="text"
                         placeholder={exchange + " API secret"}
                         defaultValue={this.state.data[exchange].secret}
                         onChange={this.handleChange.bind(this)}
                         disabled={this.state.formDisabled}
+                        style={{width:"100%"}}
                       />
                     </div>
                     <br />
@@ -212,6 +214,7 @@ class Settings extends Component {
                   hintText="password"
                   onChange={this.handleChange.bind(this)}
                   disabled={this.state.formDisabled}
+                  style={{marginRight:"7%"}}
                 />
                 <br />
                 <br />
@@ -230,8 +233,8 @@ class Settings extends Component {
               <Alert stack={{ limit: 2, spacing: 50 }} />
             </Center>
             <Center>
-              <div style={{ margin: "1%" }}><RaisedButton label="Submit" type="submit" buttonStyle={submitButtonStyle} /></div>
-              <div style={{ margin: "1%" }}><RaisedButton label="Cancel" type="button" buttonStyle={cancelButtonStyle} onClick={() =>
+              <div style={{ marginRight: "3%" }}><RaisedButton label="Submit" type="submit" buttonStyle={submitButtonStyle} /></div>
+              <div style={{ marginRight: "3%" }}><RaisedButton label="Cancel" type="button" buttonStyle={cancelButtonStyle} onClick={() =>
                 this.props.history.push("/")} /></div>
             </Center>
           </form>
