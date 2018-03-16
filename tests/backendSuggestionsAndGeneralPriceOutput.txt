@@ -1,0 +1,62 @@
+
+
+========== Backend  Price Tests ==========
+
+warning: bitstamp's API is unreliable
+
+======== test output ========
+
+
+
+===== BTCUSD =====
+
+
+{"chasing-coins":{"BTCUSD":{"APIStatusCode":200,"prices":{"bid":8130.49,"ask":8130.49,"last":8130.49}}}}
+
+===== end BTCUSD test =====
+
+
+===== XRPUSD/T =====
+
+
+{"bittrex":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.68000003,"ask":0.686,"last":0.686}}},"poloniex":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.68390013,"ask":0.686736,"last":0.6839}}},"okex":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.6832,"ask":0.6815,"last":0.6807}}},"gate.io":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.675,"ask":0.6779,"last":0.6781}}},"hitbtc":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.7023,"ask":0.704,"last":0.7025}}}}
+
+===== end XRPUSD/T test =====
+
+
+===== XRPBTC =====
+
+
+{"bittrex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008501,"ask":0.00008547,"last":0.00008502}}},"bitstamp":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008531,"ask":0.00008547,"last":0.00008523}}},"poloniex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008552,"ask":0.00008564,"last":0.0000856}}},"coinegg":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.0000864001,"ask":0.00008434,"last":0.0000843}}},"okex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008551,"ask":0.00008519,"last":0.0000851}}},"bitfinex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008544,"ask":0.00008568,"last":0.00008543}}},"kraken":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.0000852,"ask":0.0000856,"last":0.0000853}}},"binance":{"XRPBTC":{"prices":{"bid":0.00008531,"ask":0.00008547,"last":0.00008547},"APIStatusCode":200}},"bitsane":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008444,"ask":0.0000854,"last":0.0000847}}},"hitbtc":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008547,"ask":0.00008551,"last":0.00008549}}},"cex.io":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008496,"ask":0.00008539,"last":0.00008521}}},"exmo":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008497,"ask":0.000085,"last":0.000085}}}}
+
+===== end XRPBTC test =====
+
+
+===== XRPETH =====
+
+
+{"bittrex":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00113886,"ask":0.00114306,"last":0.00114306}}},"okex":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114663,"ask":0.00114034,"last":0.00114034}}},"binance":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114575,"ask":0.00114798,"last":0.00114799}}},"bitsane":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00112986,"ask":0.00115954,"last":0.0011809}}},"hitbtc":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114,"ask":0.00115,"last":0.00115}}}}
+
+===== end XRPETH test =====
+
+
+===== All Prices =====
+
+
+{"bittrex":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.68000003,"ask":0.686,"last":0.686}},"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008501,"ask":0.00008547,"last":0.00008502}},"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00113886,"ask":0.00114306,"last":0.00114306}}},"chasing-coins":{"BTCUSD":{"APIStatusCode":200,"prices":{"bid":8130.49,"ask":8130.49,"last":8130.49}}},"bitstamp":{"XRPUSD":{"APIStatusCode":200,"prices":{"bid":0.68649,"ask":0.6883,"last":0.687}},"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008531,"ask":0.00008547,"last":0.00008523}}},"poloniex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008552,"ask":0.00008564,"last":0.0000856}},"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.68390013,"ask":0.686736,"last":0.6839}}},"coinegg":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.0000864001,"ask":0.00008434,"last":0.0000843}}},"okex":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114663,"ask":0.00114034,"last":0.00114034}},"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008551,"ask":0.00008519,"last":0.0000851}},"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.6832,"ask":0.6815,"last":0.6807}}},"bitfinex":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008544,"ask":0.00008568,"last":0.00008543}},"XRPUSD":{"APIStatusCode":200,"prices":{"bid":0.68666,"ask":0.6867,"last":0.6867}}},"kraken":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.0000852,"ask":0.0000856,"last":0.0000853}},"XRPUSD":{"APIStatusCode":200,"prices":{"bid":0.68641,"ask":0.6872,"last":0.68515}}},"binance":{"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114575,"ask":0.00114798,"last":0.00114799}},"XRPBTC":{"prices":{"bid":0.00008531,"ask":0.00008547,"last":0.00008547},"APIStatusCode":200}},"bitsane":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008444,"ask":0.0000854,"last":0.0000847}},"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00112986,"ask":0.00115954,"last":0.0011809}}},"gate.io":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.675,"ask":0.6779,"last":0.6781}}},"hitbtc":{"XRPUSDT":{"APIStatusCode":200,"prices":{"bid":0.7023,"ask":0.704,"last":0.7025}},"XRPETH":{"APIStatusCode":200,"prices":{"bid":0.00114,"ask":0.00115,"last":0.00115}},"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008547,"ask":0.00008551,"last":0.00008549}}},"cex.io":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008496,"ask":0.00008539,"last":0.00008521}},"XRPUSD":{"APIStatusCode":200,"prices":{"bid":0.6952,"ask":0.7037,"last":0.6932}}},"exmo":{"XRPBTC":{"APIStatusCode":200,"prices":{"bid":0.00008497,"ask":0.000085,"last":0.000085}},"XRPUSD":{"APIStatusCode":200,"prices":{"bid":0.70174497,"ask":0.70219127,"last":0.70219127}}}}
+
+===== end all prices test =====
+
+
+===== Suggestions =====
+
+
+[{"pair":"XRPUSDT","bid":{"exchange":"hitbtc","price":0.7023,"taker fee":0.1,"withdraw fee":{"XRP":0.509,"BTC":0.001,"ETH":0.00958}},"ask":{"exchange":"gate.io","price":0.6779,"taker fee":0.2,"withdraw fee":{"XRP":1,"BTC":0.002,"ETH":0.003,"USDT":10}},"profit":"3.2892","minXRPVolume":"31.469535","minOtherVolume":"21.33"},{"pair":"XRPUSDT","bid":{"exchange":"hitbtc","price":0.7023,"taker fee":0.1,"withdraw fee":{"XRP":0.509,"BTC":0.001,"ETH":0.00958}},"ask":{"exchange":"bittrex","price":0.686,"taker fee":0.25,"withdraw fee":{"XRP":1,"BTC":0.001,"ETH":0.006,"USDT":25}},"profit":"2.0187","minXRPVolume":"50.679906","minOtherVolume":"34.77"},{"pair":"XRPUSDT","bid":{"exchange":"hitbtc","price":0.7023,"taker fee":0.1,"withdraw fee":{"XRP":0.509,"BTC":0.001,"ETH":0.00958}},"ask":{"exchange":"poloniex","price":0.686736,"taker fee":0.25,"withdraw fee":{"XRP":0.15,"BTC":0.0005,"ETH":0.01,"USDT":25}},"profit":"1.9093","minXRPVolume":"8.028839","minOtherVolume":"5.51"},{"pair":"XRPUSD","bid":{"exchange":"exmo","price":0.70174497,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"ask":{"exchange":"bitfinex","price":0.6867,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.0006,"ETH":0.0027,"USDT":2.2354}},"profit":"1.7830","minXRPVolume":"1.144274","minOtherVolume":"0.79"},{"pair":"XRPUSD","bid":{"exchange":"exmo","price":0.70174497,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"ask":{"exchange":"kraken","price":0.6872,"taker fee":0.26,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.005,"USDT":5}},"profit":"1.6480","minXRPVolume":"1.237288","minOtherVolume":"0.85"},{"pair":"XRPUSD","bid":{"exchange":"cex.io","price":0.6952,"taker fee":0.25,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01}},"ask":{"exchange":"bitfinex","price":0.6867,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.0006,"ETH":0.0027,"USDT":2.2354}},"profit":"0.7831","minXRPVolume":"2.580287","minOtherVolume":"1.77"},{"pair":"XRPUSD","bid":{"exchange":"cex.io","price":0.6952,"taker fee":0.25,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01}},"ask":{"exchange":"kraken","price":0.6872,"taker fee":0.26,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.005,"USDT":5}},"profit":"0.6495","minXRPVolume":"3.110393","minOtherVolume":"2.14"},{"pair":"XRPUSDT","bid":{"exchange":"poloniex","price":0.68390013,"taker fee":0.25,"withdraw fee":{"XRP":0.15,"BTC":0.0005,"ETH":0.01,"USDT":25}},"ask":{"exchange":"gate.io","price":0.6779,"taker fee":0.2,"withdraw fee":{"XRP":1,"BTC":0.002,"ETH":0.003,"USDT":10}},"profit":"0.4320","minXRPVolume":"233.147858","minOtherVolume":"158.05"},{"pair":"XRPBTC","bid":{"exchange":"hitbtc","price":0.00008547,"taker fee":0.1,"withdraw fee":{"XRP":0.509,"BTC":0.001,"ETH":0.00958}},"ask":{"exchange":"exmo","price":0.000085,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"profit":"0.2519","minXRPVolume":"7.988787","minOtherVolume":"0.000679"},{"pair":"XRPBTC","bid":{"exchange":"poloniex","price":0.00008552,"taker fee":0.25,"withdraw fee":{"XRP":0.15,"BTC":0.0005,"ETH":0.01,"USDT":25}},"ask":{"exchange":"exmo","price":0.000085,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"profit":"0.1599","minXRPVolume":"12.583186","minOtherVolume":"0.001070"},{"pair":"XRPBTC","bid":{"exchange":"bitfinex","price":0.00008544,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.0006,"ETH":0.0027,"USDT":2.2354}},"ask":{"exchange":"exmo","price":0.000085,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"profit":"0.1164","minXRPVolume":"17.299168","minOtherVolume":"0.001470"},{"pair":"XRPBTC","bid":{"exchange":"binance","price":0.00008531,"taker fee":0.1,"withdraw fee":{"XRP":0.25,"BTC":0.001,"ETH":0.01,"USDT":2}},"ask":{"exchange":"exmo","price":0.000085,"taker fee":0.2,"withdraw fee":{"XRP":0.02,"BTC":0.001,"ETH":0.01,"USDT":25}},"profit":"0.0642","minXRPVolume":"31.424674","minOtherVolume":"0.002671"}]
+
+===== end suggestions test =====
+
+
+
+
+
+======== end of tests ========
