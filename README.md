@@ -1,5 +1,5 @@
 # EasyTrage
-### Cryptocurrency Arbitrage bot written in MERN by Mike Hamilton, Kevin Lee, Vikram Melkote, Christopher Kong, and Abdul Mohamed
+### Cryptocurrency Arbitrage bot/helper written in MERN by Mike Hamilton, Kevin Lee, Vikram Melkote, Christopher Kong, and Abdul Mohamed
 
 ## About
 
@@ -18,11 +18,11 @@ A bot that continuously queries cryptocurrency exchanges for prices to check for
 Start app
 
 1. Open new terminal window
-2. `docker-compose up` (add `--build` if changes have been made)
+2. `docker-compose up` (add `--build` if changes have been made since last `docker-compose up`)
 
 Stopping app containers
 
-1. `^C`
+1. `Ctrl/Cmd + C`
 
 Access the site as a client via browser:
 [http://localhost:3000](http://localhost:3000)
