@@ -184,7 +184,8 @@ router.post('/logout', (req, res, next) => {
 router.post('/register', function (req, res) {
   const newUser = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    token: ''
   });
   logger("request body: " + String(req.body));
   logger("request: " + String(req));
@@ -196,12 +197,13 @@ router.post('/register', function (req, res) {
       return res.json({ success: false, message: err });
     } else {
       if (!user) {
+        const token = jwt.sign({ user: newUser }, 'temp_pass');
+        // newUser.token = token;
         User.addUser(newUser, (err, user) => {
           if (err) {
             logger("{success: false, message: ' " + String(err) + "' }");
             return res.json({ success: false, message: err });
           } else {
-            const token = jwt.sign({ user: newUser }, 'temp_pass');
             logger("{ success: true, token: '" + token + "' }");
             return res.json({ success: true, token: token });
           }

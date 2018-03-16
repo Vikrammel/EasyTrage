@@ -187,7 +187,9 @@ class Settings extends Component {
                         defaultValue={this.state.data[exchange].key}
                         onChange={this.handleChange}
                         disabled={this.state.formDisabled}
-                        // style={{width:"100%", marginRight:"50%"}}
+                        //key-prop forces re-render when settings are pulled in
+                        key={this.state.data[exchange].key ? 'notLoaded'+index : 'Loaded'+index}
+                        style={{width:"100%", marginRight:"50%"}}
                       /><br />
                       <TextField name={exchange + "Secret"}
                         type="text"
@@ -195,7 +197,9 @@ class Settings extends Component {
                         defaultValue={this.state.data[exchange].secret}
                         onChange={this.handleChange}
                         disabled={this.state.formDisabled}
-                        // style={{width:"100%"}}
+                        //key-prop forces re-render when settings are pulled in
+                        key={this.state.data[exchange].secret ? 'notLoadedYet'+index : 'loaded'+index}
+                        style={{width:"100%"}}
                       />
                     </div>
                     <br />

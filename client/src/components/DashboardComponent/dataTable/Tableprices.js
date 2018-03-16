@@ -57,33 +57,33 @@ export default class TableExampleComplex extends Component {
   }
 
   componentWillMount() {
-    axios.get(env.API_URL + '/api/price')
-    .then( (res) => {
-      //use res from back-end server and check status code
-      //forwarded from external API server
-      for (var exchange in res.data) {
-          if (res.data.hasOwnProperty(exchange)) {
-            var pairs = ['XRPBTC','XRPUSD','XRPETH','XRPUSDT'];
-            for(var pair in pairs){
-              if (!(res.data[exchange][pairs[pair]] === undefined)) {
-                // console.log(exchange + " XRPBTC -> " + JSON.stringify(res.data[exchange].XRPBTC.APIStatusCode));
-                if (res.data[exchange][pairs[pair]].APIStatusCode === 200) {
-                  // console.log(exchange + res.data[exchange]);
-                  const pairText = pairs[pair].slice(0, 3) + '/' + pairs[pair].slice(3);
-                  this.state.exchangeData.push({
-                    exchange: exchange,
-                    price: JSON.stringify(res.data[exchange][pairs[pair]].prices.last),
-                    pair: pairText
-                  });
+  }
+
+    componentDidMount() {
+      axios.get(env.API_URL + '/api/price')
+      .then( (res) => {
+        //use res from back-end server and check status code
+        //forwarded from external API server
+        for (var exchange in res.data) {
+            if (res.data.hasOwnProperty(exchange)) {
+              var pairs = ['XRPBTC','XRPUSD','XRPETH','XRPUSDT'];
+              for(var pair in pairs){
+                if (!(res.data[exchange][pairs[pair]] === undefined)) {
+                  // console.log(exchange + " XRPBTC -> " + JSON.stringify(res.data[exchange].XRPBTC.APIStatusCode));
+                  if (res.data[exchange][pairs[pair]].APIStatusCode === 200) {
+                    // console.log(exchange + res.data[exchange]);
+                    const pairText = pairs[pair].slice(0, 3) + '/' + pairs[pair].slice(3);
+                    this.state.exchangeData.push({
+                      exchange: exchange,
+                      price: JSON.stringify(res.data[exchange][pairs[pair]].prices.last),
+                      pair: pairText
+                    });
+                  }
                 }
               }
             }
-          }
-      }
-    })
-    }
-
-    componentDidMount() {
+        }
+      })
     setTimeout(function() { //Start the timer
         this.setState({render: true}) //After 1 second, set render to true
     }.bind(this), 1000)
@@ -116,7 +116,7 @@ export default class TableExampleComplex extends Component {
         }
         this.setState({exchangeData: newStateArray});
       })
-    }.bind(this), 15000)
+    }.bind(this), 8000)
   }
 
 
@@ -145,15 +145,15 @@ export default class TableExampleComplex extends Component {
   };
 
   render() {
-    let renderContainer = false
-    if(this.state.render){
-    // console.log("I AM RENDERING NOW");
+    // let renderContainer = false
+    // if(this.state.render){
+    // // console.log("I AM RENDERING NOW");
 
     return (
       <div id="container">
       <RaisedButton label="Refresh" type="button" buttonStyle={submitButtonStyle} onClick={() =>
         this.get_prices()} />
-      <div style={{width: '100%'}}>
+      <div style={{width: '100%', height:"1400px"}}>
         <Table style={{width: '75%',textAlign: 'center', margin: 'auto'}}
         height={this.state.height}
         fixedHeader={this.state.fixedHeader}
@@ -195,10 +195,10 @@ export default class TableExampleComplex extends Component {
       </div>
       </div>
     );
-  }
-  return (
-  renderContainer //Render the dom elements, or, when this.state == false, nothing.
-)
+  // }
+//   return (
+//   renderContainer //Render the dom elements, or, when this.state == false, nothing.
+// )
 
 }
 

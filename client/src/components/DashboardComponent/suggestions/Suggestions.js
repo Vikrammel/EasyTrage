@@ -423,7 +423,7 @@ export default class Suggestions extends Component {
 
     setInterval(function () {
       this.reRenderSuggestions();
-    }.bind(this), 15000)
+    }.bind(this), 8000)
   }
 
   render() {
@@ -564,7 +564,7 @@ export default class Suggestions extends Component {
               step="0.01"
               onChange={this.handleChange.bind(this, "")}
               // ref={askExchange + "Amount"}
-              disabled={this.state.formDisabled}
+              disabled={this.state.trading}
             />
             {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
             <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency + " (Required)"}</h6>
@@ -608,7 +608,7 @@ export default class Suggestions extends Component {
               placeholder={bidExchange + " XRP Deposit Address"}
               defaultValue={depositAddress}
               onChange={this.handleChange.bind(this, bidExchange)}
-              disabled={this.state.formDisabled}
+              disabled={this.state.trading}
               ref="depositAddress"
             />
             <h5>{bidExchange + " XRP Deposit Address (Required)"}</h5>
