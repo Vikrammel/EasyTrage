@@ -41,25 +41,52 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  constructor(props){
+    super(props);
+
+    this.alertOptions = {
+      offset: 100,
+      position: 'top',
+      theme: 'dark',
+      timeout: 5000,
+      transition: 'scale',
+      html: true
+    };
+    this.state = {
+      showAlert: false
+    }
+  }
 
   activeTab(e) {
     e.target.style = styles.tabsActive;
+  }
+
+  //show alert for 5 seconds and then set the state to not display it (because otherwise other alerts from child components
+  //  are duplicated)
+  _toggleAlert(){
+    this.setState({showAlert:true}, () => { setTimeout( ()=>{ this.setState( {showAlert:false}) }, 5100 ) });
   }
 
   _logOut() {
     axios.post(env.API_URL + '/auth/logout', { token: localStorage.getItem("token") })
       .then((res) => {
         if (res.data.success === true) {
+          console.log(res.data.message);
+          this._toggleAlert();
           Alert.success(res.data.message);
           localStorage.removeItem("token");
           this.props.history.push("/");
         }
         else {
-          Alert.error(res.data.message);
+          console.log(res.data.message);
+          this._toggleAlert();
+          Alert.error("<span style='color:#FF1744'>" + res.data.message + "</span>", this.alertOptions);
         }
       })
       .catch((err) => {
-        Alert(err);
+        console.log(String(err));
+        this._toggleAlert();
+        Alert.error(String(err));
       })
   }
 
@@ -68,6 +95,12 @@ class Dashboard extends Component {
       <div className="Dashboard">
         <Center><h1>Dashboard</h1></Center>
         <RaisedButton label="Log Out" buttonStyle={styles.logOut} onClick={() => this._logOut()} />
+        {
+              this.state.showAlert?
+              <Center><Alert stack={{ limit: 1, spacing: 50 }} /></Center>
+              :
+              <div></div>
+        }
         <Tabs>
           <Tab label="Prices" >
             <div>

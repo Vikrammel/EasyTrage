@@ -214,7 +214,7 @@ function getAllPrices(callback) {
 
 //get all prices ever n ms
 getAllPrices();
-setInterval(getAllPrices, 50000); 
+setInterval(getAllPrices, 10000); 
 
 //routes for /price
 router.get('/:pair?/:exchange?/:bidask?', function (req, res) {

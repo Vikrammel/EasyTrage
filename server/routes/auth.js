@@ -4,6 +4,11 @@ const express = require('express');
 var jwt = require('jsonwebtoken');
 var User = require('../model/user');
 var bcrypt = require('bcryptjs');
+var CryptoJS = require("crypto-js");
+var env = require('../config/env');
+var fs = require('fs');
+var hskey = fs.readFileSync(env.HTTPS_KEY); //private key to encrypt api keys and secrets
+
 const router = express.Router();
 
 //logs to console if toggle is on
@@ -56,17 +61,16 @@ router.post('/login', function (req, res) {
 
 // update user settings
 router.post('/settings', (req, res, next) => {
-  ensureToken(req, (token)=> {
+  ensureToken(req, res, (token)=> {
     // var token = req.body.token;
     var newPass = req.body.newPassword;
     var pass = req.body.password;
     var failure = { success: false };
     var success = { success: true, message: "password modified!" };
     var goodset = { success: true, message: "settings saved!" };
-    var exchanges = Object.assign({}, req.body);
-    delete exchanges.newPassword;
-    delete exchanges.password;
-    delete exchanges.token;
+    logger("settings update requested with token " + token);
+    console.log("settings post request body: " + JSON.stringify(req.body.apiKeys));
+    // var encryptedKeys = CryptoJS.AES.encrypt(JSON.stringify(req.body.apiKeys), hskey);
     User.getUserByToken(token, (err, user) => {
       if (err) {
         res.json(failure);
@@ -88,7 +92,7 @@ router.post('/settings', (req, res, next) => {
                 // console.log(success);
               });
             }
-            User.findOneAndUpdate({ token: token }, exchanges, (err, user) => {
+            User.findOneAndUpdate({ token: token }, {apiKeys: JSON.stringify(req.body.apiKeys)}, (err, user) => {
               if (err) {
                 logger("error updating exchanges: " + String(err));
                 failure.message = String(err);
@@ -113,14 +117,42 @@ router.post('/settings', (req, res, next) => {
 //get 
 // get settings for populating client form fields
 router.get('/settings', (req, res, next) => {
-  ensureToken(req, (token) =>{
+  ensureToken(req, res, (token) =>{
     console.log("Settings requested with token: " + token);
     // const token = req.header("token");
     User.findOne({ token: token }, (err, user) => {
       if (err) {
+        logger(String(err));
         res.json({ success: false, message: String(err) });
       } else {
-        res.json({ success: true, message: JSON.stringify(user) });
+        // var userDecrypted = Object.assign({},user);
+        // if(userDecrypted.apiKeys){
+        //   // userDecrypted.apiKeys = CryptoJS.AES.decrypt(userDecrypted.apiKeys, hskey);
+        //   // userDecrypted.apiKeys = userDecrypted.apiKeys.toString(CryptoJS.enc.Utf8);
+        //   console.log("apiKeys exists");
+        //   userDecrypted.apiKeys = JSON.parse(userDecrypted.apiKeys);
+        // }
+        // else{
+        //   userDecrypted["apiKeys"] = {
+        //     bittrex: {key:'',secret:''},
+        //     bitfinex: {key:'',secret:''},
+        //     bitstamp: {key:'',secret:''},
+        //     hitbtc: {key:'',secret:''},
+        //     binance: {key:'',secret:''},
+        //     poloniex: {key:'',secret:''},
+        //     kraken: {key:'',secret:''},
+        //     exmo: {key:'',secret:''},
+        //     cexio: {key:'',secret:''},
+        //     gateio: {key:'',secret:''}
+        //   }
+        // }
+        if(!user){
+          res.json({success:false, message: "Bad Token. Please try clearing your browsing history and logging in again."});
+        }else{
+          logger("successfully returned user settings: " + user);
+          res.json({ success: true, message: user });
+        }
+
       }
     });
   });
@@ -128,14 +160,22 @@ router.get('/settings', (req, res, next) => {
 
 // get settings for populating client form fields
 router.post('/logout', (req, res, next) => {
-  ensureToken(req, (token) => {
+  ensureToken(req, res, (token) => {
     // const token = req.body.token;
+    console.log("logout for token " + token + " requested");
     User.findOneAndUpdate({ token: token }, { token: "" }, (err, user) => {
       if (err) {
+        logger(String(err));
         res.json({ success: false, message: String(err) });
       } else {
-        logger("logged out " + String(user.email));
-        return res.json({ success: true, message: "Successfully logged out" });
+        if(!user){
+          res.json({ success: false, message: 
+            "Logout unsuccessful. Please try clearing your browsing history and logging in again." });
+        }
+        else{
+          logger("logged out " + String(user.email));
+          return res.json({ success: true, message: "Successfully logged out" });
+        }
       }
     });
   });
@@ -144,7 +184,8 @@ router.post('/logout', (req, res, next) => {
 router.post('/register', function (req, res) {
   const newUser = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    token: ''
   });
   logger("request body: " + String(req.body));
   logger("request: " + String(req));
@@ -156,12 +197,13 @@ router.post('/register', function (req, res) {
       return res.json({ success: false, message: err });
     } else {
       if (!user) {
+        const token = jwt.sign({ user: newUser }, 'temp_pass');
+        // newUser.token = token;
         User.addUser(newUser, (err, user) => {
           if (err) {
             logger("{success: false, message: ' " + String(err) + "' }");
             return res.json({ success: false, message: err });
           } else {
-            const token = jwt.sign({ user: newUser }, 'temp_pass');
             logger("{ success: true, token: '" + token + "' }");
             return res.json({ success: true, token: token });
           }
@@ -179,7 +221,7 @@ router.post('/register', function (req, res) {
 });
 
 //make sure a token was provided in a request, can be in req.body or a header
-function ensureToken(req, next) {
+function ensureToken(req, res, next) {
   var headerToken = req.header("token");
   var bodyToken = req.body.token;
   if ((!headerToken || headerToken.length < 1) && (!bodyToken || bodyToken.length < 1)){
@@ -196,16 +238,20 @@ function ensureToken(req, next) {
 }
 
 //make sure the user with the provided token has a registered account in the db
-function ensureUser(req){
-  ensureToken(req, (token)=>{
+function ensureUser(req, res, next){
+  ensureToken(req, res, (token)=>{
     User.findOne({ token: token }, (err, user) => {
       if (err) {
-        return { success: false, message: String(err) };
+        res.json( { success: false, message: String(err) });
       } else {
-        return { success: true, message: JSON.stringify(user) };
+        next(user);
       }
     });
   });
 }
 
-module.exports = router;
+module.exports = {
+  router: router,
+  ensureToken: ensureToken,
+  ensureUser: ensureUser
+};

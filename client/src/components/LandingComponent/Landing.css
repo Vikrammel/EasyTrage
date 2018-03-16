@@ -4,7 +4,7 @@ html {
   position: relative;
 }
 
-img {
+#rocket {
   margin-left: 45%;
   margin-top: 15%;
   -webkit-animation: shake 4s infinite;

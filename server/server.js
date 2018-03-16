@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 
 //import /auth routes
 const auth = require('./routes/auth');
-app.use('/auth', auth);
+app.use('/auth', auth.router);
 
 //import /price routes
 const price = require('./routes/price');

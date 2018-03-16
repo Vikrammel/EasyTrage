@@ -68,7 +68,6 @@ class Login extends Component {
             if (res.data.success === true) {
               Alert.success("<div style='color:#67c26f; text-align:center'>Account has been registered! Please log in</div>",this.alertOptions);
               localStorage.setItem("token", res.data.token);
-              axios.defaults.headers.common['token'] = res.data.token;
             }
             else {
               Alert.error(res.data.message);
