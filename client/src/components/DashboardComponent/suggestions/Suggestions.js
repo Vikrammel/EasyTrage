@@ -418,6 +418,36 @@ export default class Suggestions extends Component {
           <div id={operation + "Status"}></div>
     )
   }
+
+  _renderModalExchangeInfo(buySell, price, tradeFee, withdrawFee, baseCurrency, secondCurrency){
+    var withdrawCurrency;
+    if(buySell === 'Buy'){ withdrawCurrency = secondCurrency; }
+    else{ withdrawCurrency = baseCurrency; }
+
+    return(
+      <table>
+      <tbody>
+        <tr>
+          <td>
+            <br />
+            <span className="green"><b>{buySell}</b></span></td>
+        </tr>
+        <tr>
+          <td>Ticker: <b className="green">{secondCurrency + "/" + baseCurrency}</b></td>
+        </tr>
+        <tr>
+          <td>Price: <span className="green">{price + " " + baseCurrency + "/" + secondCurrency}</span></td>
+        </tr>
+        <tr>
+          <td>Trade Fee: <span className="green">{tradeFee + "%"}</span></td>
+        </tr>
+        <tr>
+          <td>withdraw Fee: <span className="green">{withdrawFee + " " + withdrawCurrency}</span></td>
+        </tr>
+      </tbody>
+    </table>)
+  }
+
   componentDidMount() {
     this.reRenderSuggestions();
 
@@ -568,38 +598,7 @@ export default class Suggestions extends Component {
             />
             {/* <h4>{"amount ("+ baseCurrency + ")"}</h4> */}
             <h6 className="yellow">Minimum for profit: {minimumBaseAmount + " " + baseCurrency + " (Required)"}</h6>
-
-
-            <table>
-              {/* // <thead>
-          //   <tr>
-          //     <th>Pair</th>
-          //     <th>Buy</th>
-          //     <th>Sell</th>
-          //   </tr>
-          // </thead> */}
-              <tbody>
-                <tr>
-                  <td>
-                    <br />
-                    <span className="red"><b>Buy</b></span></td>
-                </tr>
-                <tr>
-                  <td>Ticker: <b className="red">{secondCurrency + "/" + baseCurrency}</b></td>
-                </tr>
-                <tr>
-                  <td>Price: <span className="red">{askPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
-                </tr>
-                <tr>
-                  <td>Trade Fee: <span className="red">{askFee + "%"}</span></td>
-                </tr>
-                <tr>
-                  <td>withdraw Fee: <span className="red">{secondaryWithdrawFee + " " + secondCurrency}</span></td>
-                </tr>
-              </tbody>
-            </table>
-
-
+            {this._renderModalExchangeInfo('Buy', askPrice, askFee, secondaryWithdrawFee, baseCurrency, secondCurrency)}
           </div>
 
           <div className="exchangeInfo">
@@ -612,31 +611,12 @@ export default class Suggestions extends Component {
               ref="depositAddress"
             />
             <h5>{bidExchange + " XRP Deposit Address (Required)"}</h5>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <br />
-                    <span className="green"><b>Sell</b></span></td>
-                </tr>
-                <tr>
-                  <td>Ticker: <b className="green">{secondCurrency + "/" + baseCurrency}</b></td>
-                </tr>
-                <tr>
-                  <td>Price: <span className="green">{bidPrice + " " + baseCurrency + "/" + secondCurrency}</span></td>
-                </tr>
-                <tr>
-                  <td>Trade Fee: <span className="green">{bidFee + "%"}</span></td>
-                </tr>
-                <tr>
-                  <td>withdraw Fee: <span className="green">{baseWithdrawFee + " " + baseCurrency}</span></td>
-                </tr>
-              </tbody>
-            </table>
-
+            {this._renderModalExchangeInfo('Sell', bidPrice, bidFee, baseWithdrawFee, baseCurrency, secondCurrency)}
           </div>
+
           <br />
           <br />
+
           <div>
             <span style={{ position: "relative", left: "26%", fontWeight: "bold", paddingTop: "1%" }}>
               Estimated Profit as Volume → ∞: <b className="green2Bed">{profit}%</b>
