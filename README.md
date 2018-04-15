@@ -5,6 +5,17 @@
 
 A bot that continuously queries cryptocurrency exchanges for prices to check for an advantage that can immediately be capitalized on for instant profit. Ideally the bot would also trade on the user's behalf after they enter their API keys for different exchange accounts through the app's UI. If this is not achievable, the bot will at the very least notify the user of a good trade in a timely manner. Additionally, bot should check that the mean/median transaction time of the coin's network in a recent time period is bounded so that loss of arbitrage advantages while waiting for transfers is avoided. Lastly, the app's UI should neatly display user information such as API keys stored, trades made (if the bot is making them), % profit, etc
 
+## Demo
+
+### Login
+![trade simulation](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/bad_login_demo.gif)
+
+### Trade Suggestions
+![trade simulation](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/other_trade_modals_demo.gif)
+
+### Arbitrage Trade Simulation
+![trade simulation](https://raw.githubusercontent.com/Vikrammel/EasyTrage/master/scrumdocs/demo/full_abtirage_simulation_demo.gif)
+
 ## Setup
 
 1. clone repo with git or download contents
