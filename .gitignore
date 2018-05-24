@@ -2,7 +2,4 @@ node_modules/
 data/
 package-lock.json
 .*swp
-*.pem
-easytrage-key.pem
-easytrage-cert.pem
 .DS_Store
