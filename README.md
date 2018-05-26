@@ -3,7 +3,7 @@
 
 ## About
 
-A bot that continuously queries cryptocurrency exchanges for prices to check for an advantage that can immediately be capitalized on for instant profit. Ideally the bot would also trade on the user's behalf after they enter their API keys for different exchange accounts through the app's UI. If this is not achievable, the bot will at the very least notify the user of a good trade in a timely manner. Additionally, bot should check that the mean/median transaction time of the coin's network in a recent time period is bounded so that loss of arbitrage advantages while waiting for transfers is avoided. Lastly, the app's UI should neatly display user information such as API keys stored, trades made (if the bot is making them), % profit, etc
+A bot that continuously queries cryptocurrency exchanges for prices to check for an advantage that can immediately be capitalized on via arbitrage for instant profit. Backend Express.js API & Node.js container communicates with mongodb container to handle and data pertaining to authentication & session management, API Keys & user settings, and trade requests while updating the list of prices and arbitrage opportunities in the backend server's memory periodically. The React.js frontend communicates with the Express.js API to fetch user account data, prices, and trade suggestions as the user interacts with the UI. UI also includes a modal for visualizing and facilitating suggested trade opportunities but the backend does not yet fully execute trades, they are currently *simulated* as successful.
 
 ## Demo
 
